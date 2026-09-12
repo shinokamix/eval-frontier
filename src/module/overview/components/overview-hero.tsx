@@ -1,5 +1,3 @@
-import { Link } from '@tanstack/react-router';
-
 import { Text } from '@/shared/components/text';
 
 function OverviewHero() {
@@ -10,36 +8,26 @@ function OverviewHero() {
         className="absolute inset-0 h-full w-full object-cover object-center grayscale"
         src="/images/overview-lake.jpg"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-black/55" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/15 to-black/50" />
 
-      <div className="page-gutter relative grid w-full gap-10 pb-8 pt-36 md:grid-cols-[1fr_24rem] md:items-end md:pb-12">
-        <div className="grid gap-7">
-          <Text variant="value">PUBLIC BENCHMARK RESEARCH / 2026</Text>
-          <Text variant="title">Harness Pareto</Text>
-          <div className="max-w-4xl">
-            <Text
-              as="p"
-              variant="heading"
-            >
-              Same model. Different harness. Different result.
-            </Text>
-          </div>
-        </div>
-
-        <div className="grid gap-7 border-t border-white/35 pt-5">
-          <Text variant="body">
-            We study how coding-agent harnesses change model capability, cost,
-            token use, and execution time.
+      <div className="page-gutter relative grid w-full gap-7 pb-10 pt-36 md:pb-14">
+        <Text variant="value">CODING AGENT BENCHMARKS / 2026</Text>
+        <div className="max-w-5xl">
+          <Text
+            as="h1"
+            size="hero"
+            variant="title"
+          >
+            <span className="block whitespace-nowrap">
+              {'Same\u00A0model.'}
+            </span>
+            <span className="block whitespace-nowrap">
+              {'Different\u00A0harness.'}
+            </span>
+            <span className="block whitespace-nowrap">
+              {'Different\u00A0result.'}
+            </span>
           </Text>
-          <div>
-            <Link
-              // oxlint-disable-next-line react/forbid-component-props -- Link renders the focusable anchor.
-              className="inline-block border-b border-white pb-1"
-              to="/explore"
-            >
-              <Text variant="inline">Explore the data →</Text>
-            </Link>
-          </div>
         </div>
       </div>
     </section>
