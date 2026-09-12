@@ -1,11 +1,12 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+
+import { AppHeader } from '@/shared/components/app-header';
 
 function RootLayout() {
   return (
     <>
+      <AppHeader />
       <Outlet />
-      <TanStackRouterDevtools />
     </>
   );
 }

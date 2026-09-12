@@ -1,35 +1,50 @@
-# Design
+# Typography
 
-## Type
+The app uses two font families. Instrument Sans is for prose. Commit Mono is for
+values that readers compare or copy.
 
-Two families. Instrument Sans for reading. Commit Mono for values you compare or
-copy.
+The typography system does not include a third font family. A font change must
+also update this file.
 
-Do not add a third family. Do not swap either face without changing this file.
+## Instrument Sans
 
-### Instrument Sans
+Instrument Sans is the font for headings, body text, navigation, and chart
+captions.
 
-Use for headings, body text, navigation, and chart captions.
+The app loads weights 400 and 600. Body text, navigation, and captions use
+weight 400. Headings use weight 600.
 
-Weights 400 and 600 only. Body, nav, and captions use 400. Headings use 600, not
-a different sans.
+## Commit Mono
 
-### Commit Mono
+Commit Mono is the font for metrics, model names, harness labels, benchmark IDs,
+tabular numbers, and short technical annotations.
 
-Use for metrics, model names, harness labels, benchmark IDs, tabular numbers,
-and small technical annotations.
+The app loads weight 400. Only the value uses Commit Mono, not its surrounding
+section. Ligatures are off so that IDs and labels display literal characters.
+Numbers use tabular figures.
 
-Weight 400 only. Put it on the value, not on the section around it. Keep
-ligatures off on IDs and labels so characters stay literal. Tabular figures stay
-on for numbers.
+## Font tokens
 
-### Tokens
+`--font-sans` resolves to Instrument Sans, then `system-ui`, then `sans-serif`.
+`--font-mono` resolves to Commit Mono, then `ui-monospace`, then `monospace`.
 
-`--font-sans` is Instrument Sans, then `system-ui, sans-serif`. `--font-mono` is
-Commit Mono, then `ui-monospace, monospace`.
+The `body` element uses `--font-sans`. Values use `--font-mono`.
 
-`body` uses `--font-sans`. Apply `--font-mono` on the metric, name, label, ID,
-number, or annotation.
+`src/app/main.tsx` loads both font families from `@fontsource/instrument-sans`
+and `@fontsource/commit-mono`.
 
-Load the faces from `@fontsource/instrument-sans` and `@fontsource/commit-mono`
-in `src/app/main.tsx`.
+## Text component
+
+All visible UI copy uses `Text` from `@/shared/components/text`. The `variant`
+prop accepts these values:
+
+| Variant   | Element | Use                                                    |
+| --------- | ------- | ------------------------------------------------------ |
+| `title`   | `h1`    | Page titles                                            |
+| `heading` | `h2`    | Section headings                                       |
+| `body`    | `p`     | Body copy                                              |
+| `inline`  | `span`  | Copy inside links, labels, buttons, and other controls |
+| `value`   | `span`  | Values set in Commit Mono                              |
+
+`body` is the default variant. Typography classes belong to the variant and must
+not be overridden at the call site.

@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root.tsx';
 import { Route as IndexRouteImport } from './routes/index.tsx';
+import { Route as EvidenceRouteImport } from './routes/evidence.tsx';
+import { Route as ExploreRouteImport } from './routes/explore.tsx';
+import { Route as MethodologyRouteImport } from './routes/methodology.tsx';
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any);
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any);
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
+  '/evidence': typeof EvidenceRoute;
+  '/explore': typeof ExploreRoute;
+  '/methodology': typeof MethodologyRoute;
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
+  '/evidence': typeof EvidenceRoute;
+  '/explore': typeof ExploreRoute;
+  '/methodology': typeof MethodologyRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/': typeof IndexRoute;
+  '/evidence': typeof EvidenceRoute;
+  '/explore': typeof ExploreRoute;
+  '/methodology': typeof MethodologyRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/';
+  fullPaths: '/' | '/evidence' | '/explore' | '/methodology';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/';
-  id: '__root__' | '/';
+  to: '/' | '/evidence' | '/explore' | '/methodology';
+  id: '__root__' | '/' | '/evidence' | '/explore' | '/methodology';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  EvidenceRoute: typeof EvidenceRoute;
+  ExploreRoute: typeof ExploreRoute;
+  MethodologyRoute: typeof MethodologyRoute;
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    '/evidence': {
+      id: '/evidence';
+      path: '/evidence';
+      fullPath: '/evidence';
+      preLoaderRoute: typeof EvidenceRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/explore': {
+      id: '/explore';
+      path: '/explore';
+      fullPath: '/explore';
+      preLoaderRoute: typeof ExploreRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/methodology': {
+      id: '/methodology';
+      path: '/methodology';
+      fullPath: '/methodology';
+      preLoaderRoute: typeof MethodologyRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EvidenceRoute: EvidenceRoute,
+  ExploreRoute: ExploreRoute,
+  MethodologyRoute: MethodologyRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

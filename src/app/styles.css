@@ -1,8 +1,8 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'Commit Mono', ui-monospace, monospace;
 }
 
 html,
@@ -11,15 +11,8 @@ body,
   height: 100%;
 }
 
-:root {
-  --font-sans: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'Commit Mono', ui-monospace, monospace;
-}
-
 body {
-  line-height: 1.5;
-  font-family: var(--font-sans);
-  font-weight: 400;
+  @apply font-sans font-normal leading-normal;
 }
 
 h1,
@@ -28,26 +21,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-variant-ligatures: none;
-}
-
-img,
-svg,
-video,
-canvas {
-  display: block;
-  max-width: 100%;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
+  @apply font-semibold;
 }

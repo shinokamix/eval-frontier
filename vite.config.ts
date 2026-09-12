@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, lazyPlugins } from 'vite-plus';
@@ -76,6 +77,7 @@ export default defineConfig({
         'error',
         { allow: 'as-needed', extensions: ['.tsx', '.jsx'] },
       ],
+      'react/jsx-props-no-spreading': 'off',
 
       // CSS side-effect imports are the Vite style path.
       'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
@@ -203,6 +205,7 @@ export default defineConfig({
       addExtensions: true,
     }),
     react(),
+    tailwindcss(),
   ]),
   staged: { '*': 'vp check --fix' },
 });
