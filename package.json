@@ -11,11 +11,14 @@
     "preview": "vp preview"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.170.35",
+    "@tanstack/react-router-devtools": "^1.167.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@tanstack/router-plugin": "^1.168.37",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",

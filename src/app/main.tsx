@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { App } from './App.tsx';
+import { AppRouter } from './router.tsx';
 
-import './index.css';
+import './styles.css';
 
 function getRootElement(): HTMLElement {
   const root = document.querySelector('#root');
@@ -17,6 +17,6 @@ function getRootElement(): HTMLElement {
 
 createRoot(getRootElement()).render(
   <StrictMode>
-    <App />
+    <AppRouter />
   </StrictMode>,
 );

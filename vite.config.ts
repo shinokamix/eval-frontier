@@ -1,3 +1,4 @@
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, lazyPlugins } from 'vite-plus';
 
@@ -16,6 +17,7 @@ const lintPlugins = [
 
 export default defineConfig({
   fmt: {
+    ignorePatterns: ['**/*.gen.ts', '.tanstack/**'],
     printWidth: 80,
     tabWidth: 2,
     useTabs: false,
@@ -44,7 +46,7 @@ export default defineConfig({
     jsdoc: true,
   },
   lint: {
-    ignorePatterns: ['dist/**'],
+    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
     plugins: [...lintPlugins],
     categories: {
       correctness: 'error',
@@ -175,12 +177,32 @@ export default defineConfig({
         rules: { 'import/no-default-export': 'off' },
       },
       {
+        files: ['src/app/routes/**'],
+        rules: {
+          'react/only-export-components': 'off',
+          'react/jsx-filename-extension': 'off',
+          'unicorn/filename-case': 'off',
+        },
+      },
+      {
         files: ['**/*.{test,spec}.{ts,tsx}'],
         plugins: [...lintPlugins, 'vitest'],
         env: { vitest: true },
       },
     ],
   },
-  plugins: lazyPlugins(() => [react()]),
+  resolve: { alias: { '@': `${import.meta.dirname}/src` } },
+  plugins: lazyPlugins(() => [
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+      routesDirectory: './src/app/routes',
+      generatedRouteTree: './src/app/routeTree.gen.ts',
+      quoteStyle: 'single',
+      semicolons: true,
+      addExtensions: true,
+    }),
+    react(),
+  ]),
   staged: { '*': 'vp check --fix' },
 });
