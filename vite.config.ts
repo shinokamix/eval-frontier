@@ -100,6 +100,9 @@ export default defineConfig({
 
       // Ban-the-language rules that are not useful here.
       'oxc/no-async-await': 'off',
+      'oxc/no-optional-chaining': 'off',
+      'eslint/no-ternary': 'off',
+      'eslint/no-undefined': 'off',
       'eslint/no-continue': 'off',
       'eslint/capitalized-comments': 'off',
       'unicorn/no-null': 'off',
@@ -125,15 +128,15 @@ export default defineConfig({
           enforceConst: true,
         },
       ],
-      'unicorn/filename-case': [
-        'error',
-        { cases: { kebabCase: true, pascalCase: true, camelCase: true } },
-      ],
+      'unicorn/filename-case': ['error', { case: 'kebabCase' }],
       eqeqeq: ['error', 'always'],
       'no-console': ['error', { allow: ['error', 'warn'] }],
       'import/no-cycle': 'error',
       'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
+      // Inline type imports conflict with this rule when a module exports types only.
+      'typescript/no-import-type-side-effects': 'off',
       'typescript/no-explicit-any': 'error',
+      'typescript/prefer-readonly-parameter-types': 'off',
       'typescript/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },

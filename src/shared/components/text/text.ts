@@ -1,5 +1,5 @@
 import { cn } from 'cn';
-import { createElement, type ElementType, type ReactNode } from 'react';
+import { createElement, type ReactNode } from 'react';
 
 const textVariants = {
   title: {
@@ -30,28 +30,32 @@ const textVariants = {
 type TextVariant = keyof typeof textVariants;
 
 interface TextProps {
-  readonly as?: ElementType;
+  readonly as?: keyof HTMLElementTagNameMap;
   readonly variant?: TextVariant;
+  readonly size?: 'navigation';
   readonly className?: string;
   readonly children?: ReactNode;
   readonly id?: string;
   readonly title?: string;
 }
 
-function Text({
-  as,
-  variant = 'body',
-  className,
-  children,
-  id,
-  title,
-}: TextProps) {
+function Text(props: Readonly<TextProps>) {
+  const variant = props.variant ?? 'body';
   const config = textVariants[variant];
 
   return createElement(
-    as ?? config.tag,
-    { className: cn(config.className, className), id, title },
-    children,
+    props.as ?? config.tag,
+    {
+      className: cn(
+        config.className,
+        props.size === 'navigation'
+          && 'text-[clamp(2.5rem,8vw,3.5rem)] leading-[1.1] tracking-[-0.04em]',
+        props.className,
+      ),
+      id: props.id,
+      title: props.title,
+    },
+    props.children,
   );
 }
 

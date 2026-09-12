@@ -4,7 +4,7 @@ import { Text } from '@/shared/components/text';
 
 function OverviewPage() {
   return (
-    <main className="mx-auto max-w-6xl px-6 py-16">
+    <main className="page-gutter py-16">
       <Text variant="title">Overview</Text>
     </main>
   );

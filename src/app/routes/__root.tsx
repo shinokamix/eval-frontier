@@ -1,13 +1,37 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import {
+  createRootRoute,
+  Outlet,
+  useRouterState,
+} from '@tanstack/react-router';
+import { motion, useReducedMotion } from 'motion/react';
 
-import { AppHeader } from '@/shared/components/app-header';
+import { Header } from '@/module/header';
+import {
+  reducedRevealVariants,
+  revealVariants,
+} from '@/shared/animation/reveal';
 
 function RootLayout() {
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+
+  const reduceMotion = useReducedMotion();
+
   return (
-    <>
-      <AppHeader />
-      <Outlet />
-    </>
+    <div className="min-h-screen">
+      <Header />
+      <motion.div
+        key={pathname}
+        animate="open"
+        initial={reduceMotion === true ? false : 'closed'}
+        variants={
+          reduceMotion === true ? reducedRevealVariants : revealVariants
+        }
+      >
+        <Outlet />
+      </motion.div>
+    </div>
   );
 }
 

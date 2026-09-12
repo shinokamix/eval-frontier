@@ -48,3 +48,7 @@ prop accepts these values:
 
 `body` is the default variant. Typography classes belong to the variant and must
 not be overridden at the call site.
+
+Mobile navigation labels use `variant="inline"` with `size="navigation"`. This
+keeps control copy semantically inline while applying the larger navigation type
+scale through the shared component.

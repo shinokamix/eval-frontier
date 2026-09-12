@@ -5,6 +5,10 @@
   --font-mono: 'Commit Mono', ui-monospace, monospace;
 }
 
+@utility page-gutter {
+  @apply px-4 md:px-[3.125rem];
+}
+
 html,
 body,
 #root {
@@ -12,7 +16,7 @@ body,
 }
 
 body {
-  @apply font-sans font-normal leading-normal;
+  @apply bg-[#090909] font-sans font-normal leading-normal text-[#f4f4f4];
 }
 
 h1,
