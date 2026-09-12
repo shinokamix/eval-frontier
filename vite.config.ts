@@ -101,6 +101,7 @@ export default defineConfig({
       // Ban-the-language rules that are not useful here.
       'oxc/no-async-await': 'off',
       'oxc/no-optional-chaining': 'off',
+      'oxc/no-rest-spread-properties': 'off',
       'eslint/no-ternary': 'off',
       'eslint/no-undefined': 'off',
       'eslint/no-continue': 'off',

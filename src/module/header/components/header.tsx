@@ -1,4 +1,5 @@
 import { Link, useRouterState } from '@tanstack/react-router';
+import { cn } from 'cn';
 
 import { useMenu } from '@/module/header/hooks/use-menu';
 
@@ -15,7 +16,10 @@ function Header() {
 
   return (
     <header
-      className="page-gutter pt-6 md:pt-10"
+      className={cn(
+        'page-gutter pt-6 md:pt-10',
+        pathname === '/' && 'absolute inset-x-0 top-0 z-20',
+      )}
       ref={headerRef}
     >
       <nav
