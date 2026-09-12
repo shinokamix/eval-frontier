@@ -1,7 +1,19 @@
-# harness-pareto
+# Harness Pareto
 
-`harness-pareto` is a React and TypeScript app built with Vite+, TanStack
-Router, and Tailwind CSS.
+Harness Pareto is a research project that collects public benchmark data on how
+the same AI model performs across coding-agent harnesses such as Pi, Codex,
+Claude Code, OpenCode, and Oh My Pi.
+
+The project does not try to name one "best" agent. It identifies Pareto-optimal
+`model × harness` configurations that offer the strongest tradeoffs among task
+quality, cost, token usage, and runtime.
+
+Harness Pareto includes only comparable experiments that hold the model and task
+set constant while changing the harness. The planned site will let users explore
+Pareto frontiers, compare models and harnesses, and trace each result to its
+source.
+
+The web app uses React, TypeScript, Vite+, TanStack Router, and Tailwind CSS.
 
 ## Run the app locally
 
