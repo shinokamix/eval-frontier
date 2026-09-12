@@ -11,9 +11,30 @@ body,
   height: 100%;
 }
 
+:root {
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'Commit Mono', ui-monospace, monospace;
+}
+
 body {
   line-height: 1.5;
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-variant-ligatures: none;
 }
 
 img,
