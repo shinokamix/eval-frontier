@@ -16,4 +16,6 @@ vp build     # production build
 curl -fsSL https://vite.plus | bash
 ```
 
+Commits run `vp staged`, which is `vp check --fix` on staged files. Skip one commit with `VP_GIT_HOOKS=0`.
+
 Edit `src/App.tsx` and save. HMR updates the page.
