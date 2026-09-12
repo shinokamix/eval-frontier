@@ -1,13 +1,12 @@
 import { type Variants } from 'motion/react';
 
-const easeStart = 0.22;
-const easeEnd = 0.36;
+const revealEase = [0.22, 1, 0.36, 1] as const;
 
 const revealVariants: Variants = {
   open: {
     opacity: 1,
     filter: 'blur(0px)',
-    transition: { duration: 0.45, ease: [easeStart, 1, easeEnd, 1] },
+    transition: { duration: 0.45, ease: revealEase },
   },
   closed: {
     opacity: 0,
@@ -17,8 +16,8 @@ const revealVariants: Variants = {
 };
 
 const reducedRevealVariants: Variants = {
-  open: { opacity: 1, filter: 'blur(0px)', transition: { duration: 0 } },
-  closed: { opacity: 0, filter: 'blur(0px)', transition: { duration: 0 } },
+  open: { opacity: 1, filter: 'none', transition: { duration: 0 } },
+  closed: { opacity: 0, filter: 'none', transition: { duration: 0 } },
 };
 
-export { reducedRevealVariants, revealVariants };
+export { reducedRevealVariants, revealEase, revealVariants };

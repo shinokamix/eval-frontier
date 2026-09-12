@@ -1,7 +1,7 @@
 import { Link, useRouterState } from '@tanstack/react-router';
-import { cn } from 'cn';
 
 import { useMenu } from '@/module/header/hooks/use-menu';
+import { EdgeBlur } from '@/shared/components/edge-blur';
 
 import { Menu } from './menu';
 import { Nav } from './nav';
@@ -16,12 +16,10 @@ function Header() {
 
   return (
     <header
-      className={cn(
-        'page-gutter pt-6 md:pt-10',
-        pathname === '/' && 'absolute inset-x-0 top-0 z-20',
-      )}
+      className="page-gutter fixed inset-x-0 top-0 z-50 pt-6 md:pt-10"
       ref={headerRef}
     >
+      <EdgeBlur edge="top" />
       <nav
         aria-label="Primary navigation"
         className="relative z-20 flex items-start justify-between"
