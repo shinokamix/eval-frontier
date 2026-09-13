@@ -5,8 +5,27 @@
   --font-mono: 'Commit Mono', ui-monospace, monospace;
 }
 
+.page-layout {
+  --header-height: --spacing(13);
+  --content-width: var(--container-5xl);
+  --page-gutter: --spacing(4);
+}
+
+@media (min-width: 48rem) {
+  .page-layout {
+    --header-height: --spacing(17);
+    --page-gutter: --spacing(12);
+  }
+}
+
 @utility page-gutter {
-  @apply px-4 md:px-[3.125rem];
+  padding-inline: var(--page-gutter);
+}
+
+@utility content-layout {
+  margin-inline: auto;
+  max-width: var(--content-width);
+  width: 100%;
 }
 
 html,

@@ -43,7 +43,7 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
         className="flex min-h-full flex-col justify-between gap-8"
       >
         <motion.div
-          className="flex flex-col items-start gap-5"
+          className="flex flex-col items-start gap-6"
           variants={reduceMotion === true ? undefined : listVariants}
         >
           <Nav

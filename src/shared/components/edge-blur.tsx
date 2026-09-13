@@ -29,7 +29,7 @@ function EdgeBlur({ edge }: EdgeBlurProps) {
       className={cn(
         'pointer-events-none inset-x-0',
         edge === 'top'
-          ? 'absolute top-0 -bottom-24 z-0 [--edge-blur:14px] [--edge-direction:to_bottom]'
+          ? 'fixed top-0 z-30 h-[calc(var(--header-height)+6rem)] [--edge-blur:14px] [--edge-direction:to_bottom]'
           : 'fixed bottom-0 z-30 h-10 [--edge-blur:8px] [--edge-direction:to_top] md:h-20 md:[--edge-blur:14px]',
       )}
     >

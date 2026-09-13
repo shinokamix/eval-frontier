@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { Text } from '@/shared/components/text';
+import { MethodologyArticle, MethodologyHero } from '@/module/methodology';
 
 function MethodologyPage() {
   return (
-    <main className="page-gutter py-16">
-      <Text variant="title">Methodology</Text>
+    <main>
+      <MethodologyHero />
+      <MethodologyArticle />
     </main>
   );
 }

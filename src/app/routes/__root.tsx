@@ -18,10 +18,9 @@ function RootLayout() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="min-h-screen">
+    <div className="page-layout min-h-screen">
       <Header />
       <motion.div
-        className={pathname === '/' ? undefined : 'pt-20 md:pt-24'}
         key={pathname}
         animate="open"
         initial={reduceMotion === true ? false : 'closed'}
@@ -33,6 +32,7 @@ function RootLayout() {
       >
         <Outlet />
       </motion.div>
+      <EdgeBlur edge="top" />
       <EdgeBlur edge="bottom" />
     </div>
   );

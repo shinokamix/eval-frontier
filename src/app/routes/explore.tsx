@@ -4,8 +4,10 @@ import { Text } from '@/shared/components/text';
 
 function ExplorePage() {
   return (
-    <main className="page-gutter py-16">
-      <Text variant="title">Explore</Text>
+    <main className="page-gutter pb-16 pt-36 md:pt-40">
+      <div className="content-layout">
+        <Text variant="title">Explore</Text>
+      </div>
     </main>
   );
 }

@@ -32,7 +32,7 @@ type TextVariant = keyof typeof textVariants;
 interface TextProps {
   readonly as?: keyof HTMLElementTagNameMap;
   readonly variant?: TextVariant;
-  readonly size?: 'hero' | 'navigation';
+  readonly size?: 'hero' | 'navigation' | 'caption';
   readonly className?: string;
   readonly children?: ReactNode;
   readonly id?: string;
@@ -52,6 +52,7 @@ function Text(props: Readonly<TextProps>) {
           'text-[clamp(2.4rem,5.5vw,5.25rem)] leading-[0.98] tracking-[-0.045em]',
         props.size === 'navigation' &&
           'text-[clamp(2.5rem,8vw,3.5rem)] leading-[1.1] tracking-[-0.04em]',
+        props.size === 'caption' && 'text-xs leading-4',
         props.className,
       ),
       id: props.id,

@@ -1,3 +1,37 @@
+# Spacing and sizing
+
+Use Tailwind's spacing scale for padding, margins, gaps, and control sizes. The
+default step is `0.25rem`. Use `gap-6`, not `gap-[24px]`. In CSS, use
+`--spacing(6)` to reference the same scale.
+
+Shared layout values live in `src/app/styles.css`:
+
+| Value             | Mobile            | `md` and wider    |
+| ----------------- | ----------------- | ----------------- |
+| `--page-gutter`   | `4`               | `12`              |
+| `--content-width` | `--container-5xl` | `--container-5xl` |
+
+Use `page-gutter` for page edges and `content-layout` for centered content.
+Technical articles use `Article` from `@/shared/components/article`. It sets
+page gutters, a centered `max-w-3xl` column, and vertical padding. Its section
+gap and vertical padding use `16` on mobile and `20` at `md` and wider.
+
+Use `ArticleSection` from `@/shared/components/article-section` inside it. This
+is a plain `section` with `gap-6` between its heading and paragraphs. Neither
+component has variants, borders, or first/last section rules. Keep article
+headings and paragraphs as ordinary `Text` children. Do not add side labels or
+separate columns for section numbers.
+
+Use `gap-6` between paragraphs and `gap-8` between blocks. Compact controls and
+tables use smaller steps such as `2`, `3`, and `4`. Keep widths on Tailwind's
+container scale, such as `max-w-xl`, `max-w-3xl`, and `max-w-5xl`. Custom grid
+columns should reference the spacing scale, as in
+`grid-cols-[--spacing(10)_1fr]`.
+
+Pixel values are allowed for thin borders, icon alignment, and blur effects.
+Fluid font sizes belong in `Text`, not in layout spacing tokens. Keep tap
+targets at least `size-11`, even when the visible icon is smaller.
+
 # Typography
 
 The app uses two font families. Instrument Sans is for prose. Commit Mono is for

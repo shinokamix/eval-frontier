@@ -1,7 +1,6 @@
 import { Link, useRouterState } from '@tanstack/react-router';
 
 import { useMenu } from '@/module/header/hooks/use-menu';
-import { EdgeBlur } from '@/shared/components/edge-blur';
 
 import { Menu } from './menu';
 import { Nav } from './nav';
@@ -19,7 +18,6 @@ function Header() {
       className="page-gutter fixed inset-x-0 top-0 z-50 pt-6 md:pt-10"
       ref={headerRef}
     >
-      <EdgeBlur edge="top" />
       <nav
         aria-label="Primary navigation"
         className="relative z-20 flex h-7 items-center justify-between md:h-auto md:items-start"
@@ -32,7 +30,7 @@ function Header() {
           <UnderlinedLabel active={pathname === '/'}>HP/26</UnderlinedLabel>
         </Link>
 
-        <div className="hidden gap-[clamp(2rem,8vw,8rem)] md:flex">
+        <div className="hidden md:flex md:gap-12 lg:gap-20 xl:gap-32">
           <Nav pathname={pathname} />
         </div>
 
@@ -49,9 +47,9 @@ function Header() {
             aria-hidden="true"
             className="relative block size-6"
           >
-            <span className="absolute inset-x-0 top-[3px] h-px bg-current transition-transform duration-300 ease-out group-aria-expanded:translate-y-[8px] group-aria-expanded:rotate-45 motion-reduce:transition-none" />
+            <span className="absolute inset-x-0 top-[3px] h-px bg-current transition-transform duration-300 ease-out group-aria-expanded:translate-y-2 group-aria-expanded:rotate-45 motion-reduce:transition-none" />
             <span className="absolute inset-x-0 top-[11px] h-px bg-current transition-opacity duration-300 ease-out group-aria-expanded:opacity-0 motion-reduce:transition-none" />
-            <span className="absolute inset-x-0 top-[19px] h-px bg-current transition-transform duration-300 ease-out group-aria-expanded:-translate-y-[8px] group-aria-expanded:-rotate-45 motion-reduce:transition-none" />
+            <span className="absolute inset-x-0 top-[19px] h-px bg-current transition-transform duration-300 ease-out group-aria-expanded:-translate-y-2 group-aria-expanded:-rotate-45 motion-reduce:transition-none" />
           </span>
         </button>
       </nav>
