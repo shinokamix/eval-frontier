@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { OverviewArticle } from '@/module/overview/components/overview-article';
-import { OverviewHero } from '@/module/overview/components/overview-hero';
+import { OverviewArticle, OverviewHero } from '@/module/overview';
 
 function OverviewPage() {
   return (

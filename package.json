@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vp build",
+    "check:architecture": "node scripts/check-architecture.mjs",
     "dev": "vp dev",
     "lint": "vp lint",
     "prepare": "vp config --hooks --no-agent",
