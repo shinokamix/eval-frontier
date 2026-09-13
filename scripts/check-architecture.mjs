@@ -6,6 +6,11 @@ import ts from 'typescript';
 const projectRoot = process.cwd();
 const sourceRoot = path.join(projectRoot, 'src');
 
+const sharedPublicApiDirectories = [
+  { name: 'component', path: path.join(sourceRoot, 'shared', 'components') },
+  { name: 'hook', path: path.join(sourceRoot, 'shared', 'hooks') },
+];
+
 const sourceExtensions = new Set([
   '.js',
   '.jsx',
@@ -59,7 +64,31 @@ function isModulePublicApi(importedPath) {
   );
 }
 
-function getViolation(importer, imported, importedPath) {
+function getSharedPublicApiEntry(filePath) {
+  for (const directory of sharedPublicApiDirectories) {
+    const relativePath = path.relative(directory.path, filePath);
+
+    if (
+      relativePath !== '' &&
+      relativePath !== '..' &&
+      !relativePath.startsWith(`..${path.sep}`) &&
+      !path.isAbsolute(relativePath)
+    ) {
+      return { directory, path: relativePath.split(path.sep) };
+    }
+  }
+
+  return null;
+}
+
+function isSharedPublicApi(entryPath) {
+  return (
+    entryPath.length === 1 ||
+    (entryPath.length === 2 && path.parse(entryPath[1]).name === 'index')
+  );
+}
+
+function getViolation(importer, imported, importerPath, importedPath) {
   if (
     importer.layer === 'shared' &&
     ['app', 'module'].includes(imported.layer)
@@ -87,6 +116,23 @@ function getViolation(importer, imported, importedPath) {
 
   if (crossesModuleBoundary && !isModulePublicApi(importedPath)) {
     return `module "${imported.moduleName}" must be imported through its index.ts`;
+  }
+
+  const importerSharedEntry = getSharedPublicApiEntry(importerPath);
+  const importedSharedEntry = getSharedPublicApiEntry(importedPath);
+
+  const crossesSharedEntryBoundary =
+    importedSharedEntry &&
+    (!importerSharedEntry ||
+      importerSharedEntry.directory.path !==
+        importedSharedEntry.directory.path ||
+      importerSharedEntry.path[0] !== importedSharedEntry.path[0]);
+
+  if (
+    crossesSharedEntryBoundary &&
+    !isSharedPublicApi(importedSharedEntry.path)
+  ) {
+    return `shared ${importedSharedEntry.directory.name} "${importedSharedEntry.path[0]}" must be imported through its index.ts`;
   }
 
   return null;
@@ -136,6 +182,41 @@ if (!fs.existsSync(sourceRoot)) {
 
 const violations = [];
 
+for (const directory of sharedPublicApiDirectories) {
+  if (!fs.existsSync(directory.path)) {
+    continue;
+  }
+
+  for (const entry of fs.readdirSync(directory.path, { withFileTypes: true })) {
+    const entryPath = path.join(directory.path, entry.name);
+
+    if (entry.isFile() && sourceExtensions.has(path.extname(entry.name))) {
+      violations.push({
+        file: path.relative(projectRoot, entryPath),
+        line: 1,
+        column: 1,
+        specifier: entry.name,
+        message: `shared ${directory.name}s must be in their own directory with index.ts`,
+      });
+    }
+
+    const indexPath = path.join(entryPath, 'index.ts');
+
+    const hasIndex =
+      fs.existsSync(indexPath) && fs.statSync(indexPath).isFile();
+
+    if (entry.isDirectory() && !hasIndex) {
+      violations.push({
+        file: path.relative(projectRoot, entryPath),
+        line: 1,
+        column: 1,
+        specifier: entry.name,
+        message: `shared ${directory.name} "${entry.name}" must have an index.ts`,
+      });
+    }
+  }
+}
+
 for (const filePath of collectSourceFiles(sourceRoot)) {
   const sourceText = fs.readFileSync(filePath, 'utf8');
 
@@ -159,7 +240,8 @@ for (const filePath of collectSourceFiles(sourceRoot)) {
     }
 
     const imported = getLocation(importedPath);
-    const message = getViolation(importer, imported, importedPath);
+
+    const message = getViolation(importer, imported, filePath, importedPath);
 
     if (!message) {
       continue;
