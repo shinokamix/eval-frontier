@@ -1,5 +1,5 @@
-import { type ResearchData, type ResearchResult } from '../types/research.ts';
-import { type ScatterPoint } from '../types/scatter-point.ts';
+import { type ResearchData, type ResearchResult } from '../types/research';
+import { type ScatterPoint } from '../types/scatter-point';
 
 type ResourceFamily = 'cost' | 'time' | 'tokens';
 
@@ -8,6 +8,12 @@ interface Observation {
   readonly quality: number;
   readonly family: ResourceFamily;
   readonly studyId: string;
+}
+
+interface PairObservations {
+  readonly model: string;
+  readonly harness: string;
+  readonly observations: Observation[];
 }
 
 function geometricMean(values: readonly number[]) {
@@ -69,7 +75,7 @@ function getStudyPositions(observations: readonly Observation[]) {
 }
 
 function normalizeResearchData(data: ResearchData): ScatterPoint[] {
-  const pairs = new Map<string, Observation[]>();
+  const pairs = new Map<string, PairObservations>();
 
   for (const study of data.studies) {
     const resultsById = new Map(
@@ -113,25 +119,35 @@ function normalizeResearchData(data: ResearchData): ScatterPoint[] {
 
         const configurationId = result.id.split(':').at(-1) ?? 'default';
         const pairId = `${study.model.id}:${result.harness.id}:${configurationId}`;
-        const observations = pairs.get(pairId) ?? [];
+        let pair = pairs.get(pairId);
 
-        observations.push({
+        if (!pair) {
+          pair = {
+            model: study.model.label ?? study.model.id,
+            harness: result.harness.name ?? result.harness.id,
+            observations: [],
+          };
+
+          pairs.set(pairId, pair);
+        }
+
+        pair.observations.push({
           efficiency: (100 * bestResource) / resource,
           quality: (100 * quality) / bestQuality,
           family,
           studyId: study.id,
         });
-
-        if (!pairs.has(pairId)) pairs.set(pairId, observations);
       }
     }
   }
 
-  return [...pairs.entries()].map(([id, observations]) => {
-    const positions = getStudyPositions(observations);
+  return [...pairs.entries()].map(([id, pair]) => {
+    const positions = getStudyPositions(pair.observations);
 
     return {
       id,
+      model: pair.model,
+      harness: pair.harness,
       efficiency: geometricMean(
         positions.map((position) => position.efficiency),
       ),

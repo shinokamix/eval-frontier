@@ -3,8 +3,8 @@ import {
   type ResearchData,
   type ResearchResult,
   type ResearchStudy,
-} from '../types/research.ts';
-import { normalizeResearchData } from '../utils/normalize-research-data.ts';
+} from '../types/research';
+import { normalizeResearchData } from '../utils/normalize-research-data';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

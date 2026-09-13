@@ -2,12 +2,14 @@ import { useId } from 'react';
 
 import { Text } from '@/shared/components/text';
 
+import { useScatterInteraction } from '../hooks/use-scatter-interaction';
 import { type ScatterPoint } from '../types/scatter-point';
+import { ExploreScatterPoint } from './explore-scatter-point';
 
 const AXIS_MAX = 105;
 const TICKS = [0, 20, 40, 60, 80, 100] as const;
 
-function position(value: number) {
+function toAxisPercent(value: number) {
   return (value / AXIS_MAX) * 100;
 }
 
@@ -17,6 +19,17 @@ interface ExploreScatterProps {
 
 function ExploreScatter({ points }: ExploreScatterProps) {
   const arrowId = useId();
+
+  const {
+    setPlotElement,
+    activeId,
+    onActiveChange,
+    onPointerEnter,
+    onPointerMove,
+    onPointerLeave,
+  } = useScatterInteraction(points, AXIS_MAX);
+
+  const hasActivePoint = points.some((point) => point.id === activeId);
 
   if (points.length === 0) {
     return (
@@ -28,7 +41,13 @@ function ExploreScatter({ points }: ExploreScatterProps) {
 
   return (
     <div className="relative h-full min-h-72 w-full">
-      <div className="absolute bottom-20 left-20 right-4 top-4 max-[480px]:left-10 md:right-20">
+      <div
+        ref={setPlotElement}
+        className="absolute bottom-20 left-20 right-4 top-4 max-[480px]:left-10 md:right-20"
+        onPointerEnter={onPointerEnter}
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
+      >
         <div className="absolute -left-16 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 whitespace-nowrap text-white/60 max-[480px]:hidden">
           <Text variant="body">Relative quality</Text>
         </div>
@@ -81,8 +100,8 @@ function ExploreScatter({ points }: ExploreScatterProps) {
               <line
                 stroke="currentColor"
                 className="text-white/5"
-                x1={`${position(tick)}%`}
-                x2={`${position(tick)}%`}
+                x1={`${toAxisPercent(tick)}%`}
+                x2={`${toAxisPercent(tick)}%`}
                 y1="100%"
                 y2="0%"
               />
@@ -91,27 +110,28 @@ function ExploreScatter({ points }: ExploreScatterProps) {
                 className="text-white/8"
                 x1="0%"
                 x2="100%"
-                y1={`${100 - position(tick)}%`}
-                y2={`${100 - position(tick)}%`}
+                y1={`${100 - toAxisPercent(tick)}%`}
+                y2={`${100 - toAxisPercent(tick)}%`}
               />
             </g>
           ))}
-          {points.map((point) => (
-            <circle
-              key={point.id}
-              cx={`${position(point.efficiency)}%`}
-              cy={`${100 - position(point.quality)}%`}
-              r="4"
-              fill="currentColor"
-              className="text-white/75"
-            />
-          ))}
         </svg>
+        {points.map((point) => (
+          <ExploreScatterPoint
+            key={point.id}
+            point={point}
+            left={`${toAxisPercent(point.efficiency)}%`}
+            top={`${100 - toAxisPercent(point.quality)}%`}
+            active={point.id === activeId}
+            dimmed={hasActivePoint && point.id !== activeId}
+            onActiveChange={onActiveChange}
+          />
+        ))}
         {TICKS.map((tick) => (
           <div key={tick}>
             <div
               className="absolute top-full mt-2 -translate-x-1/2 text-white/45"
-              style={{ left: `${position(tick)}%` }}
+              style={{ left: `${toAxisPercent(tick)}%` }}
             >
               <Text
                 variant="value"
@@ -122,7 +142,7 @@ function ExploreScatter({ points }: ExploreScatterProps) {
             </div>
             <div
               className="absolute right-full mr-3 -translate-y-1/2 text-white/45"
-              style={{ top: `${100 - position(tick)}%` }}
+              style={{ top: `${100 - toAxisPercent(tick)}%` }}
             >
               <Text
                 variant="value"
