@@ -28,7 +28,6 @@ function Nav({ pathname, onNavigate, mobile = false }: NavProps) {
     const link = (
       <Link
         aria-current={active && 'page'}
-        // oxlint-disable-next-line react/forbid-component-props -- Link renders the focusable anchor.
         className="group"
         key={item.to}
         onClick={onNavigate}

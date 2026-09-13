@@ -9,16 +9,14 @@ const lintPlugins = [
   'unicorn',
   'oxc',
   'react',
-  'react-perf',
   'import',
   'jsx-a11y',
   'promise',
-  'node',
 ] as const;
 
 export default defineConfig({
   fmt: {
-    ignorePatterns: ['**/*.gen.ts', '.tanstack/**'],
+    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
     printWidth: 80,
     tabWidth: 2,
     useTabs: false,
@@ -35,8 +33,6 @@ export default defineConfig({
     objectWrap: 'collapse',
     singleAttributePerLine: true,
     proseWrap: 'always',
-    experimentalOperatorPosition: 'start',
-    embeddedLanguageFormatting: 'auto',
     sortImports: {
       ignoreCase: true,
       newlinesBetween: true,
@@ -44,22 +40,12 @@ export default defineConfig({
       sortSideEffects: false,
     },
     sortPackageJson: { sortScripts: true },
-    jsdoc: true,
   },
   lint: {
     ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
     plugins: [...lintPlugins],
-    categories: {
-      correctness: 'error',
-      suspicious: 'error',
-      restriction: 'error',
-      perf: 'error',
-      pedantic: 'error',
-      style: 'error',
-      nursery: 'error',
-    },
+    categories: { correctness: 'error', suspicious: 'error' },
     env: { browser: true, es2026: true },
-    settings: { react: { version: '19.2.8' } },
     options: {
       typeAware: true,
       typeCheck: true,
@@ -67,50 +53,31 @@ export default defineConfig({
       reportUnusedDisableDirectives: 'error',
     },
     rules: {
-      'react/rules-of-hooks': 'error',
-      'react/only-export-components': ['error', { allowConstantExport: true }],
-      'vite-plus/prefer-vite-plus-imports': 'error',
-
-      // React 17+ JSX transform and TypeScript files.
+      // React 19 uses the automatic JSX transform.
       'react/react-in-jsx-scope': 'off',
+      'react/rules-of-hooks': 'error',
+      'react/exhaustive-deps': 'error',
+      'react/only-export-components': ['error', { allowConstantExport: true }],
       'react/jsx-filename-extension': [
         'error',
         { allow: 'as-needed', extensions: ['.tsx', '.jsx'] },
       ],
-      'react/jsx-props-no-spreading': 'off',
-
-      // CSS side-effect imports are the Vite style path.
-      'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
-
-      // Named exports only. These three fight each other if left on.
-      'import/no-default-export': 'error',
-      'import/prefer-default-export': 'off',
-      'import/no-named-export': 'off',
-
-      // One declaration per statement is the readable form.
-      'eslint/one-var': ['error', 'never'],
-
-      // oxfmt owns import order and object key layout.
-      'eslint/sort-imports': 'off',
-      'eslint/sort-keys': 'off',
-      'unicorn/empty-brace-spaces': 'off',
-
-      // Not an i18n app; literals in JSX are the UI.
-      'react/jsx-no-literals': 'off',
-
-      // Ban-the-language rules that are not useful here.
-      'oxc/no-async-await': 'off',
-      'oxc/no-optional-chaining': 'off',
-      'oxc/no-rest-spread-properties': 'off',
-      'eslint/no-ternary': 'off',
-      'eslint/no-undefined': 'off',
-      'eslint/no-continue': 'off',
-      'eslint/capitalized-comments': 'off',
-      'unicorn/no-null': 'off',
-      'unicorn/no-array-reduce': 'off',
-      'unicorn/no-array-for-each': 'off',
-
       'react/jsx-max-depth': ['error', { max: 8 }],
+      eqeqeq: ['error', 'always'],
+      'import/no-cycle': 'error',
+      'import/no-default-export': 'error',
+      'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
+      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
+      'typescript/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+      ],
+      'typescript/no-import-type-side-effects': 'off',
+      'typescript/no-explicit-any': 'error',
+      'typescript/no-non-null-assertion': 'error',
+      'typescript/no-floating-promises': 'error',
+      'typescript/no-misused-promises': 'error',
+      'eslint/one-var': ['error', 'never'],
       'eslint/func-style': [
         'error',
         'declaration',
@@ -120,31 +87,9 @@ export default defineConfig({
         'error',
         { max: 220, skipBlankLines: true, skipComments: true, IIFEs: true },
       ],
-      'eslint/no-magic-numbers': [
-        'error',
-        {
-          ignore: [-1, 0, 1, 2],
-          ignoreArrayIndexes: true,
-          ignoreDefaultValues: true,
-          enforceConst: true,
-        },
-      ],
       'unicorn/filename-case': ['error', { case: 'kebabCase' }],
-      eqeqeq: ['error', 'always'],
       'no-console': ['error', { allow: ['error', 'warn'] }],
-      'import/no-cycle': 'error',
-      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
-      // Inline type imports conflict with this rule when a module exports types only.
-      'typescript/no-import-type-side-effects': 'off',
-      'typescript/no-explicit-any': 'error',
-      'typescript/prefer-readonly-parameter-types': 'off',
-      'typescript/consistent-type-imports': [
-        'error',
-        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
-      ],
-      'typescript/explicit-function-return-type': 'off',
-      'typescript/explicit-module-boundary-types': 'off',
-      'typescript/no-non-null-assertion': 'error',
+      'vite-plus/prefer-vite-plus-imports': 'error',
       'stylistic/padding-line-between-statements': [
         'error',
         { blankLine: 'always', prev: '*', next: 'return' },

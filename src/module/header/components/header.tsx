@@ -25,7 +25,6 @@ function Header() {
         className="relative z-20 flex h-7 items-center justify-between md:h-auto md:items-start"
       >
         <Link
-          // oxlint-disable-next-line react/forbid-component-props -- Link renders the focusable anchor.
           className="group inline-flex"
           onClick={close}
           to="/"

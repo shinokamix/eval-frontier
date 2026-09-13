@@ -16,7 +16,6 @@ function TooltipContent({
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner sideOffset={sideOffset}>
         <TooltipPrimitive.Popup
-          // oxlint-disable-next-line react/forbid-component-props -- Base UI styles the rendered popup through this prop.
           className={cn(
             'z-50 max-w-64 rounded-sm border border-white/15 bg-[#171717] px-3 py-2 text-[#f4f4f4] shadow-xl outline-none transition-[transform,opacity] data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0',
             className,

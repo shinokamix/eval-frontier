@@ -12,7 +12,6 @@ interface ArticleLinkProps {
 function ArticleLink(props: Readonly<ArticleLinkProps>) {
   return (
     <Link
-      // oxlint-disable-next-line react/forbid-component-props -- Link renders the focusable anchor.
       className="inline-block border-b border-white/50 pb-1"
       to={props.to}
     >
