@@ -1,11 +1,8 @@
 import { Link } from '@tanstack/react-router';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 
 import { navigation } from '@/module/header/constants/navigation';
-import {
-  reducedRevealVariants,
-  revealVariants,
-} from '@/shared/animation/reveal';
+import { revealVariants } from '@/shared/animation/reveal';
 
 import { UnderlinedLabel } from './underlined-label';
 
@@ -20,8 +17,6 @@ function isActive(pathname: string, route: string) {
 }
 
 function Nav({ pathname, onNavigate, mobile = false }: NavProps) {
-  const reduceMotion = useReducedMotion();
-
   return navigation.map((item) => {
     const active = isActive(pathname, item.to);
 
@@ -45,9 +40,7 @@ function Nav({ pathname, onNavigate, mobile = false }: NavProps) {
     return mobile ? (
       <motion.div
         key={item.to}
-        variants={
-          reduceMotion === true ? reducedRevealVariants : revealVariants
-        }
+        variants={revealVariants}
       >
         {link}
       </motion.div>

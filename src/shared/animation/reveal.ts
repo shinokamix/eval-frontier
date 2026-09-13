@@ -15,9 +15,4 @@ const revealVariants: Variants = {
   },
 };
 
-const reducedRevealVariants: Variants = {
-  open: { opacity: 1, filter: 'none', transition: { duration: 0 } },
-  closed: { opacity: 0, filter: 'none', transition: { duration: 0 } },
-};
-
-export { reducedRevealVariants, revealEase, revealVariants };
+export { revealEase, revealVariants };

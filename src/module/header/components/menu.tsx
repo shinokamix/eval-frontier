@@ -1,4 +1,4 @@
-import { motion, type Transition, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { type Ref } from 'react';
 
 import {
@@ -6,7 +6,6 @@ import {
   listVariants,
   menuVariants,
 } from '@/module/header/constants/animation';
-import { reducedRevealVariants } from '@/shared/animation/reveal';
 import { Text } from '@/shared/components/text';
 
 import { Nav } from './nav';
@@ -18,13 +17,8 @@ interface MenuProps {
   ref: Ref<HTMLDivElement>;
 }
 
-const transition: Transition = { duration: 0.2, ease: 'easeOut' };
-const reducedTransition: Transition = { duration: 0 };
-
 function Menu({ opened, pathname, onClose, ref }: MenuProps) {
-  const reduceMotion = useReducedMotion();
   const animation = opened ? 'open' : 'closed';
-  const menuTransition = reduceMotion === true ? reducedTransition : transition;
 
   return (
     <motion.div
@@ -35,7 +29,7 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
       inert={!opened}
       initial={false}
       ref={ref}
-      transition={menuTransition}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       variants={menuVariants}
     >
       <nav
@@ -44,7 +38,7 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
       >
         <motion.div
           className="flex flex-col items-start gap-6"
-          variants={reduceMotion === true ? undefined : listVariants}
+          variants={listVariants}
         >
           <Nav
             mobile
@@ -55,9 +49,7 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
 
         <motion.div
           className="flex items-end justify-between text-[#8d8a82]"
-          variants={
-            reduceMotion === true ? reducedRevealVariants : footerVariants
-          }
+          variants={footerVariants}
         >
           <div className="flex flex-col">
             <Text

@@ -3,11 +3,10 @@ import {
   Outlet,
   useRouterState,
 } from '@tanstack/react-router';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 
 import { Header } from '@/module/header';
-import { reducedRevealVariants } from '@/shared/animation/reveal';
-import { routeTransitionVariants } from '@/shared/animation/route-transition';
+import { revealEase } from '@/shared/animation/reveal';
 import { EdgeBlur } from '@/shared/components/edge-blur';
 
 function RootLayout() {
@@ -15,20 +14,14 @@ function RootLayout() {
     select: (state) => state.location.pathname,
   });
 
-  const reduceMotion = useReducedMotion();
-
   return (
     <div className="page-layout min-h-screen">
       <Header />
       <motion.div
         key={pathname}
-        animate="open"
-        initial={reduceMotion === true ? false : 'closed'}
-        variants={
-          reduceMotion === true
-            ? reducedRevealVariants
-            : routeTransitionVariants
-        }
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.5, ease: revealEase }}
       >
         <Outlet />
       </motion.div>

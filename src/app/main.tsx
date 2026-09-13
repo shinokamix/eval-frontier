@@ -2,6 +2,7 @@ import '@fontsource/instrument-sans/400.css';
 import '@fontsource/instrument-sans/600.css';
 import '@fontsource/commit-mono/400.css';
 import Lenis from 'lenis';
+import { MotionConfig } from 'motion/react';
 
 import 'lenis/dist/lenis.css';
 import { StrictMode } from 'react';
@@ -26,6 +27,8 @@ new Lenis({ autoRaf: true, lerp: 0.12, stopInertiaOnNavigate: true });
 
 createRoot(getRootElement()).render(
   <StrictMode>
-    <AppRouter />
+    <MotionConfig reducedMotion="user">
+      <AppRouter />
+    </MotionConfig>
   </StrictMode>,
 );
