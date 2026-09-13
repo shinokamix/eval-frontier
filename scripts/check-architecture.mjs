@@ -7,6 +7,7 @@ const projectRoot = process.cwd();
 const sourceRoot = path.join(projectRoot, 'src');
 
 const sharedPublicApiDirectories = [
+  { name: 'animation', path: path.join(sourceRoot, 'shared', 'animation') },
   { name: 'component', path: path.join(sourceRoot, 'shared', 'components') },
   { name: 'hook', path: path.join(sourceRoot, 'shared', 'hooks') },
 ];
