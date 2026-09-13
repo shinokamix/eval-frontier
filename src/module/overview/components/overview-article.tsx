@@ -3,6 +3,7 @@ import { ArticleSection } from '@/shared/components/article-section';
 import { Text } from '@/shared/components/text';
 
 import { ArticleLink } from './article-link';
+import { HarnessDiagram } from './harness-diagram';
 
 interface HarnessLinkProps {
   readonly children: string;
@@ -59,6 +60,7 @@ function OverviewArticle() {
           files, edit code, and run commands, then decides what happens after
           each action.
         </Text>
+        <HarnessDiagram />
         <Text variant="body">
           Harnesses differ in how they search a repository, prepare context,
           call tools, apply edits, manage errors, and decide when a task is
@@ -93,6 +95,11 @@ function OverviewArticle() {
           </HarnessLink>
           , and others reported by the original sources.
         </Text>
+        <div>
+          <ArticleLink href="https://www.langchain.com/blog/the-anatomy-of-an-agent-harness">
+            The anatomy of an agent harness, LangChain →
+          </ArticleLink>
+        </div>
       </ArticleSection>
 
       <ArticleSection>
@@ -160,9 +167,6 @@ function OverviewArticle() {
           <ArticleLink to="/explore">Explore the results →</ArticleLink>
           <ArticleLink href="https://github.com/shinokamix/harness-pareto">
             View the project on GitHub →
-          </ArticleLink>
-          <ArticleLink href="https://github.com/shinokamix/harness-pareto/issues">
-            Propose a change or idea →
           </ArticleLink>
         </div>
       </ArticleSection>

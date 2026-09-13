@@ -142,7 +142,10 @@ export default defineConfig({
       },
     ],
   },
-  resolve: { alias: { '@': `${import.meta.dirname}/src` } },
+  resolve: {
+    alias: { '@': `${import.meta.dirname}/src` },
+    dedupe: ['react', 'react-dom'],
+  },
   plugins: lazyPlugins(() => [
     tanstackRouter({
       target: 'react',

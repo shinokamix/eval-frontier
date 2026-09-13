@@ -1,43 +1,36 @@
+import { Dialog } from '@base-ui/react/dialog';
 import { motion } from 'motion/react';
-import { type Ref } from 'react';
 
 import {
   footerVariants,
   listVariants,
-  menuVariants,
 } from '@/module/header/constants/animation';
 import { Text } from '@/shared/components/text';
 
 import { Nav } from './nav';
 
 interface MenuProps {
-  opened: boolean;
   pathname: string;
   onClose: () => void;
-  ref: Ref<HTMLDivElement>;
 }
 
-function Menu({ opened, pathname, onClose, ref }: MenuProps) {
-  const animation = opened ? 'open' : 'closed';
-
+function Menu({ pathname, onClose }: MenuProps) {
   return (
-    <motion.div
-      animate={animation}
-      aria-hidden={!opened}
-      className="fixed inset-0 z-10 overflow-y-auto bg-[#090909] page-gutter pt-28 pb-8 md:hidden"
+    <Dialog.Popup
+      className="fixed inset-0 z-10 overflow-y-auto bg-[#090909] page-gutter pt-28 pb-8 opacity-100 transition-opacity duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 md:hidden"
       id="mobile-navigation"
-      inert={!opened}
-      initial={false}
-      ref={ref}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      variants={menuVariants}
     >
+      <Dialog.Title className="sr-only">
+        <Text variant="inline">Mobile navigation</Text>
+      </Dialog.Title>
       <nav
         aria-label="Mobile navigation"
         className="flex min-h-full flex-col justify-between gap-8"
       >
         <motion.div
+          animate="open"
           className="flex flex-col items-start gap-6"
+          initial="closed"
           variants={listVariants}
         >
           <Nav
@@ -48,7 +41,9 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
         </motion.div>
 
         <motion.div
+          animate="open"
           className="flex items-end justify-between text-[#8d8a82]"
+          initial="closed"
           variants={footerVariants}
         >
           <div className="flex flex-col">
@@ -73,7 +68,10 @@ function Menu({ opened, pathname, onClose, ref }: MenuProps) {
           </Text>
         </motion.div>
       </nav>
-    </motion.div>
+      <Dialog.Close className="sr-only">
+        <Text variant="inline">Close menu</Text>
+      </Dialog.Close>
+    </Dialog.Popup>
   );
 }
 
