@@ -25,22 +25,46 @@ Choose a stable, lowercase source ID:
 
 ```text
 data/sources/<source-id>/
+  source.json
   raw/<snapshot-id>/
     manifest.json
     artifacts/
       <captured files>
 ```
 
-A manifest records the source, capture time, and artifacts:
+`source.json` lists the source and the HTTP artifacts to capture. Artifact URLs
+must point to immutable versions when the publisher provides them:
 
 ```json
 {
   "schemaVersion": 1,
+  "id": "example-benchmark-paper",
+  "title": "Example benchmark paper",
+  "canonicalUrl": "https://example.org/paper",
+  "license": "CC-BY-4.0",
+  "redistribution": "allowed",
+  "artifacts": [
+    {
+      "path": "paper.pdf",
+      "role": "primary",
+      "url": "https://example.org/paper-v1.pdf"
+    }
+  ]
+}
+```
+
+A generated manifest records what the server returned:
+
+```json
+{
+  "schemaVersion": 1,
+  "snapshotId": "...",
   "sourceId": "example-benchmark-paper",
   "title": "Example benchmark paper",
   "canonicalUrl": "https://example.org/paper",
   "capturedAt": "2026-09-17T18:00:00Z",
-  "redistribution": "unknown",
+  "license": "CC-BY-4.0",
+  "redistribution": "allowed",
   "artifacts": [
     {
       "path": "artifacts/paper.pdf",
@@ -50,6 +74,7 @@ A manifest records the source, capture time, and artifacts:
       "acquisition": {
         "type": "http",
         "url": "https://example.org/paper.pdf",
+        "finalUrl": "https://example.org/paper.pdf",
         "method": "GET",
         "status": 200
       }
@@ -93,10 +118,20 @@ PDF, screenshot, or attachment first. Transcription belongs to a later step.
 ## Adding a source
 
 1. Choose a stable source ID.
-2. Capture every artifact needed to support the published results.
-3. Write the manifest with provenance and checksums.
-4. Verify every checksum without network access.
-5. Review redistribution rights before committing captured bytes.
+2. Add its `source.json` and list every artifact needed to support the published
+   results.
+3. Review redistribution rights.
+4. Capture the source:
+
+   ```bash
+   pnpm data:capture <source-id>
+   ```
+
+5. Verify all committed snapshots without network access:
+
+   ```bash
+   pnpm data:verify
+   ```
 
 Never overwrite a snapshot. Add another snapshot when the article, API response,
 PDF, or repository changes.
@@ -106,11 +141,10 @@ PDF, or repository changes.
 Do not add canonical model IDs, unit conversions, corrected values, inferred
 values, study membership, rankings, or scores during capture.
 
-The first implementation should support only this operation:
+The current implementation supports only this operation:
 
 ```text
-capture artifacts -> write manifest -> verify checksums offline
+capture HTTP artifacts -> write manifest -> verify checksums offline
 ```
 
-HTTP and local files are enough for the first version. Git capture can be a
-later commit.
+Local file and Git capture can be later commits.

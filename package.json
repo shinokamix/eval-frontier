@@ -6,6 +6,9 @@
   "scripts": {
     "build": "tsc -b && vp build",
     "check:architecture": "node scripts/check-architecture.mjs",
+    "data:capture": "node scripts/data/cli.ts capture",
+    "data:test": "node --test scripts/data/**/*.test.ts",
+    "data:verify": "node scripts/data/cli.ts verify",
     "dev": "vp dev",
     "lint": "vp lint",
     "prepare": "vp config --hooks --no-agent",

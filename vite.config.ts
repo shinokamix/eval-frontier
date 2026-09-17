@@ -16,7 +16,12 @@ const lintPlugins = [
 
 export default defineConfig({
   fmt: {
-    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
+    ignorePatterns: [
+      'dist/**',
+      '**/*.gen.ts',
+      '.tanstack/**',
+      'data/**/raw/**',
+    ],
     printWidth: 80,
     tabWidth: 2,
     useTabs: false,
@@ -42,7 +47,12 @@ export default defineConfig({
     sortPackageJson: { sortScripts: true },
   },
   lint: {
-    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
+    ignorePatterns: [
+      'dist/**',
+      '**/*.gen.ts',
+      '.tanstack/**',
+      'data/**/raw/**',
+    ],
     plugins: [...lintPlugins],
     categories: { correctness: 'error', suspicious: 'error' },
     env: { browser: true, es2026: true },
