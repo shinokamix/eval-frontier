@@ -14,6 +14,12 @@ frontiers, compare models and harnesses, and trace each result to its source.
 
 The web app uses React, TypeScript, Vite+, TanStack Router, and Tailwind CSS.
 
+## Data workflow
+
+The raw source intake process is documented in
+[`data/README.md`](data/README.md). Later stages will build on immutable source
+captures rather than changing published material.
+
 ## Run the app locally
 
 1. Install the dependencies:
