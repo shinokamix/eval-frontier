@@ -1,77 +1,67 @@
 # Eval Frontier
 
-This project collects public benchmark data on how the same AI model performs
-across coding-agent harnesses such as Pi, Codex, Claude Code, OpenCode, and Oh
-My Pi.
+Eval Frontier compares coding-agent configurations across public benchmarks. A
+configuration is the combination of a model, harness, and effort setting.
 
-The project does not try to name one "best" agent. It identifies Pareto-optimal
-`model × harness` configurations that offer the strongest tradeoffs among task
-quality, cost, token usage, and runtime.
+The project does not combine raw benchmark values from different studies.
+Instead, the planned analysis turns results into rankings within each study,
+connects overlapping studies within task families, and estimates relative scores
+for quality, cost, time, and token use. Pareto fronts then show the
+configurations that offer non-dominated quality and resource tradeoffs.
 
-The dataset includes only comparable experiments that hold the model and task
-set constant while changing the harness. The site lets users explore Pareto
-frontiers, compare models and harnesses, and trace each result to its source.
+## Method
 
-The web app uses React, TypeScript, Vite+, TanStack Router, and Tailwind CSS.
+```text
+raw studies -> task families -> local rankings -> PL/BT -> family scores
+            -> weighted global scores -> Pareto fronts
+```
 
-## Research methodology
+The method keeps metric definitions separate, reports missing data as missing,
+and preserves each observation's source and experimental settings. It also
+reports coverage and uncertainty so a result backed by one study does not look
+as reliable as one backed by several studies.
 
-[`METHODOLOGY.md`](METHODOLOGY.md) documents the planned cross-study analysis:
-task families, local rankings, Plackett-Luce or Bradley-Terry estimation,
-weighted global scores, Pareto fronts, and reliability reporting. It also marks
-which parts are not implemented yet.
+This cross-study method is not fully implemented. The current pipeline captures
+source artifacts, extracts observations, harmonizes labels, aggregates results
+within a study, and calculates within-study Pareto fronts.
 
-## Data workflow
+Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method, its interpretation
+limits, and the remaining design decisions.
 
-The data pipeline is documented in [`data/README.md`](data/README.md). To
-capture a source or add one to the build, see
-[`data/add-a-source.md`](data/add-a-source.md). Capture, extract, and harmonize
-run for `kroda-coding-agent-baselines` and write `data/build/research.json`. The
-site still reads `public/data/research.json`.
+## Data
 
-## Run the app locally
+The pipeline has four stages:
 
-1. Install the dependencies:
+```text
+capture -> extract -> harmonize -> publish
+```
 
-   ```bash
-   vp install
-   ```
+It stores source snapshots with checksums and keeps provenance for extracted
+observations. See [`data/README.md`](data/README.md) for the pipeline and
+[`data/add-a-source.md`](data/add-a-source.md) for source intake.
 
-2. Start the development server:
+The pipeline writes `data/build/research.json`. The site currently reads the
+separately maintained `public/data/research.json`.
 
-   ```bash
-   vp dev
-   ```
+## Development
 
-If the `vp` command is missing, install Vite+ first:
+Install Vite+ if the `vp` command is unavailable:
 
 ```bash
 curl -fsSL https://vite.plus | bash
 ```
 
-## Check a change
-
-Run the checks that apply to your change:
+Then install dependencies and start the app:
 
 ```bash
-vp check  # check formatting, lint rules, and types
-vp build  # create a production build
+vp install
+vp dev
 ```
 
-The pre-commit hook runs `vp staged`. This command applies `vp check --fix` to
-staged files. To skip the hook for one commit, run:
+Check a change with:
 
 ```bash
-VP_GIT_HOOKS=0 git commit
+vp check
+vp build
+pnpm data:test
 ```
-
-## Find the source
-
-- `src/app/main.tsx` mounts the React app and loads the fonts and global styles.
-- `src/app/router.tsx` creates the TanStack Router instance.
-- `src/app/routes` contains the route files.
-- `src/app/routeTree.gen.ts` is the route tree that TanStack Router generates.
-- `src/shared/components` contains components shared across routes.
-
-See [`DESIGN.md`](DESIGN.md) for the typography rules and the `Text` component
-variants.
