@@ -1,4 +1,4 @@
-# HP/26
+# Harness Pareto
 
 This project collects public benchmark data on how the same AI model performs
 across coding-agent harnesses such as Pi, Codex, Claude Code, OpenCode, and Oh
@@ -14,11 +14,20 @@ frontiers, compare models and harnesses, and trace each result to its source.
 
 The web app uses React, TypeScript, Vite+, TanStack Router, and Tailwind CSS.
 
+## Research methodology
+
+[`METHODOLOGY.md`](METHODOLOGY.md) documents the planned cross-study analysis:
+task families, local rankings, Plackett-Luce or Bradley-Terry estimation,
+weighted global scores, Pareto fronts, and reliability reporting. It also marks
+which parts are not implemented yet.
+
 ## Data workflow
 
-The raw source intake process is documented in
-[`data/README.md`](data/README.md). Later stages will build on immutable source
-captures rather than changing published material.
+The data pipeline is documented in [`data/README.md`](data/README.md). To
+capture a source or add one to the build, see
+[`data/add-a-source.md`](data/add-a-source.md). Capture, extract, and harmonize
+run for `kroda-coding-agent-baselines` and write `data/build/research.json`. The
+site still reads `public/data/research.json`.
 
 ## Run the app locally
 
