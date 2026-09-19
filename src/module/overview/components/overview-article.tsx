@@ -165,7 +165,7 @@ function OverviewArticle() {
         </Text>
         <div className="flex flex-wrap gap-x-8 gap-y-4">
           <ArticleLink to="/explore">Explore the results →</ArticleLink>
-          <ArticleLink href="https://github.com/shinokamix/harness-pareto">
+          <ArticleLink href="https://github.com/shinokamix/eval-frontier">
             View the project on GitHub →
           </ArticleLink>
         </div>

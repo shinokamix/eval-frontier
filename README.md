@@ -1,4 +1,4 @@
-# Harness Pareto
+# Eval Frontier
 
 This project collects public benchmark data on how the same AI model performs
 across coding-agent harnesses such as Pi, Codex, Claude Code, OpenCode, and Oh

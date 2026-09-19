@@ -32,7 +32,9 @@ function Header() {
             onClick={close}
             to="/"
           >
-            <UnderlinedLabel active={pathname === '/'}>HP/26</UnderlinedLabel>
+            <UnderlinedLabel active={pathname === '/'}>
+              Eval Frontier
+            </UnderlinedLabel>
           </Link>
 
           <div className="hidden md:flex md:gap-12 lg:gap-20 xl:gap-32">

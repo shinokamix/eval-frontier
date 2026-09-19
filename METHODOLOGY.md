@@ -2,7 +2,7 @@
 
 ## Status
 
-This document describes the planned cross-study analysis for Harness Pareto. It
+This document describes the planned cross-study analysis for Eval Frontier. It
 is the target method, not a description of every calculation in the current
 build.
 
@@ -17,7 +17,7 @@ Implementation details for the current pipeline are in
 
 ## Research goal
 
-Harness Pareto studies the performance of coding-agent configurations across
+Eval Frontier studies the performance of coding-agent configurations across
 public benchmarks. It treats the model, harness, and effort setting as parts of
 one configuration. The project aims to estimate relative performance across
 partially overlapping studies without treating their raw measurements as if they
