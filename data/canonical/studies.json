@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "studies": [
+    {
+      "id": "xbow_gpt5",
+      "title": "Baselines Before Architecture",
+      "model": "gpt-5",
+      "benchmark": "XBOW 104-task pentest benchmark",
+      "sourceId": "kroda-coding-agent-baselines",
+      "evidenceGrade": "A-",
+      "configurationId": "default",
+      "select": { "model": "gpt-5", "native": { "condition": "baseline" } },
+      "qualityMetric": "quality",
+      "resultMetrics": [
+        { "id": "quality", "kind": "rate", "source": "solved" },
+        { "id": "time_median_s", "kind": "median", "source": "duration_s" },
+        {
+          "id": "cost_per_success_usd",
+          "kind": "sum_per_success",
+          "source": "cost_usd"
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_median_s",
+          "yMetric": "quality"
+        },
+        {
+          "id": "quality_cost",
+          "status": "primary",
+          "xMetric": "cost_per_success_usd",
+          "yMetric": "quality"
+        }
+      ],
+      "caveats": [
+        "This is a historical public benchmark, so tasks may have appeared in training data."
+      ]
+    }
+  ]
+}

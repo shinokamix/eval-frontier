@@ -21,6 +21,8 @@ export default defineConfig({
       '**/*.gen.ts',
       '.tanstack/**',
       'data/**/raw/**',
+      'data/**/extracted/**',
+      'data/build/**',
     ],
     printWidth: 80,
     tabWidth: 2,
@@ -52,6 +54,8 @@ export default defineConfig({
       '**/*.gen.ts',
       '.tanstack/**',
       'data/**/raw/**',
+      'data/**/extracted/**',
+      'data/build/**',
     ],
     plugins: [...lintPlugins],
     categories: { correctness: 'error', suspicious: 'error' },
@@ -136,6 +140,10 @@ export default defineConfig({
         files: ['vite.config.ts'],
         env: { node: true },
         rules: { 'import/no-default-export': 'off' },
+      },
+      {
+        files: ['scripts/data/**/*.ts', 'data/sources/**/*.ts'],
+        env: { node: true },
       },
       {
         files: ['src/app/routes/**'],

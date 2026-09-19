@@ -4,7 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test, { type TestContext } from 'node:test';
 
-import { captureSource, sha256, verifySnapshot, verifySources } from './raw.ts';
+import {
+  captureSource,
+  sha256,
+  verifySnapshot,
+  verifySources,
+} from './index.ts';
 
 async function temporary(t: TestContext): Promise<string> {
   const directory = await mkdtemp(join(tmpdir(), 'raw-source-test-'));

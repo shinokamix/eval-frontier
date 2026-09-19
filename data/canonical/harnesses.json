@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "harnesses": [
+    { "id": "codex", "label": "Codex" },
+    { "id": "opencode", "label": "OpenCode" },
+    { "id": "pi", "label": "Pi" }
+  ]
+}

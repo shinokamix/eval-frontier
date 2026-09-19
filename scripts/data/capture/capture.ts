@@ -10,6 +10,8 @@ import {
 } from 'node:fs/promises';
 import { join } from 'node:path';
 
+import { readJson, writeJson } from '../shared/json.ts';
+
 interface SourceArtifact {
   path: string;
   role: string;
@@ -84,12 +86,6 @@ function httpUrl(value: unknown, label: string): string {
   }
 
   return result;
-}
-
-function parseJson(contents: string): unknown {
-  const value: unknown = JSON.parse(contents);
-
-  return value;
 }
 
 function sourceId(value: unknown): string {
@@ -244,10 +240,6 @@ function parseManifest(value: unknown, expectedId: string): SnapshotManifest {
   return manifest;
 }
 
-function serialize(value: unknown): string {
-  return `${JSON.stringify(value, null, 2)}\n`;
-}
-
 export function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
 }
@@ -266,12 +258,10 @@ export async function readSource(
 ): Promise<SourceDefinition> {
   const validId = sourceId(id);
 
-  const contents = await readFile(
-    join(directory, 'sources', validId, 'source.json'),
-    'utf8',
+  return parseSource(
+    await readJson(join(directory, 'sources', validId, 'source.json')),
+    validId,
   );
-
-  return parseSource(parseJson(contents), validId);
 }
 
 export async function verifySnapshot(
@@ -286,7 +276,7 @@ export async function verifySnapshot(
   const snapshotDirectory = join(directory, 'sources', id, 'raw', snapshot);
 
   const manifest = parseManifest(
-    parseJson(await readFile(join(snapshotDirectory, 'manifest.json'), 'utf8')),
+    await readJson(join(snapshotDirectory, 'manifest.json')),
     snapshot,
   );
 
@@ -380,7 +370,7 @@ export async function captureSource(
       );
     }
 
-    await writeFile(join(temporary, 'manifest.json'), serialize(manifest));
+    await writeJson(join(temporary, 'manifest.json'), manifest);
     await mkdir(rawDirectory, { recursive: true });
 
     try {
