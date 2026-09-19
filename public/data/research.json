@@ -4,7 +4,10 @@
     {
       "id": "xbow_gpt5",
       "title": "Baselines Before Architecture",
-      "model": { "id": "gpt-5", "label": "GPT-5" },
+      "model": {
+        "id": "gpt-5",
+        "label": "GPT-5"
+      },
       "benchmark": "XBOW 104-task pentest benchmark",
       "qualityMetric": "quality",
       "source": {
@@ -15,7 +18,10 @@
       "results": [
         {
           "id": "xbow_gpt5:codex:default",
-          "harness": { "id": "codex", "name": "Codex" },
+          "harness": {
+            "id": "codex",
+            "name": "Codex"
+          },
           "metrics": {
             "quality": 0.6730769230769231,
             "time_median_s": 165.29000000000002,
@@ -33,7 +39,10 @@
         },
         {
           "id": "xbow_gpt5:opencode:default",
-          "harness": { "id": "opencode", "name": "OpenCode" },
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
           "metrics": {
             "quality": 0.5336538461538461,
             "time_median_s": 118.245,
@@ -51,7 +60,10 @@
         },
         {
           "id": "xbow_gpt5:pi:default",
-          "harness": { "id": "pi", "name": "Pi" },
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
           "metrics": {
             "quality": 0.5,
             "time_median_s": 82.75,

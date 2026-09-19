@@ -23,6 +23,7 @@ export default defineConfig({
       'data/**/raw/**',
       'data/**/extracted/**',
       'data/build/**',
+      'public/data/research.json',
     ],
     printWidth: 80,
     tabWidth: 2,
