@@ -1,9 +1,8 @@
 # Data pipeline
 
 The pipeline has four stages: capture, extract, harmonize, and publish.
-`pnpm data:build` writes `data/build/research.json`. The site reads
-`public/data/research.json`. That file is hand-edited and is not pipeline
-output.
+`pnpm data:build` writes `public/data/research.json`, which the site reads. Do
+not edit this generated file by hand.
 
 The four stages run for `kroda-coding-agent-baselines`.
 `aarora-harness-benchmarks` has a captured snapshot and no adapter.
@@ -12,7 +11,7 @@ To capture a source or add one to the build, see
 [Add a source](add-a-source.md).
 
 ```text
-source.json  ->  raw snapshot  ->  observations.json  ->  data/build/research.json
+source.json  ->  raw snapshot  ->  observations.json  ->  public/data/research.json
                  (bytes + hash)     (source labels)        (canonical studies)
 ```
 
@@ -35,9 +34,9 @@ data/
     metrics.json
     pins.json
     studies.json
-  build/
+public/
+  data/
     research.json
-public/data/research.json
 ```
 
 `data/sources/<source-id>/` holds one publication. `source.json` and `raw/`
@@ -85,7 +84,7 @@ this module.
 ### shared/schema.ts
 
 Zod schemas for observations, crosswalks, pins, studies, and
-`data/build/research.json`. A file that fails a schema fails the build before
+`public/data/research.json`. A file that fails a schema fails the build before
 write. `src/module/explore/schema/research.ts` is a looser schema. The site uses
 it to load `public/data/research.json`.
 
@@ -127,7 +126,7 @@ fronts. It does not read `raw/`. An unknown native string throws.
 ### publish/
 
 `publish/publish.ts` extracts every pinned source. It harmonizes every study in
-`canonical/studies.json`. It writes `data/build/research.json`.
+`canonical/studies.json`. It writes `public/data/research.json`.
 
 `publish.test.ts` rebuilds the pinned `kroda-coding-agent-baselines` snapshot
 and checks quality, median time, and Pareto membership.
@@ -363,7 +362,7 @@ The comparison rules are the methodology page at `/methodology`.
 
 ## Publish
 
-Publish writes `data/build/research.json`. `shared/schema.ts` is the contract
+Publish writes `public/data/research.json`. `shared/schema.ts` is the contract
 for that file.
 
 ```json
@@ -429,13 +428,13 @@ The `url` on `source` is `canonicalUrl` from `source.json`. Result ids are
 
 ## Commands
 
-| Command                         | Effect                                                              |
-| ------------------------------- | ------------------------------------------------------------------- |
-| `pnpm data:capture <source-id>` | Download artifacts into `raw/<snapshot-id>/`                        |
-| `pnpm data:verify`              | Recompute checksums offline                                         |
-| `pnpm data:extract <source-id>` | Write `observations.json` for the pinned snapshot                   |
-| `pnpm data:build`               | Extract pinned sources, harmonize, write `data/build/research.json` |
-| `pnpm data:test`                | Run capture, extract, harmonize, and publish tests                  |
+| Command                         | Effect                                                       |
+| ------------------------------- | ------------------------------------------------------------ |
+| `pnpm data:capture <source-id>` | Download artifacts into `raw/<snapshot-id>/`                 |
+| `pnpm data:verify`              | Recompute checksums offline                                  |
+| `pnpm data:extract <source-id>` | Write `observations.json` for the pinned snapshot            |
+| `pnpm data:build`               | Extract pinned sources and write `public/data/research.json` |
+| `pnpm data:test`                | Run capture, extract, harmonize, and publish tests           |
 
 `data:extract` and `data:build` read `canonical/pins.json`. After capture they
 run with no network.

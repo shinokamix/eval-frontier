@@ -13,6 +13,13 @@ await test('publish writes the kroda gpt-5 study', async () => {
   const research = researchDataSchema.parse(await readJson(output));
   const study = research.studies.find((entry) => entry.id === 'xbow_gpt5');
 
+  assert.equal(
+    output,
+    fileURLToPath(
+      new URL('../../../public/data/research.json', import.meta.url),
+    ),
+  );
+
   assert.ok(study);
   assert.equal(study.results.length, 3);
 

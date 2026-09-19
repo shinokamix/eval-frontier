@@ -98,7 +98,7 @@ async function publishResearch(directory: string) {
 
   const research = researchDataSchema.parse({ schemaVersion: 1, studies });
 
-  const output = join(directory, 'build', 'research.json');
+  const output = join(directory, '..', 'public', 'data', 'research.json');
 
   await writeJson(output, research);
 

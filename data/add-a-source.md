@@ -56,7 +56,7 @@ To publish studies from the source:
 pnpm data:build
 ```
 
-The command writes `data/build/research.json` and prints `Wrote <path>`.
+The command writes `public/data/research.json` and prints `Wrote <path>`.
 
 10. Run:
 

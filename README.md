@@ -40,8 +40,8 @@ It stores source snapshots with checksums and keeps provenance for extracted
 observations. See [`data/README.md`](data/README.md) for the pipeline and
 [`data/add-a-source.md`](data/add-a-source.md) for source intake.
 
-The pipeline writes `data/build/research.json`. The site currently reads the
-separately maintained `public/data/research.json`.
+The pipeline writes `public/data/research.json`, which the site reads. Do not
+edit this generated file by hand.
 
 ## Development
 
