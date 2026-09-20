@@ -23,10 +23,8 @@ const researchStudySchema = z.object({
 
 const researchDataSchema = z.object({ studies: z.array(researchStudySchema) });
 
-type ResearchComparison = z.infer<typeof researchComparisonSchema>;
 type ResearchData = z.infer<typeof researchDataSchema>;
 type ResearchResult = z.infer<typeof researchResultSchema>;
-type ResearchStudy = z.infer<typeof researchStudySchema>;
 
 export { researchDataSchema };
-export type { ResearchComparison, ResearchData, ResearchResult, ResearchStudy };
+export type { ResearchData, ResearchResult };

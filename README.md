@@ -48,6 +48,9 @@ files by hand.
 
 ## Development
 
+Install Moon and Node.js with Corepack. Vite+ is a project dependency, so it
+does not need a separate global installation.
+
 Install the web dependencies if needed:
 
 ```bash
@@ -63,8 +66,8 @@ moon run web:dev
 Check a change with:
 
 ```bash
-moon run web:lint
 moon run web:check
+moon run web:knip
 moon run web:build
 moon run research:check
 ```

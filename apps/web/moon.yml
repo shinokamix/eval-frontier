@@ -4,7 +4,9 @@ language: typescript
 
 tasks:
   install:
-    command: vp install
+    command: corepack pnpm install
+    options:
+      cache: false
 
   sync-data:
     command: node scripts/sync-research.mjs
@@ -14,18 +16,18 @@ tasks:
       - 'public/data/research.json'
 
   dev:
-    command: pnpm exec vp dev
+    command: corepack pnpm exec vp dev
     deps:
       - sync-data
     options:
       persistent: true
   build:
-    command: pnpm exec vp build
+    command: corepack pnpm exec vp build
     deps:
       - sync-data
 
-  lint:
-    command: pnpm exec vp lint
-
   check:
-    command: node scripts/check-architecture.mjs
+    command: corepack pnpm exec vp check
+
+  knip:
+    command: corepack pnpm exec knip --no-progress

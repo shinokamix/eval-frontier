@@ -1,2 +1,2 @@
 export { Text } from './text.ts';
-export type { TextProps, TextVariant } from './text.ts';
+export type { TextProps } from './text.ts';

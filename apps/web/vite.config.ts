@@ -16,11 +16,7 @@ const lintPlugins = [
 
 export default defineConfig({
   fmt: {
-    ignorePatterns: [
-      'dist/**',
-      '**/*.gen.ts',
-      '.tanstack/**',
-    ],
+    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
     printWidth: 80,
     tabWidth: 2,
     useTabs: false,
@@ -46,11 +42,7 @@ export default defineConfig({
     sortPackageJson: { sortScripts: true },
   },
   lint: {
-    ignorePatterns: [
-      'dist/**',
-      '**/*.gen.ts',
-      '.tanstack/**',
-    ],
+    ignorePatterns: ['dist/**', '**/*.gen.ts', '.tanstack/**'],
     plugins: [...lintPlugins],
     categories: { correctness: 'error', suspicious: 'error' },
     env: { browser: true, es2026: true },
@@ -61,6 +53,7 @@ export default defineConfig({
       reportUnusedDisableDirectives: 'error',
     },
     rules: {
+      'architecture/boundaries': 'error',
       // React 19 uses the automatic JSX transform.
       'react/react-in-jsx-scope': 'off',
       'react/rules-of-hooks': 'error',
@@ -128,10 +121,19 @@ export default defineConfig({
     jsPlugins: [
       { name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' },
       { name: 'stylistic', specifier: '@stylistic/eslint-plugin' },
+      {
+        name: 'architecture',
+        specifier: './scripts/oxlint-architecture-plugin.mjs',
+      },
     ],
     overrides: [
       {
         files: ['vite.config.ts'],
+        env: { node: true },
+        rules: { 'import/no-default-export': 'off' },
+      },
+      {
+        files: ['scripts/oxlint-architecture-plugin.mjs'],
         env: { node: true },
         rules: { 'import/no-default-export': 'off' },
       },
@@ -167,5 +169,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ]),
-  staged: { '*': 'vp check --fix' },
 });

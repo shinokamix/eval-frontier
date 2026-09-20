@@ -1,6 +1,1 @@
-export type {
-  ResearchComparison,
-  ResearchData,
-  ResearchResult,
-  ResearchStudy,
-} from '../schema/research';
+export type { ResearchData, ResearchResult } from '../schema/research';

@@ -62,5 +62,5 @@ function Text(props: Readonly<TextProps>) {
   );
 }
 
-export type { TextProps, TextVariant };
+export type { TextProps };
 export { Text };
