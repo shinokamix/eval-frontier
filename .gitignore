@@ -8,6 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.moon/cache/
+research/.venv/
+apps/web/dist/
+apps/web/node_modules/
+apps/web/public/data/research.json
+__pycache__/
+*.py[cod]
 .vite-hooks/_
 .tanstack
 dist

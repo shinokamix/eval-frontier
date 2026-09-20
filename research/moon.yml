@@ -1,0 +1,12 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+language: python
+
+tasks:
+  build:
+    command: 'uv run eval-frontier build'
+    outputs:
+      - 'build/research.json'
+      - 'build/manifest.json'
+  check:
+    command: 'uv run python -m compileall -q src'

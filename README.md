@@ -33,35 +33,38 @@ limits, and the remaining design decisions.
 The pipeline has four stages:
 
 ```text
-capture -> extract -> harmonize -> publish
+capture -> extract -> harmonize -> build
 ```
 
 It stores source snapshots with checksums and keeps provenance for extracted
-observations. See [`data/README.md`](data/README.md) for the pipeline and
-[`data/add-a-source.md`](data/add-a-source.md) for source intake.
+observations. See [`research/README.md`](research/README.md) for the pipeline and
+[`research/add-a-source.md`](research/add-a-source.md) for source intake.
 
-The pipeline writes `public/data/research.json`, which the site reads. Do not
-edit this generated file by hand.
+The Python pipeline writes the published artifacts in `research/build/`.
+`research/build/research.json` is versioned so other researchers can download
+the result without rebuilding the project. Moon copies it into the web app's
+public data directory before dev and production builds. Do not edit generated
+files by hand.
 
 ## Development
 
-Install Vite+ if the `vp` command is unavailable:
+Install the web dependencies inside `apps/web` if needed:
 
 ```bash
-curl -fsSL https://vite.plus | bash
+pnpm --dir apps/web install
 ```
 
-Then install dependencies and start the app:
+Moon owns project orchestration. Start the app with:
 
 ```bash
-vp install
-vp dev
+moon run web:dev
 ```
 
 Check a change with:
 
 ```bash
-vp check
-vp build
-pnpm data:test
+moon run web:lint
+moon run web:check
+moon run web:build
+moon run research:check
 ```

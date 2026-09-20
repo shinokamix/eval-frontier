@@ -1,0 +1,28 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+language: typescript
+
+tasks:
+  sync-data:
+    command: node scripts/sync-research.mjs
+    deps:
+      - research:build
+    outputs:
+      - 'public/data/research.json'
+
+  dev:
+    command: pnpm exec vp dev
+    deps:
+      - sync-data
+    options:
+      persistent: true
+  build:
+    command: pnpm exec vp build
+    deps:
+      - sync-data
+
+  lint:
+    command: pnpm exec vp lint
+
+  check:
+    command: node scripts/check-architecture.mjs

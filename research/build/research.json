@@ -1,0 +1,891 @@
+{
+  "schemaVersion": 2,
+  "studies": [
+    {
+      "id": "xbow_gpt5",
+      "title": "Baselines Before Architecture",
+      "model": {
+        "id": "gpt-5",
+        "label": "GPT-5"
+      },
+      "benchmark": "XBOW 104-task pentest benchmark",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "kroda-coding-agent-baselines",
+        "url": "https://github.com/krodalabs/coding-agent-research-artifact/tree/4dc9df7cc69cc85111624faf42a247b6bcffc936",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "xbow_gpt5:codex:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "codex",
+            "name": "Codex"
+          },
+          "metrics": {
+            "quality": 0.6730769230769231,
+            "time_median_s": 165.29000000000002,
+            "cost_per_success_usd": 0.3958542285714286
+          },
+          "sample": {
+            "tasks": 104,
+            "trialsPerTask": 2,
+            "evaluatedCells": 208,
+            "successfulAttempts": 140
+          },
+          "caveats": [
+            "This is a historical public benchmark, so tasks may have appeared in training data."
+          ]
+        },
+        {
+          "id": "xbow_gpt5:opencode:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 0.5336538461538461,
+            "time_median_s": 118.245,
+            "cost_per_success_usd": 0.21501127027027025
+          },
+          "sample": {
+            "tasks": 104,
+            "trialsPerTask": 2,
+            "evaluatedCells": 208,
+            "successfulAttempts": 111
+          },
+          "caveats": [
+            "This is a historical public benchmark, so tasks may have appeared in training data."
+          ]
+        },
+        {
+          "id": "xbow_gpt5:pi:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 0.5,
+            "time_median_s": 82.75,
+            "cost_per_success_usd": 0.23071121153846155
+          },
+          "sample": {
+            "tasks": 104,
+            "trialsPerTask": 2,
+            "evaluatedCells": 208,
+            "successfulAttempts": 104
+          },
+          "caveats": [
+            "This is a historical public benchmark, so tasks may have appeared in training data."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_median_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium",
+            "xbow_gpt5:pi:medium"
+          ],
+          "paretoFront": [
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium",
+            "xbow_gpt5:pi:medium"
+          ]
+        },
+        {
+          "id": "quality_cost",
+          "status": "primary",
+          "xMetric": "cost_per_success_usd",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium",
+            "xbow_gpt5:pi:medium"
+          ],
+          "paretoFront": [
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m3_gpt55_medium",
+      "title": "OpenBench M3",
+      "model": {
+        "id": "gpt-5.5",
+        "label": "GPT-5.5"
+      },
+      "benchmark": "OpenBench M3 three-task core suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m3",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/data/m3-2026-07-02",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "openbench_m3_gpt55_medium:codex:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "codex",
+            "name": "Codex"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 48.279199999999996
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 5,
+            "evaluatedCells": 15,
+            "successfulAttempts": 15
+          },
+          "caveats": [
+            "All five harnesses solved every task, so this study separates efficiency rather than correctness.",
+            "Runs came from one macOS host and one session; wall time includes network and service-load variation.",
+            "Devin did not expose a reasoning-effort selector, so its effort was not pinned like the other harnesses."
+          ]
+        },
+        {
+          "id": "openbench_m3_gpt55_medium:cursor:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "cursor",
+            "name": "Cursor"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 21.950066666666665
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 5,
+            "evaluatedCells": 15,
+            "successfulAttempts": 15
+          },
+          "caveats": [
+            "All five harnesses solved every task, so this study separates efficiency rather than correctness.",
+            "Runs came from one macOS host and one session; wall time includes network and service-load variation.",
+            "Devin did not expose a reasoning-effort selector, so its effort was not pinned like the other harnesses."
+          ]
+        },
+        {
+          "id": "openbench_m3_gpt55_medium:devin:unknown",
+          "effort": null,
+          "harness": {
+            "id": "devin",
+            "name": "Devin"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 43.029133333333334
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 5,
+            "evaluatedCells": 15,
+            "successfulAttempts": 15
+          },
+          "caveats": [
+            "All five harnesses solved every task, so this study separates efficiency rather than correctness.",
+            "Runs came from one macOS host and one session; wall time includes network and service-load variation.",
+            "Devin did not expose a reasoning-effort selector, so its effort was not pinned like the other harnesses."
+          ]
+        },
+        {
+          "id": "openbench_m3_gpt55_medium:opencode:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 62.699466666666666
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 5,
+            "evaluatedCells": 15,
+            "successfulAttempts": 15
+          },
+          "caveats": [
+            "All five harnesses solved every task, so this study separates efficiency rather than correctness.",
+            "Runs came from one macOS host and one session; wall time includes network and service-load variation.",
+            "Devin did not expose a reasoning-effort selector, so its effort was not pinned like the other harnesses."
+          ]
+        },
+        {
+          "id": "openbench_m3_gpt55_medium:pi:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 16.43433333333333
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 5,
+            "evaluatedCells": 15,
+            "successfulAttempts": 15
+          },
+          "caveats": [
+            "All five harnesses solved every task, so this study separates efficiency rather than correctness.",
+            "Runs came from one macOS host and one session; wall time includes network and service-load variation.",
+            "Devin did not expose a reasoning-effort selector, so its effort was not pinned like the other harnesses."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m3_gpt55_medium:codex:medium",
+            "openbench_m3_gpt55_medium:cursor:medium",
+            "openbench_m3_gpt55_medium:devin:unknown",
+            "openbench_m3_gpt55_medium:opencode:medium",
+            "openbench_m3_gpt55_medium:pi:medium"
+          ],
+          "paretoFront": [
+            "openbench_m3_gpt55_medium:pi:medium"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m35_gpt55_medium",
+      "title": "OpenBench M3.5",
+      "model": {
+        "id": "gpt-5.5",
+        "label": "GPT-5.5"
+      },
+      "benchmark": "OpenBench M3.5 three-task core suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m3.5",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/d703619e0609a095c894b99cec9ffbe4d0f47cc9/data/m3.5-2026-07-02",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "openbench_m35_gpt55_medium:codex:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "codex",
+            "name": "Codex"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 54.89566666666666,
+            "tokens_per_success": 42502.77777777778
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "All harnesses solved all nine cells, so the quality axis is saturated.",
+            "Codex token counts include cache-read tokens and are not directly comparable with the other harnesses.",
+            "The three trials per task ran sequentially on one macOS host in one day."
+          ]
+        },
+        {
+          "id": "openbench_m35_gpt55_medium:cursor:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "cursor",
+            "name": "Cursor"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 26.316555555555553,
+            "tokens_per_success": 13996.888888888889
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "All harnesses solved all nine cells, so the quality axis is saturated.",
+            "Codex token counts include cache-read tokens and are not directly comparable with the other harnesses.",
+            "The three trials per task ran sequentially on one macOS host in one day."
+          ]
+        },
+        {
+          "id": "openbench_m35_gpt55_medium:devin:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "devin",
+            "name": "Devin"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 83.54377777777778,
+            "tokens_per_success": 33759.22222222222
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "All harnesses solved all nine cells, so the quality axis is saturated.",
+            "Codex token counts include cache-read tokens and are not directly comparable with the other harnesses.",
+            "The three trials per task ran sequentially on one macOS host in one day."
+          ]
+        },
+        {
+          "id": "openbench_m35_gpt55_medium:opencode:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 54.364999999999995,
+            "tokens_per_success": 20663.222222222223
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "All harnesses solved all nine cells, so the quality axis is saturated.",
+            "Codex token counts include cache-read tokens and are not directly comparable with the other harnesses.",
+            "The three trials per task ran sequentially on one macOS host in one day."
+          ]
+        },
+        {
+          "id": "openbench_m35_gpt55_medium:pi:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 17.63411111111111,
+            "tokens_per_success": 5349.555555555556
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "All harnesses solved all nine cells, so the quality axis is saturated.",
+            "Codex token counts include cache-read tokens and are not directly comparable with the other harnesses.",
+            "The three trials per task ran sequentially on one macOS host in one day."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m35_gpt55_medium:codex:medium",
+            "openbench_m35_gpt55_medium:cursor:medium",
+            "openbench_m35_gpt55_medium:devin:medium",
+            "openbench_m35_gpt55_medium:opencode:medium",
+            "openbench_m35_gpt55_medium:pi:medium"
+          ],
+          "paretoFront": [
+            "openbench_m35_gpt55_medium:pi:medium"
+          ]
+        },
+        {
+          "id": "quality_tokens",
+          "status": "primary",
+          "xMetric": "tokens_per_success",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m35_gpt55_medium:codex:medium",
+            "openbench_m35_gpt55_medium:cursor:medium",
+            "openbench_m35_gpt55_medium:devin:medium",
+            "openbench_m35_gpt55_medium:opencode:medium",
+            "openbench_m35_gpt55_medium:pi:medium"
+          ],
+          "paretoFront": [
+            "openbench_m35_gpt55_medium:pi:medium"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m45_gpt55_medium",
+      "title": "OpenBench M4.5 harder tasks",
+      "model": {
+        "id": "gpt-5.5",
+        "label": "GPT-5.5"
+      },
+      "benchmark": "OpenBench M4.5 three-task partial-credit suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m4.5",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "openbench_m45_gpt55_medium:codex:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "codex",
+            "name": "Codex"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 108.41355555555555,
+            "tokens_per_success": 75778.44444444444
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "The published analysis excludes Devin because its adapter and service were flaky; this study follows that exclusion.",
+            "Codex uses fresh-token accounting here, unlike the cache-inclusive M3.5 Codex data.",
+            "The four retained harnesses scored 1.0 in every cell, so only efficiency separates them."
+          ]
+        },
+        {
+          "id": "openbench_m45_gpt55_medium:cursor:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "cursor",
+            "name": "Cursor"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 48.833888888888886,
+            "tokens_per_success": 21369.777777777777
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "The published analysis excludes Devin because its adapter and service were flaky; this study follows that exclusion.",
+            "Codex uses fresh-token accounting here, unlike the cache-inclusive M3.5 Codex data.",
+            "The four retained harnesses scored 1.0 in every cell, so only efficiency separates them."
+          ]
+        },
+        {
+          "id": "openbench_m45_gpt55_medium:opencode:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 175.23555555555558,
+            "tokens_per_success": 44472.22222222222
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "The published analysis excludes Devin because its adapter and service were flaky; this study follows that exclusion.",
+            "Codex uses fresh-token accounting here, unlike the cache-inclusive M3.5 Codex data.",
+            "The four retained harnesses scored 1.0 in every cell, so only efficiency separates them."
+          ]
+        },
+        {
+          "id": "openbench_m45_gpt55_medium:pi:medium",
+          "effort": "medium",
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 45.56466666666667,
+            "tokens_per_success": 17494.333333333332
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "The published analysis excludes Devin because its adapter and service were flaky; this study follows that exclusion.",
+            "Codex uses fresh-token accounting here, unlike the cache-inclusive M3.5 Codex data.",
+            "The four retained harnesses scored 1.0 in every cell, so only efficiency separates them."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m45_gpt55_medium:codex:medium",
+            "openbench_m45_gpt55_medium:cursor:medium",
+            "openbench_m45_gpt55_medium:opencode:medium",
+            "openbench_m45_gpt55_medium:pi:medium"
+          ],
+          "paretoFront": [
+            "openbench_m45_gpt55_medium:pi:medium"
+          ]
+        },
+        {
+          "id": "quality_tokens",
+          "status": "primary",
+          "xMetric": "tokens_per_success",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m45_gpt55_medium:codex:medium",
+            "openbench_m45_gpt55_medium:cursor:medium",
+            "openbench_m45_gpt55_medium:opencode:medium",
+            "openbench_m45_gpt55_medium:pi:medium"
+          ],
+          "paretoFront": [
+            "openbench_m45_gpt55_medium:pi:medium"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m4_glm52",
+      "title": "OpenBench M4: GLM-5.2",
+      "model": {
+        "id": "glm-5.2",
+        "label": "GLM-5.2"
+      },
+      "benchmark": "OpenBench M4 three-task partial-credit suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m4",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4-2026-07-03",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "openbench_m4_glm52:opencode:unknown",
+          "effort": null,
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 165.27366666666666
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "Each harness ran three tasks three times on one host with a 900-second timeout.",
+            "Both harnesses reached the correctness ceiling, so this comparison is about elapsed time."
+          ]
+        },
+        {
+          "id": "openbench_m4_glm52:pi:unknown",
+          "effort": null,
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 161.90877777777777
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "Each harness ran three tasks three times on one host with a 900-second timeout.",
+            "Both harnesses reached the correctness ceiling, so this comparison is about elapsed time."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m4_glm52:opencode:unknown",
+            "openbench_m4_glm52:pi:unknown"
+          ],
+          "paretoFront": [
+            "openbench_m4_glm52:pi:unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m4_deepseek_v4_flash",
+      "title": "OpenBench M4: DeepSeek V4 Flash",
+      "model": {
+        "id": "deepseek-v4-flash",
+        "label": "DeepSeek V4 Flash"
+      },
+      "benchmark": "OpenBench M4 three-task partial-credit suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m4",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4-2026-07-03",
+        "evidenceGrade": "A-"
+      },
+      "results": [
+        {
+          "id": "openbench_m4_deepseek_v4_flash:opencode:unknown",
+          "effort": null,
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 40.74933333333334
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "Each harness ran three tasks three times on one host with a 900-second timeout.",
+            "Both harnesses reached the correctness ceiling, so this comparison is about elapsed time."
+          ]
+        },
+        {
+          "id": "openbench_m4_deepseek_v4_flash:pi:unknown",
+          "effort": null,
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 27.934444444444445
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "Each harness ran three tasks three times on one host with a 900-second timeout.",
+            "Both harnesses reached the correctness ceiling, so this comparison is about elapsed time."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "primary",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m4_deepseek_v4_flash:opencode:unknown",
+            "openbench_m4_deepseek_v4_flash:pi:unknown"
+          ],
+          "paretoFront": [
+            "openbench_m4_deepseek_v4_flash:pi:unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m4_kimi_k27_code",
+      "title": "OpenBench M4: Kimi K2.7 Code",
+      "model": {
+        "id": "kimi-k2.7-code",
+        "label": "Kimi K2.7 Code"
+      },
+      "benchmark": "OpenBench M4 three-task partial-credit suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m4",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4-2026-07-03",
+        "evidenceGrade": "B+"
+      },
+      "results": [
+        {
+          "id": "openbench_m4_kimi_k27_code:opencode:unknown",
+          "effort": null,
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 0.6666666666666666,
+            "time_mean_s": 371.3763333333334
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 6
+          },
+          "caveats": [
+            "One OpenCode row is an adapter exception and two are clean timeouts; the published source warns against reading the resulting quality gap as model incapability.",
+            "Elapsed time includes the 900-second timeout cost."
+          ]
+        },
+        {
+          "id": "openbench_m4_kimi_k27_code:pi:unknown",
+          "effort": null,
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 1.0,
+            "time_mean_s": 68.53177777777779
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 9
+          },
+          "caveats": [
+            "One OpenCode row is an adapter exception and two are clean timeouts; the published source warns against reading the resulting quality gap as model incapability.",
+            "Elapsed time includes the 900-second timeout cost."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "sensitivity",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m4_kimi_k27_code:opencode:unknown",
+            "openbench_m4_kimi_k27_code:pi:unknown"
+          ],
+          "paretoFront": [
+            "openbench_m4_kimi_k27_code:pi:unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openbench_m4_glm47_flash",
+      "title": "OpenBench M4: GLM-4.7 Flash",
+      "model": {
+        "id": "glm-4.7-flash",
+        "label": "GLM-4.7 Flash"
+      },
+      "benchmark": "OpenBench M4 three-task partial-credit suite",
+      "qualityMetric": "quality",
+      "source": {
+        "id": "openbench-m4",
+        "url": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4-2026-07-03",
+        "evidenceGrade": "B"
+      },
+      "results": [
+        {
+          "id": "openbench_m4_glm47_flash:opencode:unknown",
+          "effort": null,
+          "harness": {
+            "id": "opencode",
+            "name": "OpenCode"
+          },
+          "metrics": {
+            "quality": 0.2222222222222222,
+            "time_mean_s": 789.4412222222222
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 2
+          },
+          "caveats": [
+            "Seven of nine OpenCode rows are adapter exceptions after 900-second timeouts, so the harness quality gap is confounded by infrastructure failure.",
+            "The Pi rows contain genuine partial-credit results and provide the cleaner model-capability estimate."
+          ]
+        },
+        {
+          "id": "openbench_m4_glm47_flash:pi:unknown",
+          "effort": null,
+          "harness": {
+            "id": "pi",
+            "name": "Pi"
+          },
+          "metrics": {
+            "quality": 0.47361111111111115,
+            "time_mean_s": 101.94011111111111
+          },
+          "sample": {
+            "tasks": 3,
+            "trialsPerTask": 3,
+            "evaluatedCells": 9,
+            "successfulAttempts": 2
+          },
+          "caveats": [
+            "Seven of nine OpenCode rows are adapter exceptions after 900-second timeouts, so the harness quality gap is confounded by infrastructure failure.",
+            "The Pi rows contain genuine partial-credit results and provide the cleaner model-capability estimate."
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "quality_time",
+          "status": "sensitivity",
+          "xMetric": "time_mean_s",
+          "yMetric": "quality",
+          "eligibleResults": [
+            "openbench_m4_glm47_flash:opencode:unknown",
+            "openbench_m4_glm47_flash:pi:unknown"
+          ],
+          "paretoFront": [
+            "openbench_m4_glm47_flash:pi:unknown"
+          ]
+        }
+      ]
+    }
+  ]
+}

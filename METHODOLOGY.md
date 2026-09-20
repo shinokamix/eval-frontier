@@ -13,7 +13,7 @@ Bradley-Terry estimation, family scores, global scores, and cross-study
 uncertainty are not implemented yet.
 
 Implementation details for the current pipeline are in
-[`data/README.md`](data/README.md).
+[`research/README.md`](research/README.md).
 
 ## Research goal
 
