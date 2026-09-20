@@ -1,32 +1,33 @@
 # Eval Frontier
 
-Eval Frontier compares coding-agent configurations across public benchmarks. A
-configuration is the combination of a model, harness, and effort setting.
+Eval Frontier compares coding-agent systems across public benchmarks. A system
+is the combination of a model, harness, and effort setting. This combination is
+the join key across studies. Exact run settings remain attached to each result
+for reproducibility.
 
-The project does not combine raw benchmark values from different studies.
-Instead, the planned analysis turns results into rankings within each study,
-connects overlapping studies within task families, and estimates relative scores
-for quality, cost, time, and token use. Pareto fronts then show the
-configurations that offer non-dominated quality and resource tradeoffs.
+The project does not combine raw benchmark values from different studies. The
+planned analysis creates pairwise outcomes and effect sizes inside each study.
+Compatibility reviews decide which studies can share a comparison network.
 
 ## Method
 
 ```text
-raw studies -> task families -> local rankings -> PL/BT -> family scores
-            -> weighted global scores -> Pareto fronts
+raw studies -> compatibility review -> local comparisons
+            -> weighted Bradley-Terry -> anchored family scores
+            -> decision profiles -> probabilistic Pareto views
 ```
 
 The method keeps metric definitions separate, reports missing data as missing,
-and preserves each observation's source and experimental settings. It also
-reports coverage and uncertainty so a result backed by one study does not look
-as reliable as one backed by several studies.
+and preserves each observation's source and run settings. Evidence grades
+control which analyses use a result. Bootstrap intervals and sensitivity checks
+show when sparse or fragile evidence changes a conclusion.
 
 This cross-study method is not fully implemented. The current pipeline captures
 source artifacts, extracts observations, harmonizes labels, aggregates results
 within a study, and calculates within-study Pareto fronts.
 
-Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method, its interpretation
-limits, and the remaining design decisions.
+Read [`METHODOLOGY.md`](docs/METHODOLOGY.md) for the reasoning behind the method.
+[`SCORING.md`](docs/SCORING.md) defines the calculation.
 
 ## Data
 
@@ -39,6 +40,8 @@ capture -> extract -> harmonize -> build
 It stores source snapshots with checksums and keeps provenance for extracted
 observations. See [`research/README.md`](research/README.md) for the pipeline and
 [`research/add-a-source.md`](research/add-a-source.md) for source intake.
+[`DATASETS.md`](docs/DATASETS.md) defines the data contract for observations, study
+results, and cross-study scores.
 
 The Python pipeline writes the published artifacts in `research/build/`.
 `research/build/research.json` is versioned so other researchers can download
