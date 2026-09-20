@@ -3,6 +3,9 @@ $schema: 'https://moonrepo.dev/schemas/project.json'
 language: typescript
 
 tasks:
+  install:
+    command: vp install
+
   sync-data:
     command: node scripts/sync-research.mjs
     deps:

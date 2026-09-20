@@ -48,10 +48,10 @@ files by hand.
 
 ## Development
 
-Install the web dependencies inside `apps/web` if needed:
+Install the web dependencies if needed:
 
 ```bash
-pnpm --dir apps/web install
+moon run web:install
 ```
 
 Moon owns project orchestration. Start the app with:
