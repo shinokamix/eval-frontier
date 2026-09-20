@@ -72,6 +72,7 @@ function extract(csv: string) {
 
     return {
       model: text(entry.model, 'model'),
+      effort: text(entry.reasoning_effort, 'reasoning effort'),
       harness: text(entry.agent_cli, 'harness'),
       benchmark: text(entry.benchmark_id, 'benchmark'),
       condition: text(entry.condition, 'condition'),

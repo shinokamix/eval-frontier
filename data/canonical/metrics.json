@@ -3,6 +3,8 @@
   "metrics": [
     { "id": "quality", "label": "Tasks solved" },
     { "id": "time_median_s", "label": "Median time" },
-    { "id": "cost_per_success_usd", "label": "Cost per successful attempt" }
+    { "id": "cost_per_success_usd", "label": "Cost per successful attempt" },
+    { "id": "time_mean_s", "label": "Mean time" },
+    { "id": "tokens_per_success", "label": "Tokens per successful attempt" }
   ]
 }

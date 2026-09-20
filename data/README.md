@@ -213,13 +213,14 @@ written as `0`.
 
 Extract does not compute Pareto fronts, evidence grades, or catalog ids.
 
-Each native row has `model`, `harness`, `benchmark`, `condition`, `trial`,
-`scoring`, and `metrics`. Native strings are the source's own labels for those
-fields.
+Each native row has `model`, `effort`, `harness`, `benchmark`, `condition`,
+`trial`, `scoring`, and `metrics`. `effort` is null when the source does not
+report or pin it. An adapter may split an effort suffix from a source model id,
+but it must not infer an unreported value.
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "sourceId": "kroda-coding-agent-baselines",
   "snapshotId": "72f5c501feb7da5054ceccea20376853c5a97809d42d613f348d0e8c76d247c4",
   "artifact": {
@@ -231,6 +232,7 @@ fields.
       "provenance": { "path": "artifacts/per_challenge_results.csv", "row": 2 },
       "native": {
         "model": "gpt-5",
+        "effort": "medium",
         "harness": "codex",
         "benchmark": "XBEN-001-24",
         "condition": "baseline",
@@ -303,7 +305,7 @@ attempts is not median time over successes. Fresh tokens are not runtime context
 tokens. Harmonize does not convert one scoring system into another. It does not
 translate units across studies.
 
-`canonical/studies.json` is `{ "schemaVersion": 1, "studies": [ ... ] }`. Each
+`canonical/studies.json` is `{ "schemaVersion": 2, "studies": [ ... ] }`. Each
 study has this shape. `select` keeps rows whose canonical model and native
 condition match. `model` equals `select.model`. Two publications are not one
 study.
@@ -316,7 +318,6 @@ study.
   "benchmark": "XBOW 104-task pentest benchmark",
   "sourceId": "kroda-coding-agent-baselines",
   "evidenceGrade": "A-",
-  "configurationId": "default",
   "select": { "model": "gpt-5", "native": { "condition": "baseline" } },
   "qualityMetric": "quality",
   "resultMetrics": [
@@ -346,6 +347,7 @@ study.
 
 - `rate` is the mean of `source` across rows. For `solved` as 0 or 1, that mean
   is tasks solved.
+- `mean` is the arithmetic mean of `source`.
 - `median` is the median of `source`.
 - `sum_per_success` is the sum of `source` divided by the number of rows with
   `solved === 1`. If there are no successes, that metric is omitted.
@@ -367,7 +369,7 @@ for that file.
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "studies": [
     {
       "id": "xbow_gpt5",
@@ -382,7 +384,8 @@ for that file.
       },
       "results": [
         {
-          "id": "xbow_gpt5:codex:default",
+          "id": "xbow_gpt5:codex:medium",
+          "effort": "medium",
           "harness": { "id": "codex", "name": "Codex" },
           "metrics": {
             "quality": 0.6730769230769231,
@@ -407,14 +410,14 @@ for that file.
           "xMetric": "time_median_s",
           "yMetric": "quality",
           "eligibleResults": [
-            "xbow_gpt5:codex:default",
-            "xbow_gpt5:opencode:default",
-            "xbow_gpt5:pi:default"
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium",
+            "xbow_gpt5:pi:medium"
           ],
           "paretoFront": [
-            "xbow_gpt5:codex:default",
-            "xbow_gpt5:opencode:default",
-            "xbow_gpt5:pi:default"
+            "xbow_gpt5:codex:medium",
+            "xbow_gpt5:opencode:medium",
+            "xbow_gpt5:pi:medium"
           ]
         }
       ]
@@ -423,8 +426,10 @@ for that file.
 }
 ```
 
-The `url` on `source` is `canonicalUrl` from `source.json`. Result ids are
-`<study-id>:<harness-id>:<configurationId>`.
+The `url` on `source` is `canonicalUrl` from `source.json`. Every extracted row
+and published result has an `effort` field. It is `null` when the source does
+not report or pin the effort. Result ids are `<study-id>:<harness-id>:<effort>`,
+using `unknown` for a null effort.
 
 ## Commands
 

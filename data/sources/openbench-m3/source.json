@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "openbench-m3",
+  "title": "OpenBench M3 matrix",
+  "canonicalUrl": "https://github.com/minghinmatthewlam/openbench/tree/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/data/m3-2026-07-02",
+  "license": "MIT",
+  "redistribution": "allowed",
+  "artifacts": [
+    {
+      "path": "LICENSE",
+      "role": "license",
+      "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/LICENSE"
+    },
+    {
+      "path": "results.jsonl",
+      "role": "results",
+      "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/data/m3-2026-07-02/results.jsonl"
+    },
+    {
+      "path": "README.md",
+      "role": "provenance",
+      "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/data/m3-2026-07-02/README.md"
+    },
+    {
+      "path": "RESULTS.md",
+      "role": "methodology",
+      "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/07a4aab43a614f56ba6374224e5b73ce6d2f9e0b/RESULTS.md"
+    }
+  ]
+}

@@ -24,7 +24,8 @@ function ExploreScatterPoint({
   dimmed,
   onActiveChange,
 }: ExploreScatterPointProps) {
-  const label = `${point.harness} × ${point.model}`;
+  const effort = point.effort ?? 'unknown effort';
+  const label = `${point.harness} × ${point.model} × ${effort}`;
 
   return (
     <Tooltip.Root

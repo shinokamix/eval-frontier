@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 2,
+  "sourceId": "openbench-m4.5",
+  "snapshotId": "007cba24348cc93450febe1135675bedae6071f727cc19d5fc71d61520757a79",
+  "artifact": {
+    "path": "artifacts/results.jsonl",
+    "sha256": "d070bcfebfdfb251fcdb402e6b7432d347549847c6dc010ec09fc3fb825a4e05"
+  },
+  "rows": [
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 2
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 102.921,
+          "tokens": 55634
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 3
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 127.244,
+          "tokens": 120314
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 4
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 95.857,
+          "tokens": 93976
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 5
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 202.672,
+          "tokens": 103030
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 6
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 147.211,
+          "tokens": 78611
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 7
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 153.099,
+          "tokens": 96202
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 8
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 52.532,
+          "tokens": 51430
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 9
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 46.356,
+          "tokens": 36053
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 10
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 47.83,
+          "tokens": 46756
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 11
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 34.787,
+          "tokens": 28183
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 12
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 36.32,
+          "tokens": 24385
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 13
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 42.752,
+          "tokens": 19032
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 14
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 83.032,
+          "tokens": 20978
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 15
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 88.546,
+          "tokens": 30702
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 16
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 67.845,
+          "tokens": 16359
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 17
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 23.334,
+          "tokens": 6806
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 18
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 14.369,
+          "tokens": 4082
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 19
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.097,
+          "tokens": 6922
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 20
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 122.471,
+          "tokens": 46503
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 21
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 208.332,
+          "tokens": 62884
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 22
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 195.464,
+          "tokens": 54105
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 23
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 356.963,
+          "tokens": 63745
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 24
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 303.781,
+          "tokens": 47157
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 25
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 214.798,
+          "tokens": 47682
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 26
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 62.221,
+          "tokens": 27734
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 27
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 65.802,
+          "tokens": 36183
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 28
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 47.288,
+          "tokens": 14257
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 29
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 47.518,
+          "tokens": 19715
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 30
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 70.927,
+          "tokens": 28167
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 31
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-ci-green",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 44.919,
+          "tokens": 47491
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 32
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 66.285,
+          "tokens": 18907
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 33
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 70.74,
+          "tokens": 18871
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 34
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "add-feature",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 66.915,
+          "tokens": 22563
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 35
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 20.264,
+          "tokens": 9708
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 36
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 28.954,
+          "tokens": 17442
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 37
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "misleading-error",
+        "condition": "m4.5",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 22.983,
+          "tokens": 9464
+        }
+      }
+    }
+  ]
+}

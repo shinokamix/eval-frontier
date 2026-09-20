@@ -3,6 +3,8 @@
   "harnesses": [
     { "id": "codex", "label": "Codex" },
     { "id": "opencode", "label": "OpenCode" },
-    { "id": "pi", "label": "Pi" }
+    { "id": "pi", "label": "Pi" },
+    { "id": "cursor", "label": "Cursor" },
+    { "id": "devin", "label": "Devin" }
   ]
 }

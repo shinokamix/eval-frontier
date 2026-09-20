@@ -72,7 +72,7 @@ async function extractSource(
   }
 
   const observations = observationsFileSchema.parse({
-    schemaVersion: 1,
+    schemaVersion: 2,
     sourceId: source.id,
     snapshotId,
     artifact: { path: artifactPath, sha256: captured.sha256 },

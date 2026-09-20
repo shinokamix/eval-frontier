@@ -1,0 +1,1526 @@
+{
+  "schemaVersion": 2,
+  "sourceId": "openbench-m3",
+  "snapshotId": "6caf0b0b077fc2a89049a5a6cce40a6f01a6c9ae3450a177e2feeabddb79159f",
+  "artifact": {
+    "path": "artifacts/results.jsonl",
+    "sha256": "66a450c52f59d0bf6b9d108f1f190fe80c3e3da7b165d450754cb8f962ab8802"
+  },
+  "rows": [
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 2
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.908,
+          "tokens": 40644
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 3
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 11.032
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 4
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 89.598
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 5
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 26.818
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 6
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 40.427
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 7
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 37.764,
+          "tokens": 42208
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 8
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.697,
+          "tokens": 22086
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 9
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.311,
+          "tokens": 59573
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 10
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.033,
+          "tokens": 41611
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 11
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 91.439,
+          "tokens": 36417
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 12
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 74.074,
+          "tokens": 56311
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 13
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 93.916,
+          "tokens": 82835
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 14
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 74.482,
+          "tokens": 71849
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 15
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 48.553,
+          "tokens": 64252
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 16
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 28.955,
+          "tokens": 36726
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 17
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 53.76,
+          "tokens": 16878
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 18
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 28.34,
+          "tokens": 27420
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 19
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 26.175,
+          "tokens": 26409
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 20
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "codex",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 40.781,
+          "tokens": 40815
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 21
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 14.814
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 22
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 16.327
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 23
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 11.218
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 24
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 13.498
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 25
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 20.369
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 26
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 24.991
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 27
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 14.83
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 28
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.645
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 29
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 25.087
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 30
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 13.434
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 31
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 18.966
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 32
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 13.631
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 33
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 16.397
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 34
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "pi",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 12.276
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 35
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 62.968
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 36
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 70.081
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 37
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 58.038
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 38
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 56.775
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 39
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 105.491
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 40
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 87.588
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 41
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 67.491
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 42
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 56.584
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 43
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 91.216
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 44
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 40.123
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 45
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 32.928
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 46
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 53.485
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 47
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 26.968
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 48
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "opencode",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 41.158
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 49
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 23.98
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 50
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 21.04
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 51
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 20.646
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 52
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 15.144
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 53
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.29
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 54
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.373
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 55
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 18.792
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 56
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 25.874
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 57
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 16.765
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 58
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 22.506
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 59
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 27.861
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 60
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 24.497
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 61
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.835
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 62
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": "medium",
+        "harness": "cursor",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 26.83
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 63
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 37.172
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 64
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 25.194
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 65
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 37.704
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 66
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "fix-failing-test",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 45.102
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 67
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 56.184
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 68
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 55.508
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 69
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 73.098
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 70
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 44.37
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 71
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "build-a-cli",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 45.73
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 72
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "1",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 39.521
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 73
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "2",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 36.372
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 74
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "3",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.394
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 75
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "4",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 37.476
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 76
+      },
+      "native": {
+        "model": "gpt-5.5",
+        "effort": null,
+        "harness": "devin",
+        "benchmark": "make-it-run",
+        "condition": "m3",
+        "trial": "5",
+        "scoring": "success",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 40.185
+        }
+      }
+    }
+  ]
+}

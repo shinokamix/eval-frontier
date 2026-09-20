@@ -96,7 +96,7 @@ async function publishResearch(directory: string) {
     );
   }
 
-  const research = researchDataSchema.parse({ schemaVersion: 1, studies });
+  const research = researchDataSchema.parse({ schemaVersion: 2, studies });
 
   const output = join(directory, '..', 'public', 'data', 'research.json');
 

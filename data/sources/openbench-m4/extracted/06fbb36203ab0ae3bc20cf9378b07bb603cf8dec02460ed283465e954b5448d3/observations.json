@@ -1,0 +1,1513 @@
+{
+  "schemaVersion": 2,
+  "sourceId": "openbench-m4",
+  "snapshotId": "06fbb36203ab0ae3bc20cf9378b07bb603cf8dec02460ed283465e954b5448d3",
+  "artifact": {
+    "path": "artifacts/results.jsonl",
+    "sha256": "0306045910ed975acef7037edcc636fc66d944bbe8e7ea0e305da7a895a115b7"
+  },
+  "rows": [
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 2
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 19.019,
+          "tokens": 3988
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 3
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 35.256,
+          "tokens": 13624
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 4
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 258.911,
+          "tokens": 531
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 5
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 261.366,
+          "tokens": 13079
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 6
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 14.629,
+          "tokens": 3806
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 7
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 15.844,
+          "tokens": 13377
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 8
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 10.404,
+          "tokens": 2311
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 9
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 24.061,
+          "tokens": 13566
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 10
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 59.795,
+          "tokens": 10484
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 11
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 41.015,
+          "tokens": 7262
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 12
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 46.87,
+          "tokens": 11975
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 13
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 227.075,
+          "tokens": 33236
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 14
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 443.616,
+          "tokens": 38662
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 15
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 569.646,
+          "tokens": 41869
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 16
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 22.156,
+          "tokens": 4481
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 17
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 27.987,
+          "tokens": 2612
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 18
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 81.907,
+          "tokens": 22910
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 19
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 104.171,
+          "tokens": 16207
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 20
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 78.486,
+          "tokens": 15464
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 21
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 283.783,
+          "tokens": 24702
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 22
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 305.298,
+          "tokens": 27801
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 23
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 531.72,
+          "tokens": 51669
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 24
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 34.047,
+          "tokens": 6504
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 25
+      },
+      "native": {
+        "model": "glm-5.2",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 32.795,
+          "tokens": 6470
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 26
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 20.362,
+          "tokens": 8425
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 27
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 31.071,
+          "tokens": 10489
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 28
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 21.301,
+          "tokens": 8534
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 29
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 47.759,
+          "tokens": 12447
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 30
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 47.884,
+          "tokens": 11395
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 31
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 43.588,
+          "tokens": 11953
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 32
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 13.224,
+          "tokens": 2953
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 33
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 11.592,
+          "tokens": 2558
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 34
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 34.542,
+          "tokens": 21944
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 35
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 33.276,
+          "tokens": 18827
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 36
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 33.748,
+          "tokens": 19242
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 37
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 67.557,
+          "tokens": 22925
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 38
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 44.539,
+          "tokens": 18822
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 39
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 105.15,
+          "tokens": 22803
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 40
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 16.385,
+          "tokens": 11813
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 41
+      },
+      "native": {
+        "model": "deepseek-v4-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 15.703,
+          "tokens": 11366
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 42
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 26.536,
+          "tokens": 7545
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 43
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 36.88,
+          "tokens": 7558
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 44
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 39.588,
+          "tokens": 7866
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 45
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 182.853,
+          "tokens": 20493
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 46
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 148.592,
+          "tokens": 15198
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 47
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 133.682,
+          "tokens": 12547
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 48
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 21.596,
+          "tokens": 2791
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 49
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 16.655,
+          "tokens": 1791
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 50
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 68.907,
+          "tokens": 19509
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 51
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 71.643,
+          "tokens": 21034
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 52
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 60.369,
+          "tokens": 13888
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 53
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 188.335,
+          "tokens": 21210
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 54
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 228.954,
+          "tokens": 24580
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 55
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.042
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 56
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.042
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 57
+      },
+      "native": {
+        "model": "kimi-k2.7-code",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.034
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 58
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0.3125,
+          "wall_time_s": 112.521,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 59
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0.75,
+          "wall_time_s": 224.544,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 60
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 95.913,
+          "tokens": 768
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 61
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0.4,
+          "wall_time_s": 159.566,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 62
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0.4,
+          "wall_time_s": 16.416,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 63
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0.4,
+          "wall_time_s": 16.503,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 64
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 16.589,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 65
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "pi",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 16.498,
+          "tokens": 0
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 66
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.029
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 67
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 1,
+          "score": 1,
+          "wall_time_s": 543.367,
+          "tokens": 62648
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 68
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "make-ci-green",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.031
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 69
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "1",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.035
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 70
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.033
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 71
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "add-feature",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.035
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 72
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "2",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.038
+        }
+      }
+    },
+    {
+      "provenance": {
+        "path": "artifacts/results.jsonl",
+        "row": 73
+      },
+      "native": {
+        "model": "glm-4.7-flash",
+        "effort": null,
+        "harness": "opencode",
+        "benchmark": "misleading-error",
+        "condition": "m4",
+        "trial": "3",
+        "scoring": "partial_score",
+        "metrics": {
+          "solved": 0,
+          "score": 0,
+          "wall_time_s": 900.037
+        }
+      }
+    }
+  ]
+}

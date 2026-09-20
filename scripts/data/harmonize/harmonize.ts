@@ -11,6 +11,7 @@ import {
 
 interface MappedRow {
   readonly model: string;
+  readonly effort: string | null;
   readonly harness: string;
   readonly condition: string;
   readonly trial: string;
@@ -65,6 +66,7 @@ function mapRows(
 ): MappedRow[] {
   return observations.rows.map((row: ObservationRow) => ({
     model: mappedId(crosswalk.models, row.native.model, 'model'),
+    effort: row.native.effort,
     harness: mappedId(crosswalk.harnesses, row.native.harness, 'harness'),
     condition: row.native.condition,
     trial: row.native.trial,
@@ -112,11 +114,11 @@ function successes(rows: readonly MappedRow[]): number {
 }
 
 function aggregateMetric(
-  kind: 'rate' | 'median' | 'sum_per_success',
+  kind: 'rate' | 'mean' | 'median' | 'sum_per_success',
   source: string,
   rows: readonly MappedRow[],
 ): number | undefined {
-  if (kind === 'rate') {
+  if (kind === 'rate' || kind === 'mean') {
     const values = metricValues(rows, source);
 
     return values.reduce((sum, value) => sum + value, 0) / values.length;
@@ -136,14 +138,17 @@ function aggregateMetric(
   );
 }
 
-function groupByHarness(rows: readonly MappedRow[]): Map<string, MappedRow[]> {
+function groupByConfiguration(
+  rows: readonly MappedRow[],
+): Map<string, MappedRow[]> {
   const groups = new Map<string, MappedRow[]>();
 
   for (const row of rows) {
-    const group = groups.get(row.harness) ?? [];
+    const key = JSON.stringify([row.harness, row.effort]);
+    const group = groups.get(key) ?? [];
 
     group.push(row);
-    if (!groups.has(row.harness)) groups.set(row.harness, group);
+    if (!groups.has(key)) groups.set(key, group);
   }
 
   return groups;
@@ -237,9 +242,22 @@ function harmonizeStudy(
     throw new Error(`Study ${definition.id} selected no rows`);
   }
 
-  const results = [...groupByHarness(selected).entries()]
-    .toSorted(([left], [right]) => left.localeCompare(right))
-    .map(([harnessId, rows]) => {
+  const results = [...groupByConfiguration(selected).values()]
+    .toSorted((left, right) => {
+      const harnessOrder = (left[0]?.harness ?? '').localeCompare(
+        right[0]?.harness ?? '',
+      );
+
+      if (harnessOrder !== 0) return harnessOrder;
+
+      return (left[0]?.effort ?? '').localeCompare(right[0]?.effort ?? '');
+    })
+    .map((rows) => {
+      const harnessId = rows[0]?.harness;
+      const effort = rows[0]?.effort ?? null;
+
+      if (!harnessId) throw new Error('Cannot harmonize an empty group');
+
       const metrics: Record<string, number> = {};
 
       for (const metric of definition.resultMetrics) {
@@ -249,7 +267,8 @@ function harmonizeStudy(
       }
 
       return {
-        id: `${definition.id}:${harnessId}:${definition.configurationId}`,
+        id: `${definition.id}:${harnessId}:${effort ?? 'unknown'}`,
+        effort,
         harness: {
           id: harnessId,
           name: catalogLabel(harnesses.harnesses, harnessId, 'harness'),

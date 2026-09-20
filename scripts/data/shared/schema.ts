@@ -4,6 +4,7 @@ const finiteNumber = z.number().finite();
 
 const observationsNativeSchema = z.object({
   model: z.string().min(1),
+  effort: z.string().min(1).nullable(),
   harness: z.string().min(1),
   benchmark: z.string().min(1),
   condition: z.string().min(1),
@@ -21,7 +22,7 @@ const observationRowSchema = z.object({
 });
 
 const observationsFileSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   sourceId: z.string().min(1),
   snapshotId: z.string().regex(/^[a-f0-9]{64}$/),
   artifact: z.object({
@@ -65,7 +66,7 @@ const pinsFileSchema = z.object({
 
 const resultMetricSchema = z.object({
   id: z.string().min(1),
-  kind: z.enum(['rate', 'median', 'sum_per_success']),
+  kind: z.enum(['rate', 'mean', 'median', 'sum_per_success']),
   source: z.string().min(1),
 });
 
@@ -83,7 +84,6 @@ const studyDefinitionSchema = z.object({
   benchmark: z.string().min(1),
   sourceId: z.string().min(1),
   evidenceGrade: z.string().min(1),
-  configurationId: z.string().min(1),
   select: z.object({
     model: z.string().min(1),
     native: z.object({ condition: z.string().min(1) }),
@@ -95,7 +95,7 @@ const studyDefinitionSchema = z.object({
 });
 
 const studiesFileSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   studies: z.array(studyDefinitionSchema).min(1),
 });
 
@@ -106,6 +106,7 @@ const researchHarnessSchema = z.object({
 
 const researchResultSchema = z.object({
   id: z.string().min(1),
+  effort: z.string().min(1).nullable(),
   harness: researchHarnessSchema,
   metrics: z.record(z.string(), finiteNumber),
   sample: z.object({
@@ -142,7 +143,7 @@ const researchStudySchema = z.object({
 });
 
 const researchDataSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   studies: z.array(researchStudySchema),
 });
 

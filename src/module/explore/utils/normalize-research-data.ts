@@ -12,6 +12,7 @@ interface Observation {
 
 interface PairObservations {
   readonly model: string;
+  readonly effort: string | null;
   readonly harness: string;
   readonly observations: Observation[];
 }
@@ -117,13 +118,14 @@ function normalizeResearchData(data: ResearchData): ScatterPoint[] {
         const resource = result.metrics?.[comparison.xMetric];
         if (!isFinitePositive(quality) || !isFinitePositive(resource)) continue;
 
-        const configurationId = result.id.split(':').at(-1) ?? 'default';
-        const pairId = `${study.model.id}:${result.harness.id}:${configurationId}`;
+        const effort = result.effort ?? 'unknown';
+        const pairId = `${study.model.id}:${result.harness.id}:${effort}`;
         let pair = pairs.get(pairId);
 
         if (!pair) {
           pair = {
             model: study.model.label ?? study.model.id,
+            effort: result.effort,
             harness: result.harness.name ?? result.harness.id,
             observations: [],
           };
@@ -147,6 +149,7 @@ function normalizeResearchData(data: ResearchData): ScatterPoint[] {
     return {
       id,
       model: pair.model,
+      effort: pair.effort,
       harness: pair.harness,
       efficiency: geometricMean(
         positions.map((position) => position.efficiency),

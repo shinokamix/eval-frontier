@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 const researchResultSchema = z.object({
   id: z.string(),
+  effort: z.string().nullable(),
   harness: z.object({ id: z.string(), name: z.string().optional() }),
   metrics: z.record(z.string(), z.number().finite()).optional(),
 });

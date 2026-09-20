@@ -20,5 +20,6 @@ await test('extract writes kroda observations from the pinned snapshot', async (
   assert.equal(observations.snapshotId, krodaSnapshot);
   assert.equal(observations.rows.length, 1456);
   assert.equal(observations.rows[0]?.native.harness, 'codex');
+  assert.equal(observations.rows[0]?.native.effort, 'medium');
   assert.equal(observations.rows[0]?.native.metrics.solved, 1);
 });

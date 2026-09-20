@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "007cba24348cc93450febe1135675bedae6071f727cc19d5fc71d61520757a79",
+  "sourceId": "openbench-m4.5",
+  "title": "OpenBench M4.5 harder-task matrix",
+  "canonicalUrl": "https://github.com/minghinmatthewlam/openbench/tree/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03",
+  "capturedAt": "2026-09-19T23:52:06.797Z",
+  "license": "MIT",
+  "redistribution": "allowed",
+  "artifacts": [
+    {
+      "path": "artifacts/LICENSE",
+      "role": "license",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "887989ae1d3323becad917f0cdc9ca67f6c185416304b65f85c471fdbfbf798c",
+      "acquisition": {
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/LICENSE",
+        "finalUrl": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/LICENSE",
+        "method": "GET",
+        "status": 200
+      }
+    },
+    {
+      "path": "artifacts/results.jsonl",
+      "role": "results",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "d070bcfebfdfb251fcdb402e6b7432d347549847c6dc010ec09fc3fb825a4e05",
+      "acquisition": {
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03/results.jsonl",
+        "finalUrl": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03/results.jsonl",
+        "method": "GET",
+        "status": 200
+      }
+    },
+    {
+      "path": "artifacts/README.md",
+      "role": "provenance",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "65285458ac2e8589df8abeee05e79a5dd332bc396a8a414d83138de624b61e7b",
+      "acquisition": {
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03/README.md",
+        "finalUrl": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/data/m4.5-2026-07-03/README.md",
+        "method": "GET",
+        "status": 200
+      }
+    },
+    {
+      "path": "artifacts/RESULTS.md",
+      "role": "methodology",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "997c45cd95be23ccbbac6d6a468aa3e50c59d16911e56883f174fc663413e311",
+      "acquisition": {
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/RESULTS.md",
+        "finalUrl": "https://raw.githubusercontent.com/minghinmatthewlam/openbench/8215e65a2c45ca6d3bdc88eb1ee086767c66ad5e/RESULTS.md",
+        "method": "GET",
+        "status": 200
+      }
+    }
+  ]
+}
