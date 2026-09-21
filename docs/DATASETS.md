@@ -19,10 +19,11 @@ source artifacts
 
 ## Contract conventions
 
-Machine-readable JSON Schema, Pydantic, and Arrow schemas must encode the same
-contract. Generated Parquet files use Arrow types. JSON uses `null` for a
-missing optional value and never uses `NaN`, infinity, zero, or an empty string
-as a missing-value substitute.
+Pydantic models are the source of truth for the machine-readable contract. The
+build generates JSON Schema, Arrow schema metadata, TypeScript types, and the
+web validator from those models. Generated Parquet files use Arrow types. JSON
+uses `null` for a missing optional value and never uses `NaN`, infinity, zero,
+or an empty string as a missing-value substitute.
 
 The tables below use these logical types:
 
@@ -45,6 +46,10 @@ IDs are stable strings generated from canonical natural keys or declared in a
 reviewed catalog. An ID cannot depend on input row order, posterior values, or
 wall-clock build time.
 
+Published metric, estimator, and profile definitions are immutable. A semantic
+change creates a new ID. Display labels and other non-semantic metadata may be
+corrected without changing the ID.
+
 ## Contract rules
 
 - Source snapshots are immutable.
@@ -60,6 +65,11 @@ wall-clock build time.
 - Reviews and policies have versions and reviewer records.
 - Schema, dataset, method, and policy versions change independently.
 - Posterior summaries always identify the model run that produced them.
+
+`method_version` identifies one coherent method release. Quality and resource
+do not have separate method-version fields. An axis evolves through a new
+immutable analysis metric, estimator, or decision profile ID. A change to the
+shared interpretation or joint calculation creates a new method release.
 
 ## Storage formats
 
@@ -713,7 +723,7 @@ missing_anchor_policy
 policy_version
 ```
 
-A decision profile and its cells contain:
+A decision profile contains exactly one quality axis and one resource axis:
 
 ```text
 decision_profile_id
@@ -724,22 +734,35 @@ decision_threshold
 candidate_policy_id
 correlation_policy_id
 cross_family_draw_policy_id
+quality_axis
+resource_axis
 policy_version
-
-decision_profile_id
-analysis_metric_id
-axis_role
-weight
-value_function_id
-required
 ```
 
-`axis_role` is `quality`, `resource`, or `utility`. Method version `2.0`
-uses `equal_task_family` as its family weighting policy. Each required family
-has raw weight `1` and normalized weight `1 / F`, where `F` is the number of
-required families. Cell weights sum to `1` within each family and configured
-aggregation. Every profile that emits joint output names one joint model run
-per required family and a cross-family draw policy.
+Both axes use the same typed structure:
+
+```text
+role
+decision_weight
+dominance_threshold
+cells
+
+cells[].analysis_metric_id
+cells[].weight
+cells[].value_function_id
+cells[].required
+```
+
+The quality axis has `role = quality`; the resource axis has
+`role = resource`. Cell weights sum to `1` within each axis and task family.
+The two `decision_weight` values sum to `1` when the profile emits total
+utility. A profile used only for a Pareto view may leave both decision weights
+null. `dominance_threshold` uses the axis utility scale.
+
+Method version `2.0` uses `equal_task_family` as its family weighting policy.
+Each required family has raw weight `1` and normalized weight `1 / F`, where
+`F` is the number of required families. Every profile that emits joint output
+names one joint model run per required family and a cross-family draw policy.
 
 A sensitivity profile contains:
 
@@ -1091,18 +1114,16 @@ Primary key: `pareto_analysis_id`.
 ```text
 pareto_analysis_id               string
 decision_run_id                  string
-analysis_profile_id              string
 decision_profile_id              string
-anchor_profile_id                string
-quality_axis_definition          json
-resource_axis_definition         json
-quality_threshold                float64
-resource_threshold               float64
 candidate_policy_id              string
-correlation_policy_id            string
 usable_posterior_draws           int64
 publication_status               string
 ```
+
+The decision profile is the only definition of the two axes and their
+thresholds. A Pareto analysis does not copy those definitions into its output.
+The decision run identifies the model runs, anchors, coverage, and correlation
+policy used to produce the coordinates.
 
 ### Pareto candidate table
 

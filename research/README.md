@@ -115,7 +115,9 @@ Method version `2.0` has three implementation stages.
 1. Normalize task-level inputs, review metric and configuration mappings, and
    calculate paired local contrasts and sampling covariance. Publish only
    within-study quality and resource charts. Use synthetic fixtures for the
-   aggregate and published-contrast schemas.
+   aggregate and published-contrast schemas. Define the target tables as
+   Pydantic models and generate JSON Schema, Arrow schema metadata, TypeScript
+   types, and the web validator from them.
 2. Add univariate random-effects networks for binary quality, bounded scores,
    and per-attempt resources. Publish pairwise and anchor-relative effects only
    for connected components that pass the publication gates. Do not publish a

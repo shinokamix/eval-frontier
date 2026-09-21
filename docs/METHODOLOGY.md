@@ -208,7 +208,9 @@ publish a probability of non-domination.
 
 Evidence synthesis and decision analysis are separate steps. The evidence
 model produces posterior effects within each task family. A versioned decision
-profile maps those effects to utility for one declared use case.
+profile maps those effects to utility for one declared use case. It contains
+exactly two typed axes: quality and resource. Each axis names its analysis
+metrics, value functions, weights, and practical dominance threshold.
 
 No decision profile is a universal ranking.
 
@@ -261,10 +263,10 @@ shared price snapshot and accounting basis.
 Every joint posterior draw produces one quality and resource coordinate for
 each eligible decision system. A coordinate is a draw-level effect, ratio, or
 declared value-function result. `PreferenceScore` is a posterior summary and
-cannot be used as a draw-level coordinate. Practical dominance uses the
-configured thresholds. A
-system dominates another when it is no worse than the threshold on both axes
-and better than the threshold on at least one axis.
+cannot be used as a draw-level coordinate. Practical dominance uses the two
+thresholds stored in the decision profile. A system dominates another when it
+is no worse than the threshold on both axes and better than the threshold on at
+least one axis.
 
 The method calls this a practical epsilon-frontier. It is a decision rule, not
 the classical Pareto partial order, and nonzero thresholds can make pairwise

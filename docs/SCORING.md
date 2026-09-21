@@ -493,9 +493,10 @@ Local-component scores are not used in global decision or Pareto views.
 
 ## Decision profiles
 
-A decision profile declares its required task families, metric cells, value
-functions, anchors, and coverage rules. Cell weights within each task family
-sum to `1` for each aggregation step.
+A decision profile declares its required task families, coverage rules, and
+exactly two typed axes: quality and resource. Each axis contains its metric
+cells, value functions, cell weights, and practical dominance threshold. Cell
+weights within each axis and task family sum to `1`.
 
 Every required task family has raw weight `1`. For the set `F` of required task
 families:
@@ -516,12 +517,32 @@ that same decision identity. Ambiguous or missing mappings produce
 For system `i`, family `f`, cell `k`, and posterior draw `q`:
 
 ```text
+family_quality_utility[i,f,q] =
+    sum_k quality_cell_weight[f,k]
+        * quality_value_function[f,k](effect[i,f,k,q])
+
+family_resource_utility[i,f,q] =
+    sum_k resource_cell_weight[f,k]
+        * resource_value_function[f,k](effect[i,f,k,q])
+
 family_utility[i,f,q] =
-    sum_k cell_weight[f,k] * value_function[f,k](effect[i,f,k,q])
+    quality_decision_weight * family_quality_utility[i,f,q]
+    + resource_decision_weight * family_resource_utility[i,f,q]
+
+global_quality_utility[i,q] =
+    sum_f family_weight[f] * family_quality_utility[i,f,q]
+
+global_resource_utility[i,q] =
+    sum_f family_weight[f] * family_resource_utility[i,f,q]
 
 global_utility[i,q] =
-    sum_f family_weight[f] * family_utility[i,f,q]
+    quality_decision_weight * global_quality_utility[i,q]
+    + resource_decision_weight * global_resource_utility[i,q]
 ```
+
+The two decision weights sum to `1` when the profile emits total utility. A
+Pareto-only profile can omit them and emit the two axis utilities without a
+total utility.
 
 Within a task family, posterior draws across cells must come from one
 multivariate fit and preserve modeled correlations. A versioned
@@ -571,9 +592,9 @@ calculation always receives `resource_efficiency`.
 
 ## Probabilistic Pareto views
 
-A Pareto analysis selects one quality utility and one resource utility, both
-oriented so higher is better. Each coordinate is a draw-level effect, resource
-ratio, or declared value-function output. The anchor-relative
+A Pareto analysis uses the quality and resource axes from its decision profile.
+Both are oriented so higher is better. Each coordinate is a draw-level effect,
+resource ratio, or declared value-function output. The anchor-relative
 `PreferenceScore` is a posterior summary and cannot be used as a coordinate.
 For draw `q`, system X practically dominates Y when:
 
@@ -720,7 +741,9 @@ threshold for `probability_non_dominated`. It changes a decision conclusion
 when the preferred system changes or pairwise utility preference crosses the
 profile's decision threshold.
 
-Every threshold is stored in the decision or method configuration.
+Every decision and dominance threshold is stored in the immutable decision
+profile. Metric-level practical-equivalence thresholds remain in the analysis
+metric definition.
 
 ## Method configuration
 

@@ -259,13 +259,20 @@ The pipeline cannot silently omit a failed or expensive sensitivity fit.
 
 Decision-layer tests verify:
 
+- every decision profile contains exactly one quality axis and one resource
+  axis;
 - profile weights sum to `1` at each aggregation step;
+- cell weights sum to `1` within each axis and task family;
+- the two decision weights sum to `1` when total utility is emitted;
+- a Pareto-only profile can omit decision weights but cannot emit total utility;
 - every required task family has raw weight `1` and normalized weight `1 / F`;
 - study, task, and run counts do not change task-family weights;
 - required missing cells produce `insufficient_coverage`;
 - a missing required task family produces `insufficient_coverage`;
 - weights are not silently renormalized;
 - each global draw equals the weighted sum of its stored family contributions;
+- every stored axis utility equals the weighted sum of the profile cells for
+  that axis;
 - every global posterior run records its cross-family draw policy;
 - value functions are monotone in the declared direction;
 - anchor systems have preference score `50` within tolerance;
@@ -276,9 +283,11 @@ Decision-layer tests verify:
 - dominated systems are absent from the point frontier;
 - every resource Pareto coordinate equals `1 / resource_ratio` within
   tolerance, so a larger coordinate always means lower resource use;
+- a Pareto analysis resolves both axis definitions and thresholds from its
+  immutable decision profile and does not carry a second copy;
 - posterior non-domination probabilities use only draws with complete axes;
 - all systems in one Pareto view share the declared coverage and correlation
-  policy.
+  policy;
 - the Pareto candidate artifact includes every considered system and a reason
   for each exclusion;
 - `PreferenceScore` never appears as a posterior-draw coordinate;
@@ -307,6 +316,8 @@ draw order is not a publication requirement.
 
 Before publication:
 
+- JSON Schema, Arrow schema metadata, TypeScript types, and the web validator
+  are generated from the pinned Pydantic schema version;
 - every Parquet file validates against its Arrow schema;
 - `method_config.json` validates against its JSON Schema;
 - `research.json` validates against its JSON Schema and the web Zod schema;
