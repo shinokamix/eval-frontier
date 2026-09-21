@@ -7,7 +7,7 @@ import json
 import shutil
 import tempfile
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -45,8 +45,7 @@ def snapshot_id(artifacts: list[dict[str, Any]]) -> str:
         )
 
     identity = sorted(
-        ({"path": artifact["path"], "sha256": artifact["sha256"]}
-         for artifact in artifacts),
+        ({"path": artifact["path"], "sha256": artifact["sha256"]} for artifact in artifacts),
         key=lambda item: collation(item["path"]),
     )
     return sha256(json.dumps(identity, separators=(",", ":")).encode())
@@ -71,9 +70,7 @@ def capture(data_dir: Path, source_id: str) -> str:
     captured: list[dict[str, Any]] = []
     payloads: list[tuple[dict[str, Any], bytes]] = []
     for artifact in definition["artifacts"]:
-        request = urllib.request.Request(
-            artifact["url"], headers={"User-Agent": "eval-frontier"}
-        )
+        request = urllib.request.Request(artifact["url"], headers={"User-Agent": "eval-frontier"})
         with urllib.request.urlopen(request) as response:
             body = response.read()
             final_url = response.geturl()
@@ -100,9 +97,7 @@ def capture(data_dir: Path, source_id: str) -> str:
     destination = data_dir / "sources" / source_id / "raw" / snap
     if not destination.exists():
         destination.parent.mkdir(parents=True, exist_ok=True)
-        temporary = Path(
-            tempfile.mkdtemp(prefix=".capture-", dir=str(destination.parent))
-        )
+        temporary = Path(tempfile.mkdtemp(prefix=".capture-", dir=str(destination.parent)))
         try:
             (temporary / "artifacts").mkdir()
             for artifact, body in payloads:
@@ -115,9 +110,7 @@ def capture(data_dir: Path, source_id: str) -> str:
                     "sourceId": source_id,
                     "title": definition["title"],
                     "canonicalUrl": definition["canonicalUrl"],
-                    "capturedAt": datetime.now(timezone.utc)
-                    .isoformat()
-                    .replace("+00:00", "Z"),
+                    "capturedAt": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
                     "license": definition["license"],
                     "redistribution": definition["redistribution"],
                     "artifacts": captured,

@@ -37,9 +37,7 @@ def harmonize(
             {
                 **native,
                 "model": mapped(crosswalk["models"], native["model"], "model"),
-                "harness": mapped(
-                    crosswalk["harnesses"], native["harness"], "harness"
-                ),
+                "harness": mapped(crosswalk["harnesses"], native["harness"], "harness"),
                 "metrics": {
                     mapped(crosswalk["metrics"], key, "metric"): value
                     for key, value in native["metrics"].items()
@@ -67,9 +65,7 @@ def harmonize(
         values: dict[str, float] = {}
         for spec in definition["resultMetrics"]:
             vals = [
-                row["metrics"][spec["source"]]
-                for row in group
-                if spec["source"] in row["metrics"]
+                row["metrics"][spec["source"]] for row in group if spec["source"] in row["metrics"]
             ]
             if len(vals) != len(group):
                 raise ValueError(f"Missing metric {spec['source']}")
@@ -78,9 +74,7 @@ def harmonize(
             elif spec["kind"] == "median":
                 value = median(vals)
             else:
-                successes = sum(
-                    1 for row in group if row["metrics"].get("solved") == 1
-                )
+                successes = sum(1 for row in group if row["metrics"].get("solved") == 1)
                 if successes == 0:
                     continue
                 value = sum(vals) / successes
@@ -96,18 +90,14 @@ def harmonize(
                     "trialsPerTask": len({row["trial"] for row in group}),
                     "evaluatedCells": len(group),
                     "successfulAttempts": sum(
-                        1
-                        for row in group
-                        if row["metrics"].get("solved") == 1
+                        1 for row in group if row["metrics"].get("solved") == 1
                     ),
                 },
                 "caveats": definition["caveats"],
             }
         )
 
-    def dominates(
-        a: dict[str, Any], b: dict[str, Any], x: str, y: str
-    ) -> bool:
+    def dominates(a: dict[str, Any], b: dict[str, Any], x: str, y: str) -> bool:
         ax, ay = a["metrics"].get(x), a["metrics"].get(y)
         bx, by = b["metrics"].get(x), b["metrics"].get(y)
         return (
@@ -146,11 +136,7 @@ def harmonize(
         comparisons.append(
             {
                 "id": comparison["id"],
-                "status": (
-                    comparison["status"]
-                    if len(eligible) >= 2
-                    else "insufficient_data"
-                ),
+                "status": (comparison["status"] if len(eligible) >= 2 else "insufficient_data"),
                 "xMetric": comparison["xMetric"],
                 "yMetric": comparison["yMetric"],
                 "eligibleResults": eligible,

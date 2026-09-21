@@ -8,6 +8,56 @@ version = "0.1.0"
 description = "Research package for evaluation frontier analysis"
 requires-python = ">=3.11"
 
+[dependency-groups]
+dev = [
+    "basedpyright>=1.31.0",
+    "deptry>=0.23.0",
+    "ruff>=0.12.0",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["data"]
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+    "RUF",
+    "A",
+    "C4",
+    "DTZ",
+    "FA",
+    "ISC",
+    "PIE",
+    "PERF",
+    "RET",
+    "RSE",
+]
+ignore = [
+    "COM812",
+    "ISC001",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "double"
+indent-style = "space"
+
+[tool.basedpyright]
+include = ["src"]
+typeCheckingMode = "standard"
+
+[tool.deptry]
+extend_exclude = ["data"]
+
 [project.scripts]
 eval-frontier = "eval_frontier.cli:main"
 

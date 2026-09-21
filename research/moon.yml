@@ -10,3 +10,11 @@ tasks:
       - 'build/manifest.json'
   check:
     command: 'uv run python -m compileall -q src'
+  lint:
+    command: 'uv run ruff check .'
+  format:
+    command: 'uv run ruff format --check .'
+  types:
+    command: 'uv run basedpyright'
+  deps:
+    command: 'uv run deptry .'

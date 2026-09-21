@@ -46,18 +46,14 @@ def openbench_extract(
             raise ValueError("Invalid wall time")
         model_raw = text(item.get("model"), "model")
         match = re.match(r"^(.*)-(low|medium|high|xhigh)$", model_raw)
-        model, effort = (
-            (match.group(1), match.group(2)) if match else (model_raw, None)
-        )
+        model, effort = (match.group(1), match.group(2)) if match else (model_raw, None)
         metrics: dict[str, float] = {
             "solved": int(item["success"]),
             "score": score,
             "wall_time_s": wall,
         }
         if item.get("tokens") is not None:
-            if not isinstance(item["tokens"], (int, float)) or isinstance(
-                item["tokens"], bool
-            ):
+            if not isinstance(item["tokens"], (int, float)) or isinstance(item["tokens"], bool):
                 raise ValueError("Invalid tokens")
             metrics["tokens"] = item["tokens"]
         rows.append(
@@ -118,14 +114,10 @@ def csv_extract(content: str) -> list[dict[str, Any]]:
 
 
 EXTRACTORS = {
-    "openbench-m3": lambda content: openbench_extract(
-        content, "m3", no_effort={"devin"}
-    ),
+    "openbench-m3": lambda content: openbench_extract(content, "m3", no_effort={"devin"}),
     "openbench-m3.5": lambda content: openbench_extract(content, "m3.5"),
     "openbench-m4": lambda content: openbench_extract(content, "m4"),
-    "openbench-m4.5": lambda content: openbench_extract(
-        content, "m4.5", excluded={"devin"}
-    ),
+    "openbench-m4.5": lambda content: openbench_extract(content, "m4.5", excluded={"devin"}),
     "kroda-coding-agent-baselines": csv_extract,
 }
 
@@ -142,9 +134,9 @@ def extract(data_dir: Path, source_id: str, snap: str | None = None) -> Path:
     )
     if not result:
         raise ValueError("Snapshot has no results artifact")
-    content = (
-        data_dir / "sources" / source_id / "raw" / snap / result["path"]
-    ).read_text(encoding="utf-8")
+    content = (data_dir / "sources" / source_id / "raw" / snap / result["path"]).read_text(
+        encoding="utf-8"
+    )
     try:
         extractor = EXTRACTORS[source_id]
     except KeyError as exc:
