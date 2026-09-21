@@ -5,29 +5,30 @@ is the combination of a model, harness, and effort setting. This combination is
 the join key across studies. Exact run settings remain attached to each result
 for reproducibility.
 
-The project does not combine raw benchmark values from different studies. The
-planned analysis creates pairwise outcomes and effect sizes inside each study.
-Compatibility reviews decide which studies can share a comparison network.
+The project does not combine raw benchmark values from different studies.
+Study-specific baselines preserve benchmark difficulty. Compatibility reviews
+decide which studies can share an evidence network.
 
 ## Method
 
 ```text
-raw studies -> compatibility review -> local comparisons
-            -> weighted Bradley-Terry -> anchored family scores
-            -> decision profiles -> probabilistic Pareto views
+raw studies -> compatibility review -> Bayesian evidence networks
+            -> posterior pairwise effects -> decision profiles
+            -> probabilistic Pareto views
 ```
 
 The method keeps metric definitions separate, reports missing data as missing,
 and preserves each observation's source and run settings. Evidence grades
-control which analyses use a result. Bootstrap intervals and sensitivity checks
-show when sparse or fragile evidence changes a conclusion.
+control which analyses use a result. Random effects, posterior intervals,
+network diagnostics, and sensitivity checks show when sparse or heterogeneous
+evidence changes a conclusion.
 
 This cross-study method is not fully implemented. The current pipeline captures
 source artifacts, extracts observations, harmonizes labels, aggregates results
 within a study, and calculates within-study Pareto fronts.
 
-Read [`METHODOLOGY.md`](docs/METHODOLOGY.md) for the reasoning behind the method.
-[`SCORING.md`](docs/SCORING.md) defines the calculation.
+Use the [`documentation index`](docs/README.md) to find the methodology,
+calculation, data contract, validation rules, and implementation status.
 
 ## Data
 

@@ -1,361 +1,747 @@
 # Scoring method reference
 
-This reference defines scoring method version `1.0`. The method consumes the tables
-from [`DATASETS.md`](DATASETS.md). [`METHODOLOGY.md`](METHODOLOGY.md) explains
-the design choices.
+This reference defines scoring method version `2.0`. The method consumes the
+tables from [`DATASETS.md`](DATASETS.md). [`METHODOLOGY.md`](METHODOLOGY.md)
+explains the design choices. [`VALIDATION.md`](VALIDATION.md) defines the
+publication gates.
+
+## Method summary
+
+The primary method is Bayesian hierarchical random-effects network
+meta-analysis. It fits observed effect magnitudes and their uncertainty. It
+does not convert source values into wins, ties, or losses before fitting.
+
+The calculation has four stages:
+
+1. Resolve compatible study arms and analysis-system nodes.
+2. Fit one evidence network for each task family, analysis metric, and analysis
+   profile.
+3. Derive pairwise and anchor-relative posterior summaries.
+4. Apply decision profiles to posterior draws and calculate probabilistic
+   Pareto results.
 
 ## Identifiers
 
 The method uses these identifiers:
 
-- A system key contains `model_id`, `harness_id`, and `effort`.
-- A `configuration_id` identifies the exact run settings.
-- A `comparison_group_id` identifies systems tested under shared conditions.
-- An `independence_cluster_id` groups reused tasks, runs, infrastructure, or
-  published results.
-- A `metric_definition_id` identifies the direction, unit, statistic,
-  population, denominator, and accounting basis.
-- A `network_component_id` identifies one connected component.
-- An `analysis_profile_id` identifies primary or sensitivity inputs.
-- An `anchor_profile_id` selects one anchor for each family and metric.
+- `system_lineage_id` contains `model_id`, `harness_id`, and `effort`.
+- `configuration_id` identifies exact run settings.
+- `analysis_system_id` identifies a pooled or split node used in one model.
+- `comparison_group_id` identifies study arms tested under shared conditions.
+- `independence_cluster_id` groups reused tasks, runs, or derived results.
+- `covariance_group_id` groups outcomes with known or suspected dependence.
+- `metric_definition_id` identifies the exact source measurement.
+- `analysis_metric_id` identifies one modeled estimand and its likelihood.
+- `analysis_profile_id` identifies primary or sensitivity inputs.
+- `model_run_id` identifies one fitted model and configuration checksum.
+- `network_component_id` identifies one connected component.
+- `anchor_profile_id` selects presentation anchors.
+- `decision_profile_id` selects value functions, weights, and coverage rules.
 
 ## Analysis profiles
 
 The primary profile includes a study result when all these conditions hold:
 
 - `compatibility_status` is `primary`.
-- `evidence_grade` is `A` or `B`.
+- `evidence_grade` is `high` or `moderate`.
 - `family_assignment_status` is `primary`.
-- The result has no exclusion for the selected metric.
+- `data_availability_status` is `task_level`,
+  `aggregate_with_uncertainty`, or `aggregate_with_denominator`.
+- A versioned rule maps its metric definition to the selected analysis metric.
+- Its configuration action is `pool`, `adjust`, or `split_node`.
+- It has no applicable exclusion.
 
-A sensitivity profile lists each difference from the primary profile. Examples
-include grade `C`, an ambiguous family assignment, a material configuration
-difference, or an alternative tie rule.
+A `point_estimate_only` result becomes eligible only when a versioned rule can
+reconstruct sufficient statistics and bound the effect of published rounding.
+The normalized result then records the derived availability status and
+derivation method. `ordinal_only` results never enter a model.
 
-Each configuration difference rule has one action:
+A sensitivity profile lists every difference from the primary profile. No
+unplanned input change is allowed during interpretation.
 
-- `record` keeps the difference as metadata.
-- `sensitivity` includes the evidence and tests its removal.
-- `exclude` removes the evidence from the primary profile.
+## Analysis metric definitions
 
-An overall compatibility status follows these rules:
-
-- `primary` has no failed domain. An unknown setting can remain when every
-  system in the study shared it.
-- `sensitivity_only` has a concern that can change a relative result.
-- `incompatible` has a failed task, evaluator, metric, or accounting domain.
-- `unknown` lacks enough information to determine whether systems shared the
-  same conditions.
-
-## Local comparison eligibility
-
-Two study results produce a local comparison only when all these conditions
-hold:
-
-- Both results belong to the same `comparison_group_id`.
-- Both results belong to the same task family.
-- Both results resolve the full system key.
-- Both results use compatible metric definitions.
-- Both results pass the selected analysis profile.
-- Neither result has an applicable exclusion.
-
-A versioned compatibility rule can map two metric definitions into one analysis
-definition. Without that rule, the method keeps the definitions separate.
-
-## Local outcomes
-
-The method creates one outcome for every eligible pair of systems.
-
-The metric direction determines the winner:
-
-- Higher quality wins.
-- Lower cost wins.
-- Lower time wins.
-- Lower token use wins.
-
-`outcome_a` has one of three values:
+Each `analysis_metric_id` declares:
 
 ```text
-win  = 1.0
-tie  = 0.5
-loss = 0.0
+task_family_id
+outcome_type
+direction
+effect_scale
+local_estimator_id
+network_likelihood_family
+link_function
+population
+denominator
+accounting_basis
+practical_threshold
+accepted_metric_definition_ids
+prior_specification_id
 ```
 
-Values equal at the precision published by the source produce a tie. A
-source-reported statistical tie also produces a tie. A metric can name a
-versioned `tie_threshold_id`. The default threshold is exact equality at the
-published precision.
+The compatibility rule also declares any deterministic unit conversion. A rule
+cannot map measurements with different statistics, populations, denominators,
+or accounting bases unless the method configuration supplies a justified model
+for that difference.
 
-Sample size does not change `outcome_a` or `outcome_weight`. Sample size
-contributes to effect uncertainty and evidence metadata.
+## Analysis-system resolution
 
-## Effect sizes
+The configuration policy assigns one action to every material difference:
 
-The effect estimate table stores one or more effect sizes for each local
-comparison when the source provides enough data.
+- `pool` maps configurations to one `analysis_system_id`.
+- `adjust` maps them to one node and emits declared covariates.
+- `split_node` maps them to separate nodes.
+- `exclude` removes the result from the selected profile.
 
-For a binary success metric, the primary effect is the risk difference:
+The pipeline resolves nodes before building the graph. Node resolution is
+versioned and deterministic. A model never changes node identity in response to
+the observed outcome.
+
+An `adjust` action is allowed only when the registered contrast design matrix
+has full column rank for the requested coefficients and the configured overlap
+rule passes. Each adjusted configuration level must appear in enough
+independent comparison groups and cannot be perfectly confounded with system
+identity or study. Failed checks force `split_node` or `exclude`; priors do not
+rescue an unidentified adjustment.
+
+## Network construction
+
+The method builds a separate graph for each task family, analysis metric, and
+analysis profile. Analysis systems are nodes. An eligible multi-system
+comparison group creates edges among its nodes.
+
+Connected components are found before fitting. Components are fitted
+separately. Bridges, articulation nodes, direct comparison counts, and shortest
+paths are recorded.
+
+Before fitting, the pipeline joins normalized effect-modifier values and runs
+the task family's registered transitivity checks. Required modifiers, missing
+value handling, balance statistics, and thresholds live in the method
+configuration. The check assigns eligibility to whole comparison groups before
+the graph is built. A failed or unknown required modifier excludes that group's
+edges from the primary profile, then the pipeline recomputes connected
+components. A pair-specific question that needs a different exclusion creates a
+separate analysis profile and fit. The method never marks an indirect path
+invalid after allowing its edges to estimate the shared network effects.
+
+A connected component with one node or no eligible contrast is
+`not_estimable`.
+
+## Common marginal estimand
+
+The network model consumes study-level marginal contrasts. It does not assign
+one shared coefficient to conditional task-level odds and marginal aggregate
+odds.
+
+Each analysis metric defines a target task population and a marginal arm
+summary. Examples are success probability over the study's sampled tasks,
+normalized arithmetic mean score, and arithmetic mean cost or elapsed time per
+attempt. Every local estimator must target that declared summary before its
+contrast enters the evidence network.
+
+Task-level observations and aggregates derived from those observations are
+alternative representations of the same evidence. The input resolver selects
+one representation per study, arm, and metric. It never includes both.
+
+## Local contrast estimation
+
+For every eligible comparison group, the local stage emits a contrast vector
+`y[s]` and its sampling covariance matrix `S[s]`. System A and B are oriented so
+positive effects favor A. The estimator ID, target population, effect scale,
+rounding rule, and covariance method are stored with the contrasts.
+
+Task-level estimators resample or model tasks as clusters and keep all systems
+and trials for one sampled task together. Repeated trials of one task do not
+increase the effective task count as if they were new tasks.
+
+The default target population gives each distinct eligible task equal weight.
+Within a task and arm, the estimator first averages repeated trials. It then
+averages those task summaries. A comparison group must declare the common task
+set, its missing-task rule, and any non-uniform target weights before observing
+outcomes. Complete-case selection or outcome-dependent weights are not allowed
+in the primary profile.
+
+The primary policy requires a complete arm grid over the declared task set. An
+evaluation failure is a measured unsuccessful trial and retains its consumed
+resource. A missing extraction or an arm that was never run is missing data,
+not a failure. Such a group stays outside the primary profile unless a later
+registered missing-data estimator applies. Retries are included only through
+the comparison group's fixed retry-accounting policy. The primary bootstrap
+draws the declared number of task IDs with replacement using the registered
+seed, retains every arm and trial attached to each draw, recomputes within-task
+arm summaries, and then recomputes the full contrast vector. The policy stores
+the number of replicates and minimum distinct-task count.
+
+Aggregate estimators use reported counts, standard errors, quantiles, or
+covariance. When the required sampling covariance cannot be reconstructed, the
+result is not eligible for a primary multi-system or multi-outcome fit.
+
+## Binary quality contrasts
+
+The default binary effect is the marginal log odds ratio over the declared task
+population:
 
 ```text
-effect_a = success_rate_a - success_rate_b
+effect_ab = logit(success_probability_a)
+          - logit(success_probability_b)
 ```
 
-When success counts and sample sizes exist, the comparison also stores a log
-odds ratio.
+For task-level data, the primary local estimator uses a paired task-cluster
+bootstrap. Every bootstrap sample draws tasks with replacement and retains all
+arms and trials for each selected task. It produces the full covariance matrix
+for all study contrasts. Let `p_bar` be the equal-task-weighted arm success
+mean and `n_tasks` the number of eligible tasks. At a zero or one boundary, the
+default empirical logit replaces it with
+`(n_tasks * p_bar + 0.5) / (n_tasks + 1)` in every resample. This preserves task
+rather than attempt weighting. The original-sample point contrast `y[s]` uses
+the same corrected empirical logit. It is not the mean or median bootstrap
+contrast. The uncorrected estimand remains the target. Required sensitivity
+fits use constants `0.25` and `1.0` in place of `0.5` and record any conclusion
+change.
 
-For a bounded partial score, the MVP uses the difference on the reported scale:
+For aggregate independent-arm counts, the estimator uses the registered
+log-odds-ratio formula and delta-method sampling variance. Aggregate sources
+with repeated tasks are eligible only when they report a cluster-robust
+variance, effective task count, or enough detail to reconstruct one. Otherwise
+they are `point_estimate_only` for this analysis metric.
+
+The local report records both attempt count and distinct task count. Evidence
+status uses distinct tasks and independent campaigns, not attempts alone.
+
+## Bounded score contrasts
+
+A bounded score is mapped linearly to `[0, 1]` using its declared bounds. The
+default effect is the marginal arithmetic mean difference on that normalized
+scale:
 
 ```text
-effect_a = score_a - score_b
+effect_ab = mean_score_a - mean_score_b
 ```
 
-For a positive resource metric where lower is better, the effect is a log
-ratio:
+Task-level sampling covariance uses the paired task-cluster bootstrap.
+Aggregate means require a reported or reconstructable standard error. A
+nonlinear transform requires a registered estimator that also transforms its
+sampling covariance.
+
+Binary success and bounded score remain separate analysis metrics. Count and
+unbounded continuous outcomes are outside method version `2.0` unless a later
+method version defines their estimands and local estimators.
+
+## Resource contrasts
+
+Primary resource metrics target arithmetic expected resource per attempt. The
+default effect is the log ratio of arithmetic means:
 
 ```text
-effect_a = log(value_b / value_a)
+effect_ab = log(mean_resource_b / mean_resource_a)
 ```
 
-A positive effect always favors system A. Each estimate stores
-`effect_measure_id`, `effect_a`, `standard_error`, and interval fields.
+A positive value favors system A because lower resource use is better. This is
+not the difference of mean log resource and does not estimate a geometric-mean
+ratio.
 
-Task-level bootstrap supplies uncertainty when task-level observations exist.
-Published intervals or sufficient counts supply uncertainty for aggregate
-results. If neither source exists, the uncertainty fields remain missing.
+Task-level sampling covariance uses the paired task-cluster bootstrap over the
+arithmetic arm means. Aggregate means require arm sample sizes and standard
+deviations, a reported contrast standard error, or an equivalent registered
+variance. The delta method propagates uncertainty to the log-ratio scale.
 
-The MVP ranking does not use effect sizes. Published artifacts retain them for
-review and later scoring methods.
+Median and quantile resource summaries remain distinct source metric
+definitions but are outside method version `2.0`. They cannot map to an
+arithmetic-mean analysis metric.
 
-## Comparison weights
+Operational per-attempt resource includes the actual resource consumed by a
+failed or timed-out attempt. A timeout recorded at its real elapsed or billed
+resource is an observed value. An analysis of latent time to completion instead
+requires a later method version with a registered survival estimand. Method
+version `2.0` does not fit latent right-censored resource outcomes. It retains
+them in the evidence view unless the source reports the actual resource
+consumed at termination. Dropping timeouts is never a primary policy.
 
-Each independence cluster receives total weight `1` for one task family,
-metric definition, and analysis profile.
+Cost, time, or tokens per success are outside method version `2.0`. Relative
+contrast networks do not identify the absolute success probability and
+absolute resource baseline needed for that calculation. A source-reported
+per-success value remains in the evidence view and cannot map to a per-attempt
+analysis metric. A later method version must define absolute baselines and each
+supported finite or adaptive retry policy before publishing these views.
 
-The method divides the weight in three steps:
+## Published contrasts
 
-1. Eligible studies split the cluster weight equally.
-2. Eligible comparison groups split their study weight equally.
-3. Pairwise outcomes split their comparison-group weight equally.
+A published contrast enters the primary model only when it supplies a standard
+error or a covariance matrix on the declared effect scale. Confidence
+intervals can supply a standard error only when confidence level, interval
+type, transformation, and derivation rule are known.
 
-For cluster `c`, study `s`, comparison group `g`, and pair `p`:
+The source must identify both configurations. A transformed contrast records
+its original effect, transformation, and uncertainty propagation method.
+
+## Network contrast likelihood
+
+For study `s`, let `y[s]` contain its local contrasts against a declared local
+reference arm. Let `S[s]` be their sampling covariance matrix. The implementation
+uses the random-effects model after analytically integrating the study random
+effect:
 
 ```text
-weight(p) = 1 / study_count(c)
-              / group_count(s)
-              / pair_count(g)
+y[s] ~ MultivariateNormal(
+    X[s] * d + Z[s] * gamma,
+    S[s] + H[s]
+)
 ```
 
-The counts include only eligible inputs. Pair weights in one independence
-cluster sum to `1`.
+`X[s] * d` maps population-average system effects to the observed contrasts.
+`Z[s] * gamma` contains identifiable configuration adjustments. `S[s]`
+contains sampling covariance. `H[s]` contains between-study heterogeneity.
+These matrices are stored and diagnosed separately.
 
-## Comparison networks
+The primary profile requires `S[s]` to be positive definite. When the local
+estimator is the task-cluster bootstrap, it also requires more distinct task
+clusters than the dimension of the emitted contrast vector. A rank-deficient
+bootstrap matrix means that sampling uncertainty is not
+identified in every modeled direction; between-study heterogeneity cannot
+replace it. Such a vector remains in the evidence view but does not enter a
+primary or fixed-effect network fit. A later sensitivity profile may name a
+validated shrinkage estimator, but its output cannot replace the primary fit.
+Published or aggregate covariance does not need a task count when it is
+positive definite, has complete provenance, and comes from an accepted
+cluster-robust or reported covariance method.
+The implementation uses a symmetric eigendecomposition check with the
+configured relative tolerance. It may add numerical diagonal jitter no larger
+than that tolerance times the largest diagonal element and must record it. A
+larger correction, a non-positive diagonal, or a failed factorization excludes
+the vector.
 
-The method builds a separate graph for each task family, metric definition, and
-analysis profile. Systems are nodes. Local outcomes are weighted edges.
+For a homogeneous multi-system random-effects model, `H[s]` has `tau^2` on the
+diagonal and `tau^2 / 2` between contrasts sharing one local reference arm.
+That rule does not define sampling covariance, task pairing, reused-run
+dependence, or cross-outcome correlation.
 
-The method finds connected components before model fitting. It never ranks
-systems from separate components against each other.
+`tau` is estimated separately for each task family and analysis metric unless a
+registered multivariate heterogeneity model says otherwise.
 
-The method also records bridges and articulation nodes. These fields identify
-comparisons whose removal would split the network.
+## Related studies and covariance groups
 
-## Bradley-Terry fit
+Exact duplicate runs appear once in the likelihood. Complementary reports from
+one campaign are merged before fitting into one `synthesis_unit_id`. The index
+`s` in the network likelihood refers to this synthesis unit, not necessarily
+one publication's `study_id`.
 
-For systems `i` and `j`, the model is:
+Known overlap in tasks, runs, or outcomes uses a covariance group. When the
+covariance can be reconstructed, the unit stacks every retained contrast into
+one vector and its block sampling matrix. This includes covariance across
+reports. When it cannot, the primary profile selects the most complete report
+and sensitivity profiles substitute the alternatives. Separate synthesis units
+must be independent under the registered cluster review.
+
+The model never assumes that two publications from one campaign are independent
+merely because they have different `study_id` values.
+
+## Multivariate outcome model
+
+When the same study arms report several outcomes, their local contrast vectors
+are stacked. The sampling matrix contains covariance across both arms and
+outcomes. The random-effects matrix models between-study covariance across
+outcomes:
 
 ```text
-P(i beats j) = sigmoid(beta_i - beta_j)
+y_multi[s] ~ MultivariateNormal(
+    X_multi[s] * d_multi + Z_multi[s] * gamma_multi,
+    S_multi[s] + H_multi[s]
+)
 ```
 
-The fit uses local outcomes and their weights. A tie contributes half a win to
-each system.
+Task-level paired observations estimate `S_multi[s]` through the joint task
+bootstrap. Published aggregates require reported covariance or a registered
+correlation sensitivity set. A covariance-group label without matrix values is
+not sufficient.
 
-The fit maximizes the weighted log likelihood plus the log density of this
-independent prior:
+The primary multivariate profile requires a complete arm-by-outcome grid for
+all metrics required by the decision profile. A study with a missing required
+arm outcome can still enter the corresponding univariate networks but cannot
+enter that joint fit. Method version `2.0` does not impute the cell or select an
+outcome-dependent submatrix.
+
+Configuration coefficients are outcome-specific. For outcome `k` and
+covariate `c`, `gamma_multi[k,c]` has the configured prior for that outcome's
+effect scale. `Z_multi` is block diagonal by outcome and repeats the declared
+arm-level covariate coding within that outcome. Sharing a configuration
+coefficient across outcomes requires a later method version.
+
+`H_multi` uses a Cholesky parameterization and a configured LKJ prior for its
+correlation matrix.
+
+For `K` outcomes and `J - 1` contrasts against one local reference arm, order
+the stacked vector by arm and then outcome. Method version `2.0` uses:
 
 ```text
-beta_i ~ Normal(0, 2.5)
+Sigma_outcome = diag(tau[1:K]) * Omega * diag(tau[1:K])
+H_multi[s] = R_arm[J - 1] kronecker Sigma_outcome
 ```
 
-The prior prevents infinite estimates when a system wins or loses every
-comparison. The method configuration records the prior and its sensitivity
-profiles.
+`Omega` is the between-study outcome correlation matrix. `R_arm` has `1` on
+the diagonal and `0.5` off the diagonal for contrasts that share the local
+reference arm. It follows that same-outcome shared-reference covariance is
+`tau[k]^2 / 2`, same-contrast cross-outcome covariance is
+`tau[k] * tau[l] * Omega[k,l]`, and shared-reference cross-outcome covariance
+is half that value. Outcomes have separate heterogeneity scales and share
+`Omega`. A later method version is required for outcome-specific arm
+correlation structures.
 
-## Family scores
+The output assigns one `correlation_status`:
 
-An anchor profile selects one anchor system for each task family and metric.
-The selected anchor must belong to the fitted network component.
+- `estimated` means network evidence materially updated the correlation prior.
+- `prior_dominated` means a joint model fitted but the data did not identify the
+  correlation well.
+- `assumed` means every published result is repeated over the registered
+  correlation sensitivity set.
+- `unavailable` means only marginal models were fitted. No posterior
+  non-domination probability is published in that state.
 
+The prior-to-posterior change used for this classification is recorded by the
+model diagnostics. A versioned `correlation_identification_policy_id` defines
+the minimum independent-cluster count and prior-to-posterior information gain
+required for `estimated`. Failing either threshold produces
+`prior_dominated`; the implementation does not make this judgment manually.
+
+## Joint-draw requirement
+
+Method version `2.0` does not couple draws from separately fitted marginal
+models. Decision utility, expected regret, joint credible regions, and
+probabilistic Pareto results require draws from one fitted multivariate model.
+A model can repeat a registered set of fixed cross-outcome correlations for
+aggregate evidence, but each sensitivity fit must itself generate joint draws.
+If no joint fit exists, `correlation_status` is `unavailable` and these joint
+outputs are omitted.
+
+## Priors
+
+Every prior is part of `method_config.json`. Defaults apply on the model's link
+scale:
+
+```text
+binary log-odds system effect       Normal(0, 1.5)
+bounded mean-difference effect      Normal(0, 0.35)
+log-resource system effect          Normal(0, 1.0)
+configuration coefficient          Normal(0, 0.5)
+heterogeneity tau                   HalfNormal(0, 0.5)
+correlation matrix                  LKJ(2)
+```
+
+Continuous outcomes without a standard link scale must declare calibrated
+priors in the analysis metric definition.
+
+Prior predictive checks are required. Alternative plausible priors are planned
+sensitivity analyses.
+
+One reference system effect in each component is fixed to zero for
+identification. Changing the computational reference must not change any
+pairwise posterior contrast.
+
+## Posterior computation
+
+The default sampler runs four chains with at least 1,000 warmup and 1,000 kept
+draws per chain. A method configuration can request more draws but cannot lower
+the convergence gates.
+
+A fit passes numerical diagnostics only when:
+
+- split `R-hat` is at most `1.01` for every published parameter;
+- bulk and tail effective sample sizes are at least `400`;
+- there are no divergent transitions;
+- there are no unresolved maximum tree-depth warnings;
+- posterior values are finite and respect declared bounds.
+
+A failed fit is retained in the run manifest but cannot produce a public score.
+
+## Pairwise posterior estimates
+
+For systems A and B and posterior draw `q`:
+
+```text
+Delta_ab[q] = d[a,q] - d[b,q]
+```
+
+Effects are oriented so positive values favor A. For practical threshold
+`delta_m`:
+
+```text
+probability_a_better = mean(Delta_ab[q] > delta_m)
+probability_equivalent = mean(abs(Delta_ab[q]) <= delta_m)
+probability_b_better = mean(Delta_ab[q] < -delta_m)
+```
+
+The output also reports posterior mean, median, standard deviation, and the
+2.5 and 97.5 percent credible quantiles. Pairwise results are emitted only for
+systems in the same connected component.
+
+## Anchor-relative preference scores
+
+An anchor profile selects one anchor for each task family and analysis metric.
 For system `i` and anchor `a`:
 
 ```text
-FamilyScore(i) = 100 * sigmoid(beta_i - beta_a)
+PreferenceScore(i, a) =
+    100 * (P(Delta_ia > delta_m)
+           + 0.5 * P(abs(Delta_ia) <= delta_m))
 ```
 
-The anchor score is `50`. A score of `70` means an estimated 70 percent chance
-of beating the anchor under the fitted model.
+The anchor score is `50`. The score is tied to the selected threshold, analysis
+profile, anchor profile, method version, and dataset version.
 
-If a component does not contain the selected anchor, the method selects a local
-reference. It sets `reference_status` to `component_local`. Family scores from
-separate local components do not share a scale.
+If the selected anchor is absent from a component, the component uses its
+declared local reference and receives `reference_status = component_local`.
+Local-component scores are not used in global decision or Pareto views.
 
-The local reference is the system with the greatest total incident outcome
-weight. A tie uses the lexical order of the system key. An `anchor_profile_id`
-never changes its selected anchors after publication.
+## Decision profiles
 
-The method fits quality, cost, time, and token scores separately. A higher
-family score is always better. For a resource metric, a higher score means
-greater efficiency.
+A decision profile declares its required task families, metric cells, value
+functions, anchors, and coverage rules. Cell weights within each task family
+sum to `1` for each aggregation step.
 
-## Pairwise probabilities
-
-For every pair in one connected component, the method publishes:
+Every required task family has raw weight `1`. For the set `F` of required task
+families:
 
 ```text
-P(i beats j) = sigmoid(beta_i - beta_j)
+family_weight[f] = 1 / size(F)
 ```
 
-The output identifies direct and indirect evidence. Pairwise probabilities are
-the primary model output. Family scores provide a compact view relative to an
-anchor.
+Study count, task count, and run count do not affect `family_weight[f]`.
+Additional evidence changes the posterior uncertainty for that family, not its
+share of the global score.
 
-## Global scores
+Every metric-specific `analysis_system_id` maps through a reviewed
+`decision_system_id`. All required cells for a decision system must resolve to
+that same decision identity. Ambiguous or missing mappings produce
+`insufficient_coverage`.
 
-A weight profile assigns one weight to each task family. Weights sum to `1`.
-
-An anchor profile selects a compatible family score for each task family and
-metric. A system must cover every family required by the selected profile.
-
-For system `i`:
+For system `i`, family `f`, cell `k`, and posterior draw `q`:
 
 ```text
-GlobalScore(i) = sum_f weight_f * FamilyScore(i, f)
+family_utility[i,f,q] =
+    sum_k cell_weight[f,k] * value_function[f,k](effect[i,f,k,q])
+
+global_utility[i,q] =
+    sum_f family_weight[f] * family_utility[i,f,q]
 ```
 
-The method does not renormalize over missing families. It sets
-`coverage_status` to `insufficient_coverage` instead.
+Within a task family, posterior draws across cells must come from one
+multivariate fit and preserve modeled correlations. A versioned
+`cross_family_draw_policy_id` defines how the decision run combines draws from
+separate family models. The policy records any independence or correlation
+assumption. Without that policy, the pipeline does not emit a global posterior
+score or a global probabilistic Pareto result.
 
-Systems enter the same global comparison only when they use the same weight
-profile, anchor profile, analysis profile, and covered family set.
+Marginal fits can supply separate evidence charts but cannot supply a combined
+decision score.
 
-## Bootstrap uncertainty
+The output reports utility mean, median, credible interval, pairwise utility
+probabilities, rank probabilities, and expected regret:
 
-The default method uses 2,000 bootstrap iterations with a recorded seed.
+```text
+expected_regret[i] = mean_q(max_j utility[j,q] - utility[i,q])
+```
 
-Each iteration performs these steps:
+The candidate set is stored with the decision run. A missing required family or
+cell sets `coverage_status = insufficient_coverage`. The calculation does not
+renormalize family or cell weights.
 
-1. Sample independence clusters with replacement.
-2. Include every eligible study in each selected cluster.
-3. Sample tasks with replacement when task-level data exists.
-4. Rebuild local outcomes and comparison weights.
-5. Refit Bradley-Terry.
-6. Recalculate family scores, global scores, and Pareto fronts.
+## Resource ratios
 
-An aggregate-only study contributes at the cluster and study levels. Its tasks
-cannot be resampled.
+For a log-resource effect relative to anchor:
 
-An iteration is valid for a score only when the sampled data preserve the path
-between that system and its anchor. The output records all iteration counts and
-the connectivity survival rate.
+```text
+resource_ratio[i,q] = exp(-Delta_i_anchor[q])
+```
 
-The method publishes a percentile interval when at least 1,000 iterations are
-valid and the connectivity survival rate is at least `0.5`. Otherwise, the
-interval remains missing with reason `insufficient_bootstrap_connectivity`.
+Because positive `Delta` favors lower use, a ratio below `1` means the system is
+estimated to use less resource than the anchor. Global resource ratios use the
+decision profile's value function or an explicitly declared weighted geometric
+mean. They never average incompatible resource definitions.
 
-The interval uses the 2.5 and 97.5 percent quantiles from valid iterations. The
-central estimate comes from the full dataset.
+Pareto calculations do not use the display ratio directly. They use the
+higher-is-better coordinate:
 
-## Stability checks
+```text
+resource_efficiency[i,q] = 1 / resource_ratio[i,q]
+                         = exp(Delta_i_anchor[q])
+```
 
-The method runs these checks for each primary fit:
+The decision profile stores this transformation. The interface may label the
+axis as resource use and reverse its visual direction, but the dominance
+calculation always receives `resource_efficiency`.
 
-- Remove each independence cluster in turn.
-- Add each planned sensitivity input set.
-- Move or remove ambiguous task-family assignments.
-- Apply configured alternative tie thresholds.
-- Apply configured alternative priors.
+## Probabilistic Pareto views
 
-The output records the score range, rank range, and pairwise conclusion changes
-for each check.
+A Pareto analysis selects one quality utility and one resource utility, both
+oriented so higher is better. Each coordinate is a draw-level effect, resource
+ratio, or declared value-function output. The anchor-relative
+`PreferenceScore` is a posterior summary and cannot be used as a coordinate.
+For draw `q`, system X practically dominates Y when:
 
-## Pareto views
+```text
+quality_x[q] >= quality_y[q] - threshold_quality
+resource_x[q] >= resource_y[q] - threshold_resource
+```
 
-The method publishes these views:
+and at least one axis exceeds the other by more than its threshold.
 
-- Global quality and global cost efficiency.
-- Global quality and global time efficiency.
-- Global quality and global token efficiency.
+This is the registered `practical_epsilon_frontier`, not the classical Pareto
+partial order. With nonzero tolerances the pairwise relation need not be
+transitive. The output and interface use that name and show both thresholds.
 
-System X dominates system Y when both conditions hold:
+The posterior central estimates set `is_point_pareto`. Across usable draws:
 
-- X has equal or higher quality and equal or higher resource efficiency.
-- X has a strict advantage on at least one axis.
+```text
+probability_non_dominated =
+    non_dominated_draw_count / usable_draw_count
+```
 
-The full-data estimates set `is_point_pareto`. Bootstrap iterations calculate
-`probability_non_dominated` and pairwise dominance probabilities.
+Pairwise dominance probabilities use the same denominator. A draw is usable for
+one Pareto analysis only when every included system has both required axes and
+both axes come from the same joint draw.
 
-Systems enter one Pareto analysis only when they use the same analysis profile,
-weight profile, anchor profile, and covered family set.
+Systems enter one view only when they share the analysis profile, decision
+profile, anchor profile, covered family set, and correlation policy.
+The run stores the complete candidate universe, including excluded systems and
+their reasons. If joint draws are unavailable, the method may publish point
+coordinates and marginal intervals but does not calculate posterior dominance
+or non-domination probabilities.
 
-The method does not define a combined resource-efficiency score.
+## Model checks
+
+Each primary fit runs these checks:
+
+- local-estimator calibration and network contrast-scale prior and posterior
+  predictive checks;
+- residual fit by study and system;
+- heterogeneity assessment;
+- direct versus indirect comparison where available;
+- loop inconsistency where a cycle exists;
+- effect-modifier balance across comparisons;
+- leave-one-study-out influence;
+- leave-one-independence-cluster-out influence;
+- holdout prediction for eligible studies;
+- every planned sensitivity profile.
+
+The method configuration names the inconsistency estimator, its minimum data
+requirements, and the effect and probability thresholds that make disagreement
+material. The implementation cannot assign `supported` from visual inspection.
+
+An acyclic connected network receives `consistency_status = not_testable`.
+Failure of a check does not delete the result. It changes the relevant status
+and keeps the diagnostic available for review.
 
 ## Evidence grades
 
-An evidence assessment records `pass`, `concern`, or `fail` for these domains:
+An evidence assessment records `pass`, `concern`, or `fail` for:
 
-- `provenance`.
-- `configuration_completeness`.
-- `task_evaluator_comparability`.
-- `sample_replication`.
-- `metric_completeness`.
+- `provenance`;
+- `configuration_completeness`;
+- `task_evaluator_comparability`;
+- `sample_replication`;
+- `metric_validity`;
 - `independence`.
 
-Each domain includes a reason and reviewer record. The final grade has one of
-four values:
+The grade follows this precedence:
 
-- `A` requires `pass` in every domain.
-- `B` requires no `fail` and at least one `concern`.
-- `C` requires sensitivity-only use because at least one domain fails.
-- `D` means that provenance or metric failures prevent a valid comparison.
+1. `unusable` if provenance or metric validity fails.
+2. `low` if another domain fails.
+3. `moderate` if no domain fails and at least one has a concern.
+4. `high` if every domain passes.
 
-The evidence grade does not change a numerical comparison weight.
+Grades control profile eligibility. They do not alter likelihood weights.
 
 ## Result statuses
 
-Each score records separate statuses for separate limits.
+Each result records separate status dimensions.
 
-`evidence_status` has these values:
+`estimation_status`:
 
-- `supported` has at least three independence clusters and passes the planned
-  sensitivity checks.
-- `provisional` has fewer than three independence clusters or a material
-  sensitivity concern.
-- `insufficient_evidence` lacks enough eligible evidence for a score.
+- `estimated` passed numerical diagnostics.
+- `not_estimable` has no valid fit or connected contrast.
 
-`reference_status` is `anchored` or `component_local`. `network_status` is
-`stable` or `unstable_network`. `coverage_status` is `complete` or
+`evidence_status`:
+
+- `supported` has at least the configured number of independent clusters that
+  contribute to the requested target, no failed primary evidence domain, and
+  remains estimable after removing any single contributing cluster.
+- `provisional` is estimable but does not meet every supported condition.
+- `insufficient_evidence` lacks eligible evidence for the requested result.
+
+`consistency_status`:
+
+- `supported` has no material direct-indirect or loop disagreement.
+- `inconsistent` has a material disagreement under the configured threshold.
+- `not_testable` lacks the network structure required for the check.
+
+`stability_status`:
+
+- `stable` preserves the declared decision conclusion in every required
+  sensitivity analysis.
+- `configuration_sensitive` changes under a required configuration analysis.
+- `assumption_sensitive` changes under another required prior, likelihood,
+  threshold, family, or correlation analysis.
+- `unstable_network` loses the required connection or reverses under an
+  influential study or cluster removal.
+
+Status assignment follows a fixed order. The pipeline first assigns estimation
+and reference status, then coverage and correlation status, then evidence and
+consistency status, and finally stability from the registered sensitivity
+results. Within stability, `unstable_network` takes precedence over
+`configuration_sensitive`, which takes precedence over `assumption_sensitive`,
+which takes precedence over `stable`. A missing required check prevents
+`stable`.
+
+`reference_status` is `anchored` or `component_local`.
+
+`coverage_status` is `complete`, `matched_subset`, or
 `insufficient_coverage`.
 
-The public ranking requires `anchored`, `stable`, and `complete`. It includes
-both `supported` and `provisional` evidence. Other results remain available in
-the evidence view.
+`correlation_status` is `estimated`, `prior_dominated`, `assumed`,
+or `unavailable`.
+
+A result enters the default public decision or Pareto view only when it is
+`estimated`, `anchored`, and `complete`. Provisional, not-testable, and
+assumption-sensitive results can appear with their labels. Inconsistent or
+unstable results remain in the evidence view and are excluded from default
+recommendations.
+
+The publication policy lists the allowed status combinations explicitly. A
+failed required fit or sensitivity needs a stored publication-impact decision;
+no free-text override changes a status.
+
+## Material conclusion changes
+
+A sensitivity analysis changes a pairwise conclusion when the category with
+the greatest practical-preference probability changes or when no category has
+probability at least `0.5` after one did in the primary analysis.
+
+It changes a Pareto conclusion when a system crosses the configured publication
+threshold for `probability_non_dominated`. It changes a decision conclusion
+when the preferred system changes or pairwise utility preference crosses the
+profile's decision threshold.
+
+Every threshold is stored in the decision or method configuration.
 
 ## Method configuration
 
-`method_config.json` records these inputs:
+`method_config.json` records:
 
-- method and dataset versions.
-- task-family taxonomy and assignment reviews.
-- metric definitions and compatibility rules.
-- configuration difference rules.
-- independence clusters.
-- analysis profiles.
-- anchor profiles.
-- weight profiles.
-- tie thresholds.
-- Bradley-Terry prior.
-- bootstrap settings and seed.
-- evidence assessments and reviewer records.
-- software versions.
+- schema, dataset, method, policy, and software versions;
+- task-family taxonomy and assignment reviews;
+- metric definitions and mapping rules;
+- local-estimator, effect-scale, and network-likelihood specifications;
+- configuration policies and resolved analysis-system nodes;
+- independence and covariance groups;
+- analysis, anchor, and decision profiles;
+- practical and decision thresholds;
+- priors and sampler settings;
+- correlation identification and joint-model policies;
+- evidence assessments;
+- sensitivity plans;
+- required sensitivity registry and status precedence;
+- decision-system mappings and Pareto candidate policies;
+- random seed and deterministic preprocessing settings.
 
-Pinned source snapshots and `method_config.json` reproduce a published score.
+Pinned source snapshots, the configuration, and the model code revision must
+reproduce the published summaries within the numerical tolerances in
+[`VALIDATION.md`](VALIDATION.md).
