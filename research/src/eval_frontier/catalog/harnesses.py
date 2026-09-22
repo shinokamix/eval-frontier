@@ -10,5 +10,6 @@ HARNESSES = {
         HarnessDefinition(id="pi", label="Pi"),
         HarnessDefinition(id="cursor", label="Cursor"),
         HarnessDefinition(id="devin", label="Devin"),
+        HarnessDefinition(id="claude-code", label="Claude Code"),
     ]
 }

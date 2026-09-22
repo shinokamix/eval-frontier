@@ -20,6 +20,11 @@
       "path": "gen_agent_report.py",
       "role": "methodology",
       "url": "https://raw.githubusercontent.com/aarora79/agentic-coding-harness-benchmarks/d8b12d5df93614c79d93735e615c0349017f3949/benchmarks/scripts/gen_agent_report.py"
+    },
+    {
+      "path": "gen_swe_comparison.py",
+      "role": "methodology",
+      "url": "https://raw.githubusercontent.com/aarora79/agentic-coding-harness-benchmarks/d8b12d5df93614c79d93735e615c0349017f3949/benchmarks/scripts/gen_swe_comparison.py"
     }
   ]
 }

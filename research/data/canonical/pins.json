@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "sources": {
+    "aarora-harness-benchmarks": "8824bbb6b060cd0c51bfe94e9d14da0527e98bbcebd27b471c0407d36baf239d",
     "kroda-coding-agent-baselines": "72f5c501feb7da5054ceccea20376853c5a97809d42d613f348d0e8c76d247c4",
     "openbench-m3": "6caf0b0b077fc2a89049a5a6cce40a6f01a6c9ae3450a177e2feeabddb79159f",
     "openbench-m3.5": "10600ee5267d20d039eb3f5e9fc9852581208295472782ad350215470d0f3d51",

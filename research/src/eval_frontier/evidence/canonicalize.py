@@ -43,8 +43,8 @@ def canonicalize_source(
                     study_id=source_id,
                     source_path=entry["provenance"]["path"],
                     source_locator=f"row:{entry['provenance']['row']}",
-                    benchmark_id=source_id,
-                    task_id=native["benchmark"],
+                    benchmark_id=native["benchmark"] if native.get("aggregate") else source_id,
+                    task_id=None if native.get("aggregate") else native["benchmark"],
                     trial_id=native.get("trial"),
                     model_id=model_id,
                     harness_id=harness_id,
@@ -55,6 +55,7 @@ def canonicalize_source(
                     unit=metric.unit,
                     statistic=metric.statistic,
                     direction=metric.direction,
+                    sample_size=native.get("sample_sizes", {}).get(source_metric),
                 )
             )
     return rows

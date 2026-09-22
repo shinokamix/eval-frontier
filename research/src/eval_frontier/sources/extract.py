@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from ..schemas.sources import SourcePins
-from .adapters import kroda, openbench
+from .adapters import aarora, kroda, openbench
 from .archive import read_json, verify_snapshot
 
 EXTRACTORS = {
@@ -14,6 +14,7 @@ EXTRACTORS = {
     "openbench-m4": lambda content: openbench.extract(content, "m4"),
     "openbench-m4.5": lambda content: openbench.extract(content, "m4.5", excluded={"devin"}),
     "kroda-coding-agent-baselines": kroda.extract,
+    "aarora-harness-benchmarks": aarora.extract,
 }
 
 
