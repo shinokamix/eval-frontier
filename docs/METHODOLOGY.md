@@ -1,129 +1,147 @@
 # Research methodology
 
-Eval Frontier aims to compare coding-agent systems across public studies. The
-planned output is a set of cross-study graphs with uncertainty, not a single
-ranking. Each graph names its task family, outcome, resource measure, and
-eligible evidence.
+## Goal
+
+The target research result is one cross-study graph of quality against
+`cost_per_task` for coding-agent systems. The horizontal axis shows cost per
+attempted task in USD. The vertical axis shows the declared quality outcome.
+Each system is a model, harness, and effort setting. The graph shows estimates
+and uncertainty from a Bayesian analysis, not a rank made from raw scores.
+
+The analysis considers every relevant captured study. A study can inform the
+quality estimate, the cost estimate, or both. A plotted system needs enough
+connected evidence to estimate both axes. The graph identifies studies that
+could not inform an axis and explains why. Adding more studies is part of the
+research plan; the current snapshots do not set the limits of the final graph.
 
 This document describes the planned analysis. The current build stops at
-[`evidence.parquet`](DATASETS.md). It does not yet estimate effects or publish
-cross-study graphs.
+[`evidence.parquet`](DATASETS.md). It does not fit a model or produce the graph.
 
-## Research question
+## What the axes mean
 
-For a declared task family and outcome, how likely is system A to outperform
-system B after accounting for sampling uncertainty and differences between
-studies? A system is a model, harness, and effort setting. Exact run settings
-must be reviewed from the source artifacts before configurations are pooled.
+Quality needs one declared meaning within each analysis. The first candidate
+is the probability that an attempted task is solved. A partial score can enter
+that analysis only if its scoring rule supports the same outcome. Otherwise it
+needs a separate quality analysis. A mean score that excludes failed tasks does
+not measure success across all attempted tasks.
 
-The answer is conditional on the selected studies and their compatibility.
-Different task families or resource accounting rules need separate analyses.
+`cost_per_task` means the mean USD cost of an attempted task, including failed
+attempts and timeouts when their costs are known. Source metrics with a
+different denominator, such as cost per completed task, keep their original
+meaning. The analysis records the pricing date and accounting basis. Metered
+API bills and hardware-derived costs do not share an absolute USD scale without
+a declared conversion or pricing scenario.
 
-## From source rows to a comparable network
+The target graph uses one stated quality definition and one stated cost basis.
+It also names the task population to which both estimates apply. Absolute USD
+coordinates need observed cost levels under the chosen pricing basis. Relative
+cost differences alone cannot set that scale.
+If the evidence cannot support a shared scale, the analysis reports separate
+groups instead of placing incomparable estimates on one axis. A study that
+reports only one outcome still contributes to that outcome where its evidence
+is comparable.
 
-1. Define the outcome and its denominator before looking at results. Examples
-   are the probability of solving an evaluated task and mean cost per attempt.
-   Quality, cost, time, and tokens are separate outcomes.
-2. Review each study's task set, scoring rule, model release, effort, prompt,
-   tools, timeout, execution environment, and resource accounting. Record why a
-   result is included, separated, or excluded. Preserve the source rows behind
-   each decision.
-3. Identify reports that reuse tasks or runs. Count one evaluation campaign
-   once unless its dependence can be modeled.
-4. Build a network for each compatible task family and outcome. Systems are
-   nodes. A study that evaluates several systems on a shared task population
-   supplies a comparison among those nodes. A system appearing in several
-   studies can connect their comparisons.
+## How studies connect
 
-A shared system name does not prove that studies are compatible. Unconnected
-network components remain separate. We do not infer a comparison between them.
+The model, harness, and effort IDs form the candidate join key across studies.
+Exact agreement on every prompt, tool, timeout, and task set is not required.
+The analysis records these differences to explain variation and to test how
+much each study affects the result. It does not reject a study merely because
+one of these settings differs.
 
-## Planned Bayesian model
+Before fitting, review each source's task family, scoring rule, cost
+denominator, system version, run settings, and failure handling. Record whether
+the source informs quality, cost, or both. Identify reports that reuse tasks or
+runs so that one evaluation campaign does not count as independent evidence
+twice. Preserve links from every decision to the source rows and artifacts.
+
+A shared system connects comparisons only when the outcome has the same
+meaning on both sides of the link. Keep disconnected groups separate. Review
+weak links and plausible differences in task difficulty before interpreting an
+indirect comparison. The review makes inclusion broad and its assumptions
+visible; it does not treat matching system IDs as proof of comparability.
+
+## Bayesian analysis
 
 The primary candidate is a hierarchical random-effects network meta-analysis.
-It has two stages:
+Within each study, estimate differences between systems on shared tasks and
+their uncertainty. Group repeated trials by task. Preserve dependence when
+several systems use the same tasks or when one run reports both outcomes.
 
-1. Within each study, estimate differences between its systems and the
-   uncertainty of those differences. Keep repeated trials for one task
-   together. Preserve covariance when several systems share tasks or when one
-   run reports several outcomes.
-2. Combine compatible study differences in a Bayesian network model. The
-   model estimates relative system effects and variation in those effects
-   between studies. Study-specific baselines account for benchmark difficulty;
-   raw scores from different benchmarks are never averaged directly.
+Combine the within-study comparisons through shared systems. Study-specific
+baselines account for differences in benchmark difficulty. Between-study
+variation describes how system effects change across studies. Do not average
+raw benchmark scores or raw per-study cost ratios to locate a system on the
+graph.
 
-The effect scale, likelihood, priors, and practical difference threshold must
-be fixed for each outcome before fitting. Task-level and aggregate sources may
-enter the same model only when they estimate the same quantity and provide
-enough information to estimate uncertainty. A published point estimate alone
-is insufficient for the primary model.
+Quality and cost can need different likelihoods and effect scales. For the
+binary quality candidate, model task success as a binary outcome. For cost,
+define how the model treats zero costs, failures, timeouts, and skewed values.
+Specify the likelihoods, priors, cost basis, and practical difference thresholds
+before fitting. Aggregate results enter an outcome only when their denominator
+and uncertainty support that outcome. A point estimate alone does not supply
+its sampling uncertainty.
 
-The initial model should fit one outcome at a time. A graph that assigns a
-probability of Pareto membership needs joint posterior draws for quality and
-the selected resource outcome, or an explicit sensitivity analysis for their
-unknown correlation. Marginal intervals alone cannot supply that probability.
+First fit and check each outcome. The final graph needs joint posterior draws
+for quality and cost, or an explicit sensitivity analysis for unknown
+dependence between them. Marginal intervals alone cannot give the probability
+that a system is preferable on both axes. A later Pareto view may use these
+draws, but Pareto membership is not the primary research result.
 
-## Cross-study graphs
+## Research workflow and graph
 
-The first graph for an eligible network should show relative effects against
-a named reference system, posterior intervals, the number of contributing
-studies, and whether a comparison is direct or indirect. Separate views can
-show quality against cost, time, or tokens. Resource axes must state whether
-they show per-attempt values or ratios to the reference. Absolute cost claims
-also need a shared pricing and accounting basis.
+Use a notebook to inspect the evidence, map study connections, plot
+within-study comparisons, and develop the model. Keep the final calculations
+in reproducible research code so the notebook and graph can be regenerated
+from pinned source snapshots. The web app receives only the completed research
+graph after its analysis and checks exist.
 
-Later, a joint model can report the probability that each eligible system is
-not dominated on quality and one resource measure. Such a probability depends
-on the candidate set and the chosen practical difference thresholds. It is
-not a universal score.
-
-Every plotted result must link back through its study contrast to the input
-rows and their source artifacts. A graph must expose disconnected components,
-excluded evidence, and results that depend strongly on modeling assumptions.
+The graph labels both axes and the reference cost basis. For each system, show
+the posterior estimate and uncertainty on both axes. State which studies inform
+each estimate, whether the links are direct or indirect, and how many
+independent evaluation campaigns contribute. Link the plotted estimates to
+their study comparisons and source artifacts. Show exclusions, disconnected
+groups, and results that change under reasonable modeling choices.
 
 ## Checks before publication
 
-Check that the network is connected for the proposed comparison and that
-task composition and study settings make indirect comparisons plausible.
-Inspect repeated-data dependence, model convergence, posterior predictions,
-between-study variation, and sensitivity to priors and individual studies.
-Compare direct and indirect evidence where the network permits it. Test the
-full estimator and graph pipeline on simulated data with known effects before
-interpreting a real result.
+Test the estimator and graph code on simulated data with known effects. Check
+posterior predictions, model convergence, between-study variation, and
+sensitivity to priors. Compare direct and indirect evidence where the network
+allows it. Repeat the analysis without each study and without weak links.
+Check how alternative task-family groups and cost accounting choices change
+the graph.
 
 More task rows within one study reduce uncertainty about that study. They do
-not replace independent studies needed to learn between-study variation. With
-few studies or weak links, posterior results can depend heavily on the prior
-and on one bridge study. The graphs must show that limitation rather than
-present a precise rank.
+not replace independent studies needed to learn between-study variation. If a
+few studies or one bridge study drive an estimate, show that dependence on the
+graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The six pinned snapshots come from three source projects. Shared systems with
-the same `solved` or `duration_s` metric connect Kroda to three OpenBench
-snapshots through GPT-5.5, Codex, and medium effort. This is a candidate link,
-subject to task-family and configuration review. The four OpenBench snapshots
-are related reports and must be checked for reused tasks and runs.
+The pinned snapshots come from Kroda, OpenBench, and Aarora. Kroda and some
+OpenBench snapshots share the GPT-5.5, Codex, medium-effort system and report
+`solved`. This is a candidate quality link. The OpenBench snapshots are related
+reports and need a check for reused tasks and runs.
 
 No two pinned sources currently share both a system and the `cost_usd` metric.
-Aarora reports aggregate outcomes with different metric definitions. Its
-overlapping system names do not by themselves connect it to a quality or cost
-network. The present data therefore cannot support a broad cross-study cost
-graph. More compatible, independent studies are needed to assess generality.
+Aarora reports cost per scored task on two different cost bases and a mean
+quality score that excludes failed tasks. These values cannot yet define the
+target cross-study graph. More sources and a cost-basis review are needed.
 
 ## Implementation order
 
-1. Produce a reviewed registry of compatible groups, exact configurations,
-   shared-data clusters, accepted metrics, and exclusions. Generate a network
-   report for each proposed outcome. The current evidence rows have `condition`
-   but do not encode all prompt, tool, timeout, and environment details needed
-   for this review. This registry is the next research deliverable.
-2. Implement within-study contrasts with uncertainty and covariance. Verify
-   them against direct calculations and simulated data.
-3. Fit one connected network for one outcome. Publish posterior contrasts and
-   diagnostics, then test leave-one-study-out and prior sensitivity.
-4. Add further outcomes and networks. Build joint quality-resource draws only
-   where the data support them, then publish cross-study Pareto graphs.
+1. Build a reviewed record of study settings, shared-data campaigns, outcome
+   definitions, cost bases, and inclusion decisions. Report the network for
+   each axis. The current evidence rows have `condition`, but do not encode all
+   settings needed for this review.
+2. Use a notebook to inspect both networks and within-study comparisons.
+   Implement the comparisons with uncertainty and dependence in research code.
+3. Fit and check the Bayesian model for quality and cost. Test prior and
+   leave-one-study-out sensitivity.
+4. Generate joint quality and cost estimates where the evidence supports them.
+   Publish the checked graph as a derived research artifact. Pass that artifact
+   to the web app after the research pipeline produces it.
 
 Analysis outputs belong in separate derived artifacts. The canonical evidence
 table remains unchanged.

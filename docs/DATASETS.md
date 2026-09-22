@@ -1,9 +1,9 @@
 # Canonical evidence data
 
-This project currently has one research goal: convert heterogeneous source
-artifacts into one validated, analysis-ready table. Statistical synthesis,
-posterior draws, decision profiles, and Pareto views are deferred until this
-table is stable.
+This pipeline stage converts heterogeneous source artifacts into one validated
+evidence table. The target quality against `cost_per_task` graph uses later
+analysis outputs. Statistical synthesis, posterior draws, and the graph do not
+belong in this table.
 
 ## Pipeline
 

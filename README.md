@@ -5,10 +5,11 @@ is the combination of a model, harness, and effort setting. This combination is
 a candidate join key across studies. The source artifacts and a future
 configuration review must establish which runs are comparable.
 
-The planned Bayesian analysis will compare systems across compatible studies.
-It will use within-study differences and account for variation between studies
-instead of combining raw benchmark values. See the
-[`methodology`](docs/METHODOLOGY.md) for the research plan and its limits.
+The target research result is a Bayesian graph of quality against
+`cost_per_task`, combining evidence from relevant studies. The analysis uses
+within-study differences and accounts for variation between studies instead
+of averaging raw benchmark values. See the
+[`methodology`](docs/METHODOLOGY.md) for the graph's definitions and limits.
 
 ## Current scope
 

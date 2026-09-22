@@ -24,9 +24,10 @@ research/data/canonical/evidence.parquet
 ```
 
 The research code does not currently fit a model, aggregate study results,
-build pairwise comparisons, or calculate Pareto views. A notebook may inspect
-`evidence.parquet`, but the canonicalization step is implemented in Python so
-it is repeatable and testable.
+build pairwise comparisons, or produce the target quality against
+`cost_per_task` graph. Use a notebook to inspect evidence and develop the
+analysis. Put the final calculations in reproducible research code. The
+[`methodology`](../docs/METHODOLOGY.md) defines the target graph and its checks.
 
 ## Data layout
 

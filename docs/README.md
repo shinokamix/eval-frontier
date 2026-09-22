@@ -1,7 +1,7 @@
 # Documentation
 
-- [`METHODOLOGY.md`](METHODOLOGY.md) defines the cross-study research goal,
-  planned Bayesian analysis, publication checks, and implementation order.
+- [`METHODOLOGY.md`](METHODOLOGY.md) defines the target quality against
+  `cost_per_task` graph, planned Bayesian analysis, and publication checks.
 - [`DATASETS.md`](DATASETS.md) describes the canonical evidence table and its
   current validation rules.
 - [`../research/README.md`](../research/README.md) describes the working Python
