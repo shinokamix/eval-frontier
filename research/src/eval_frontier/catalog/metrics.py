@@ -60,6 +60,54 @@ METRICS = {
             direction="lower",
         ),
         MetricDefinition(
+            id="terminal_bench_2_1_accuracy_pct",
+            label="Terminal-Bench 2.1 successful trials",
+            unit="percent",
+            statistic="ratio",
+            direction="higher",
+        ),
+        MetricDefinition(
+            id="terminal_bench_2_1_reward_hacks_pct",
+            label="Terminal-Bench 2.1 trials disqualified for reward hacking",
+            unit="percent",
+            statistic="ratio",
+            direction="lower",
+        ),
+        *[
+            MetricDefinition(
+                id=f"terminal_bench_pass_at_{k}",
+                label=f"Terminal-Bench pass@{k} task estimate",
+                unit="fraction",
+                statistic="mean",
+                direction="higher",
+            )
+            for k in range(2, 6)
+        ],
+        MetricDefinition(
+            id="terminal_bench_total_cost_usd",
+            label="Terminal-Bench total reported trial cost",
+            unit="USD",
+            statistic="sum",
+            direction="lower",
+        ),
+        MetricDefinition(
+            id="terminal_bench_avg_trial_duration_s",
+            label="Terminal-Bench mean trial wall-clock duration",
+            unit="seconds per trial",
+            statistic="mean",
+            direction="lower",
+        ),
+        *[
+            MetricDefinition(
+                id=f"terminal_bench_{kind}_tokens",
+                label=f"Terminal-Bench {kind.replace('_', ' ')} tokens",
+                unit="tokens",
+                statistic="sum",
+                direction="lower",
+            )
+            for kind in ("uncached_input", "cached_input", "output")
+        ],
+        MetricDefinition(
             id="cached_input_tokens",
             label="Cached input tokens",
             unit="tokens",
