@@ -145,3 +145,14 @@ This stage does not build:
 
 Those are later transformations over `evidence.parquet`. They must not be
 stored in the canonical evidence table.
+
+## Current build checks
+
+For each pinned source, the build verifies the captured snapshot checksum,
+resolves source labels through its crosswalk, and validates every output row
+with `EvidenceRow`. Missing optional values remain null. Each row retains its
+source path and locator. The Parquet schema and row order are deterministic.
+
+An unknown canonical ID, malformed number, missing required identity field,
+or missing source provenance stops the build. Statistical checks for derived
+results are planned in [`METHODOLOGY.md`](METHODOLOGY.md).

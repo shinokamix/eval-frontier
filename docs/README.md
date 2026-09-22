@@ -1,15 +1,12 @@
 # Documentation
 
-Start with the document that matches your task:
-
-- Read [`DATASETS.md`](DATASETS.md) for the current canonical evidence contract.
-- Read [`../research/README.md`](../research/README.md) for the current Python
+- [`METHODOLOGY.md`](METHODOLOGY.md) defines the cross-study research goal,
+  planned Bayesian analysis, publication checks, and implementation order.
+- [`DATASETS.md`](DATASETS.md) describes the canonical evidence table and its
+  current validation rules.
+- [`../research/README.md`](../research/README.md) describes the working Python
   pipeline and its output.
-- [`METHODOLOGY.md`](METHODOLOGY.md), [`SCORING.md`](SCORING.md), and
-  [`VALIDATION.md`](VALIDATION.md) describe deferred analysis work. They are not
-  implemented by the current build.
-- Follow [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) to add a source.
+- [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) explains how to add a source.
 
-The method documents describe the target system. The research pipeline does
-not implement the complete method yet. Check the implementation status before
-interpreting a generated artifact as a cross-study result.
+The current build produces evidence rows only. The methods and graphs in
+`METHODOLOGY.md` are planned work, not current results.

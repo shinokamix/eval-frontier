@@ -2,12 +2,13 @@
 
 Eval Frontier compares coding-agent systems across public benchmarks. A system
 is the combination of a model, harness, and effort setting. This combination is
-the join key across studies. Exact run settings remain attached to each result
-for reproducibility.
+a candidate join key across studies. The source artifacts and a future
+configuration review must establish which runs are comparable.
 
-The project does not combine raw benchmark values from different studies.
-Study-specific baselines preserve benchmark difficulty. Compatibility reviews
-decide which studies can share an evidence network.
+The planned Bayesian analysis will compare systems across compatible studies.
+It will use within-study differences and account for variation between studies
+instead of combining raw benchmark values. See the
+[`methodology`](docs/METHODOLOGY.md) for the research plan and its limits.
 
 ## Current scope
 
@@ -15,7 +16,7 @@ decide which studies can share an evidence network.
 source artifacts -> source extractors -> validated evidence.parquet
 ```
 
-The analysis method is deferred. The current pipeline only captures immutable
+The analysis is not implemented yet. The current pipeline captures immutable
 source artifacts, maps source labels to canonical IDs, validates rows with
 Pydantic, and writes one Parquet table for later analysis.
 
