@@ -6,7 +6,7 @@ function MethodologyHero() {
       image="/images/methodology-celigny.jpg"
       alt="Céligny on the shore of Lake Geneva"
       imagePosition="52% 50%"
-      label="METHODOLOGY / VERSION 1.0"
+      label="METHODOLOGY / SOON"
       title={
         <>
           How we compare

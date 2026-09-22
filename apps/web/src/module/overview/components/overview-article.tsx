@@ -33,14 +33,13 @@ function OverviewArticle() {
           the performance of an AI model.
         </Text>
         <Text variant="body">
-          It collects published benchmark results and compares runs in which the
-          model, tasks, and evaluation procedure stay the same while the harness
-          changes. When a source provides the data, the comparison includes
-          tasks solved, cost, runtime, and token use.
+          It collects published benchmark results with their task outcomes,
+          costs, runtime, and token use when the source reports them.
         </Text>
         <Text variant="body">
-          The goal is not to name one best harness. The goal is to show which
-          setups offer useful tradeoffs under the conditions of each study.
+          The current dataset keeps each measurement linked to the source that
+          reported it. Research results will appear here when the analysis is
+          ready.
         </Text>
         <div>
           <ArticleLink to="/explore">Explore the results →</ArticleLink>
@@ -68,9 +67,8 @@ function OverviewArticle() {
           task stay the same.
         </Text>
         <Text variant="body">
-          The model and harness together form the setup being evaluated. Each
-          comparison uses the same model release and configuration, not only the
-          same model family name.
+          Model, harness, and effort identify the setup recorded in the dataset.
+          Published run settings remain available in the captured source files.
         </Text>
         <Text variant="body">
           Harnesses represented in the dataset include{' '}
@@ -103,29 +101,6 @@ function OverviewArticle() {
       </ArticleSection>
 
       <ArticleSection>
-        <Text variant="heading">How results are compared</Text>
-        <Text variant="body">
-          Results are compared only when they come from the same published study
-          and use the same model, task set, scoring procedure, and study
-          conditions. The harness is the part that changes.
-        </Text>
-        <Text variant="body">
-          Runs with different models, tasks, or evaluation rules remain in
-          separate groups. Results from separate studies are not combined, even
-          when they use the same benchmark name.
-        </Text>
-        <Text variant="body">
-          Quality is compared with one resource measure at a time, such as cost,
-          runtime, or token use. The project does not combine these measures
-          into a single score. Instead, it identifies results that are not worse
-          than another available result on both measures.
-        </Text>
-        <div>
-          <ArticleLink to="/methodology">Read the methodology →</ArticleLink>
-        </div>
-      </ArticleSection>
-
-      <ArticleSection>
         <Text variant="heading">Data and interpretation</Text>
         <Text variant="body">
           The dataset is built from public benchmark reports, result tables,
@@ -140,11 +115,8 @@ function OverviewArticle() {
           required metric.
         </Text>
         <Text variant="body">
-          The results describe what happened under the conditions of a
-          particular study. They do not prove that one harness will perform
-          better on every repository. Use the comparisons to identify
-          candidates, inspect the original evidence, and test the relevant
-          setups on your own tasks.
+          The current dataset contains source measurements. The Explore page
+          will display research results after the analysis is ready.
         </Text>
         <div>
           <ArticleLink to="/evidence">View the sources →</ArticleLink>
