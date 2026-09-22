@@ -32,10 +32,28 @@ meaning. The analysis records the pricing date and accounting basis. Metered
 API bills and hardware-derived costs do not share an absolute USD scale without
 a declared conversion or pricing scenario.
 
+For the cost axis, use the cost reported by the benchmark only when it covers
+the same charges and attempted tasks as the declared analysis. A reported cost
+per solved or completed task cannot serve as cost per attempted task unless
+source data support that conversion. If the benchmark does not report a usable
+cost but reports token usage by billable category, calculate USD cost from
+those counts and a recorded model-specific price schedule. Record the schedule's
+source, date, currency, and rates for input, cached input,
+output, and any other billed token categories. Include every model used by the
+system and any other billed charges that the cost definition covers. Keep the
+calculated value separate from the reported tokens and label it as an estimate.
+Do not replace a reported cost with a calculated one merely because both exist.
+
+If neither a comparable reported cost nor enough token detail for a defensible
+calculation exists, that result cannot inform the cost axis. A total token count
+alone is insufficient when token categories have different prices. The study
+may still inform the quality axis. Record why each result does or does not
+contribute to cost.
+
 The target graph uses one stated quality definition and one stated cost basis.
 It also names the task population to which both estimates apply. Absolute USD
-coordinates need observed cost levels under the chosen pricing basis. Relative
-cost differences alone cannot set that scale.
+coordinates need reported costs or token counts priced under the chosen basis.
+Relative cost differences alone cannot set that scale.
 If the evidence cannot support a shared scale, the analysis reports separate
 groups instead of placing incomparable estimates on one axis. A study that
 reports only one outcome still contributes to that outcome where its evidence
@@ -110,7 +128,8 @@ posterior predictions, model convergence, between-study variation, and
 sensitivity to priors. Compare direct and indirect evidence where the network
 allows it. Repeat the analysis without each study and without weak links.
 Check how alternative task-family groups and cost accounting choices change
-the graph.
+the graph. Repeat the cost analysis without calculated prices to show how much
+the result depends on token-based estimates.
 
 More task rows within one study reduce uncertainty about that study. They do
 not replace independent studies needed to learn between-study variation. If a
@@ -132,9 +151,11 @@ target cross-study graph. More sources and a cost-basis review are needed.
 ## Implementation order
 
 1. Build a reviewed record of study settings, shared-data campaigns, outcome
-   definitions, cost bases, and inclusion decisions. Report the network for
-   each axis. The current evidence rows have `condition`, but do not encode all
-   settings needed for this review.
+   definitions, cost bases, token categories, and inclusion decisions. Add a
+   versioned price schedule for calculated costs and report which costs are
+   reported, calculated, or unavailable. Report the network for each axis. The
+   current evidence rows have `condition`, but do not encode all settings needed
+   for this review.
 2. Use a notebook to inspect both networks and within-study comparisons.
    Implement the comparisons with uncertainty and dependence in research code.
 3. Fit and check the Bayesian model for quality and cost. Test prior and
