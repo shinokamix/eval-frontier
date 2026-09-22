@@ -11,15 +11,16 @@ Source data belongs under `research/data/sources/<source-id>`.
    uv run --project research eval-frontier verify
    ```
 
-3. Add the source's Python adapter and pin its snapshot in
+3. Add the source's Python adapter under
+   `research/src/eval_frontier/sources/adapters/` and pin its snapshot in
    `research/data/canonical/pins.json`.
-4. Add `crosswalk.json` and any catalog entries needed by the observations.
-5. Add a study definition to `research/data/canonical/studies.json`.
-6. Rebuild through Moon:
+4. Add `crosswalk.json` mapping source labels to the canonical IDs in
+   `src/eval_frontier/catalog/`.
+5. Rebuild through Moon:
 
    ```bash
    moon run research:build
    ```
 
 Capture never overwrites an existing snapshot. The build reads pinned snapshot
-bytes and writes `research/build/research.json`.
+bytes and writes `research/data/canonical/evidence.parquet`.

@@ -9,46 +9,34 @@ The project does not combine raw benchmark values from different studies.
 Study-specific baselines preserve benchmark difficulty. Compatibility reviews
 decide which studies can share an evidence network.
 
-## Method
+## Current scope
 
 ```text
-raw studies -> compatibility review -> Bayesian evidence networks
-            -> posterior pairwise effects -> decision profiles
-            -> probabilistic Pareto views
+source artifacts -> source extractors -> validated evidence.parquet
 ```
 
-The method keeps metric definitions separate, reports missing data as missing,
-and preserves each observation's source and run settings. Evidence grades
-control which analyses use a result. Random effects, posterior intervals,
-network diagnostics, and sensitivity checks show when sparse or heterogeneous
-evidence changes a conclusion.
-
-This cross-study method is not fully implemented. The current pipeline captures
-source artifacts, extracts observations, harmonizes labels, aggregates results
-within a study, and calculates within-study Pareto fronts.
+The analysis method is deferred. The current pipeline only captures immutable
+source artifacts, maps source labels to canonical IDs, validates rows with
+Pydantic, and writes one Parquet table for later analysis.
 
 Use the [`documentation index`](docs/README.md) to find the methodology,
 calculation, data contract, validation rules, and implementation status.
 
 ## Data
 
-The pipeline has four stages:
+The pipeline has three stages:
 
 ```text
-capture -> extract -> harmonize -> build
+capture -> extract -> canonicalize
 ```
 
 It stores source snapshots with checksums and keeps provenance for extracted
 observations. See [`research/README.md`](research/README.md) for the pipeline and
 [`research/add-a-source.md`](research/add-a-source.md) for source intake.
-[`DATASETS.md`](docs/DATASETS.md) defines the data contract for observations, study
-results, and cross-study scores.
+[`DATASETS.md`](docs/DATASETS.md) defines the contract for `evidence.parquet`.
 
-The Python pipeline writes the published artifacts in `research/build/`.
-`research/build/research.json` is versioned so other researchers can download
-the result without rebuilding the project. Moon copies it into the web app's
-public data directory before dev and production builds. Do not edit generated
-files by hand.
+The Python pipeline writes `research/data/canonical/evidence.parquet`. Do not
+edit the generated table by hand.
 
 ## Development
 

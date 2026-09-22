@@ -6,8 +6,7 @@ tasks:
   build:
     command: 'uv run eval-frontier build'
     outputs:
-      - 'build/research.json'
-      - 'build/manifest.json'
+      - 'data/canonical/evidence.parquet'
   check:
     command: 'uv run python -m compileall -q src'
   lint:

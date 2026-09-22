@@ -11,6 +11,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from ..schemas.sources import SourceArtifact, SourceDefinition
+
 
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -28,16 +30,16 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def source(data_dir: Path, source_id: str) -> dict[str, Any]:
-    value = read_json(data_dir / "sources" / source_id / "source.json")
-    if value.get("schemaVersion") != 1 or value.get("id") != source_id:
+def source(data_dir: Path, source_id: str) -> SourceDefinition:
+    value = SourceDefinition.model_validate(
+        read_json(data_dir / "sources" / source_id / "source.json")
+    )
+    if value.id != source_id:
         raise ValueError(f"Invalid source definition: {source_id}")
     return value
 
 
 def snapshot_id(artifacts: list[dict[str, Any]]) -> str:
-    # JS uses localeCompare. Its default collation places lowercase before
-    # uppercase when the folded strings are otherwise equal.
     def collation(value: str) -> tuple[str, tuple[int, ...]]:
         return (
             value.lower(),
@@ -68,9 +70,9 @@ def verify_snapshot(data_dir: Path, source_id: str, snap: str) -> dict[str, Any]
 def capture(data_dir: Path, source_id: str) -> str:
     definition = source(data_dir, source_id)
     captured: list[dict[str, Any]] = []
-    payloads: list[tuple[dict[str, Any], bytes]] = []
-    for artifact in definition["artifacts"]:
-        request = urllib.request.Request(artifact["url"], headers={"User-Agent": "eval-frontier"})
+    payloads: list[tuple[SourceArtifact, bytes]] = []
+    for artifact in definition.artifacts:
+        request = urllib.request.Request(str(artifact.url), headers={"User-Agent": "eval-frontier"})
         with urllib.request.urlopen(request) as response:
             body = response.read()
             final_url = response.geturl()
@@ -78,13 +80,13 @@ def capture(data_dir: Path, source_id: str) -> str:
             media_type = response.headers.get("content-type")
         captured.append(
             {
-                "path": f"artifacts/{artifact['path']}",
-                "role": artifact["role"],
+                "path": f"artifacts/{artifact.path}",
+                "role": artifact.role,
                 "mediaType": media_type,
                 "sha256": sha256(body),
                 "acquisition": {
                     "type": "http",
-                    "url": artifact["url"],
+                    "url": str(artifact.url),
                     "finalUrl": final_url,
                     "method": "GET",
                     "status": status,
@@ -101,18 +103,20 @@ def capture(data_dir: Path, source_id: str) -> str:
         try:
             (temporary / "artifacts").mkdir()
             for artifact, body in payloads:
-                (temporary / "artifacts" / artifact["path"]).write_bytes(body)
+                path = temporary / "artifacts" / artifact.path
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(body)
             write_json(
                 temporary / "manifest.json",
                 {
                     "schemaVersion": 1,
                     "snapshotId": snap,
                     "sourceId": source_id,
-                    "title": definition["title"],
-                    "canonicalUrl": definition["canonicalUrl"],
+                    "title": definition.title,
+                    "canonicalUrl": str(definition.canonical_url),
                     "capturedAt": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-                    "license": definition["license"],
-                    "redistribution": definition["redistribution"],
+                    "license": definition.license,
+                    "redistribution": definition.redistribution,
                     "artifacts": captured,
                 },
             )
@@ -130,6 +134,7 @@ def verify_sources(data_dir: Path) -> int:
     for directory in sorted(root.iterdir()):
         if not directory.is_dir() or not (directory / "source.json").exists():
             continue
+        source(data_dir, directory.name)
         raw = directory / "raw"
         if not raw.exists():
             continue

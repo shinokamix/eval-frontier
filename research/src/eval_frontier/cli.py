@@ -6,7 +6,9 @@ import argparse
 from collections.abc import Sequence
 from pathlib import Path
 
-from .pipeline import build, capture, extract, verify_sources
+from .evidence.build import build
+from .sources.archive import capture, verify_sources
+from .sources.extract import extract
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -27,13 +29,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     root = Path(__file__).resolve().parents[3]
     data_dir = root / "research" / "data"
-    output = root / "research" / "build" / "research.json"
+    output = root / "research" / "data" / "canonical" / "evidence.parquet"
     if args.command == "capture":
         print(f"Captured {args.source_id}: {capture(data_dir, args.source_id)}")
     elif args.command == "verify":
         print(f"Verified {verify_sources(data_dir)} snapshots.")
     elif args.command == "extract":
-        print(f"Extracted {args.source_id} to {extract(data_dir, args.source_id)}")
+        print(f"Extracted {len(extract(data_dir, args.source_id))} rows from {args.source_id}.")
     elif args.command == "build":
         print(f"Wrote {build(data_dir, output)}")
     return 0
