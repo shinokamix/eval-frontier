@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "models": {
+    "claude-fable-5": "claude-fable-5",
+    "claude-opus-4-8": "claude-opus-4-8",
+    "claude-opus-5": "claude-opus-5",
+    "claude-sonnet-4-6": "claude-sonnet-4-6",
+    "claude-sonnet-5": "claude-sonnet-5",
+    "deepseek-v4-flash": "deepseek-v4-flash",
+    "deepseek-v4-pro": "deepseek-v4-pro",
+    "gemini-3-1-pro-preview": "gemini-3-1-pro-preview",
+    "gemini-3-5-flash": "gemini-3-5-flash",
+    "gemini-3-6-flash": "gemini-3-6-flash",
+    "gemini-3-7-flash": "gemini-3-7-flash",
+    "gemini-3-8-flash": "gemini-3-8-flash",
+    "glm-5-2": "glm-5.2",
+    "glm-5-3": "glm-5.3",
+    "glm-5-3-flash": "glm-5.3-flash",
+    "gpt-5-4": "gpt-5.4",
+    "gpt-5-5": "gpt-5.5",
+    "gpt-5-6-luna": "gpt-5.6-luna",
+    "gpt-5-6-sol": "gpt-5.6-sol",
+    "gpt-5-6-terra": "gpt-5.6-terra",
+    "gpt-6-astra": "gpt-6-astra",
+    "grok-4-5": "grok-4.5",
+    "grok-4-6": "grok-4.6",
+    "kimi-k2-7-code": "kimi-k2.7-code",
+    "kimi-k3": "kimi-k3",
+    "muse-spark-1-1": "muse-spark-1.1",
+    "muse-spark-1-2": "muse-spark-1.2",
+    "qwen3-8-max": "qwen3.8-max"
+  },
+  "harnesses": { "mini-swe-agent": "mini-swe-agent" },
+  "metrics": {
+    "pass_at_1": "deepswe_pass_at_1",
+    "pass_at_4": "deepswe_pass_at_4",
+    "mean_cost_usd": "mean_cost_per_scored_attempt_usd",
+    "mean_duration_seconds": "mean_duration_per_scored_attempt_s"
+  }
+}

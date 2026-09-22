@@ -44,6 +44,7 @@ def canonicalize_source(
                     source_path=entry["provenance"]["path"],
                     source_locator=f"row:{entry['provenance']['row']}",
                     benchmark_id=native["benchmark"] if native.get("aggregate") else source_id,
+                    benchmark_version=native.get("benchmark_version"),
                     task_id=None if native.get("aggregate") else native["benchmark"],
                     trial_id=native.get("trial"),
                     model_id=model_id,

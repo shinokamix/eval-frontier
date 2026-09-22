@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "deepswe-v1.1",
+  "title": "DeepSWE v1.1 official leaderboard",
+  "canonicalUrl": "https://deepswe.datacurve.ai/data/v1.1",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "leaderboard-live.json",
+      "role": "results",
+      "url": "https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 # Add a source to the research pipeline
 
-Add a source when you have a fixed revision of its published results and know
-how its measurements map to the canonical evidence table. The result is a
-pinned snapshot and new rows in `research/data/canonical/evidence.parquet`.
+Add a source when you can identify a published results artifact and map its
+measurements to the canonical evidence table. The result is a pinned snapshot
+and new rows in `research/data/canonical/evidence.parquet`.
 Run the commands below from the repository root.
 
 Use [the evidence data contract](DATASETS.md) to check the meaning of each
@@ -11,8 +11,12 @@ accepted metadata and row formats.
 
 ## Check the published results
 
-Find a revision that cannot change, such as a commit hash. Check the license
-and redistribution terms. Identify the results file and its model, harness,
+Prefer a URL at a fixed revision, such as a commit hash. If the publisher only
+provides a changing URL, capture its bytes and pin the resulting SHA-256 based
+snapshot. Record the URL and capture time. Check the license and redistribution
+terms for the results artifact. If they are unstated, record `not stated` and
+report that limitation. Do not infer the results license from a related code
+repository. Identify the results file and its model, harness,
 benchmark, trial, and metric fields. Resolve any unclear metric definition or
 denominator before you map it to a canonical ID.
 
@@ -26,7 +30,7 @@ exclusions match, you can reuse the adapter.
 Create `research/data/sources/<source-id>/source.json` with `schemaVersion`
 set to `1`. Add a stable lowercase `id`, `title`, `canonicalUrl`, `license`,
 `redistribution`, and an `artifacts` list. Give each artifact a unique relative
-`path`, a `role`, and a URL fixed to the chosen revision. Assign the `results`
+`path`, a `role`, and the artifact URL. Assign the `results`
 role to exactly one artifact. Include license, methodology, or provenance files
 when they explain the results or redistribution terms.
 
@@ -39,9 +43,11 @@ uv run --project research eval-frontier verify
 
 `capture` prints a snapshot ID and writes
 `research/data/sources/<source-id>/raw/<snapshot-id>/manifest.json`. Check the
-recorded URLs in the manifest. The `verify` command checks the captured files
-against their SHA-256 hashes. Capture preserves any existing snapshot with the
-same ID.
+recorded URLs and capture time in the manifest. The `verify` command checks
+the captured files against their SHA-256 hashes. Capture preserves any existing
+snapshot with the same ID. Keep a changing URL out of later builds. If terms
+are not stated, capture only the results needed for the evidence rows and note
+the unresolved redistribution status in the source report.
 
 ## Extract the source rows
 

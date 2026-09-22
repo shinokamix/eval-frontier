@@ -11,5 +11,6 @@ HARNESSES = {
         HarnessDefinition(id="cursor", label="Cursor"),
         HarnessDefinition(id="devin", label="Devin"),
         HarnessDefinition(id="claude-code", label="Claude Code"),
+        HarnessDefinition(id="mini-swe-agent", label="mini-swe-agent"),
     ]
 }

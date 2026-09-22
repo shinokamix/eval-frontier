@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "377c1cb6b86a11258506f1ad5567604c3c40546e354c5c7db1c85dead3a431a1",
+  "sourceId": "deepswe-v1.1",
+  "title": "DeepSWE v1.1 official leaderboard",
+  "canonicalUrl": "https://deepswe.datacurve.ai/data/v1.1",
+  "capturedAt": "2026-09-22T20:24:51.499304Z",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "artifacts/leaderboard-live.json",
+      "role": "results",
+      "mediaType": "application/json; charset=utf-8",
+      "sha256": "a7c15d66288fd249c020b9931c017b92d1a3b90e480b3ff34974b752bd030019",
+      "acquisition": {
+        "type": "http",
+        "url": "https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json",
+        "finalUrl": "https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json",
+        "method": "GET",
+        "status": 200
+      }
+    }
+  ]
+}
