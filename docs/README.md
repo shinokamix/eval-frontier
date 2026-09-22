@@ -8,8 +8,7 @@ Start with the document that matches your task:
 - [`METHODOLOGY.md`](METHODOLOGY.md), [`SCORING.md`](SCORING.md), and
   [`VALIDATION.md`](VALIDATION.md) describe deferred analysis work. They are not
   implemented by the current build.
-- Follow [`../research/add-a-source.md`](../research/add-a-source.md) to add a
-  source.
+- Follow [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) to add a source.
 
 The method documents describe the target system. The research pipeline does
 not implement the complete method yet. Check the implementation status before

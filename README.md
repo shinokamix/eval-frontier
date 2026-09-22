@@ -32,7 +32,7 @@ capture -> extract -> canonicalize
 
 It stores source snapshots with checksums and keeps provenance for extracted
 observations. See [`research/README.md`](research/README.md) for the pipeline and
-[`research/add-a-source.md`](research/add-a-source.md) for source intake.
+[`SOURCE-PIPELINE.md`](docs/SOURCE-PIPELINE.md) to add a source.
 [`DATASETS.md`](docs/DATASETS.md) defines the contract for `evidence.parquet`.
 
 The Python pipeline writes `research/data/canonical/evidence.parquet`. Do not
