@@ -1,6 +1,6 @@
 # Research pipeline
 
-The current pipeline only builds the canonical evidence table. It captures
+The current pipeline builds the canonical evidence table. It captures
 immutable source snapshots, extracts source-native rows, maps source labels to
 canonical IDs, validates every row with Pydantic, and writes Parquet.
 
@@ -10,12 +10,15 @@ research/data/sources
         -> evidence.parquet
 ```
 
-Run commands from the repository root through Moon:
+Run the configured checks and build from the repository root through Moon:
 
 ```bash
 moon run research:check
 moon run research:build
 ```
+
+`research:check` compiles the Python source. The project also defines `lint`,
+`format`, `types`, and `deps` tasks for Ruff, Basedpyright, and Deptry.
 
 The build output is:
 
@@ -23,11 +26,8 @@ The build output is:
 research/data/canonical/evidence.parquet
 ```
 
-The research code does not currently fit a model, aggregate study results,
-build pairwise comparisons, or produce the target quality against
-`cost_per_task` graph. Use a notebook to inspect evidence and develop the
-analysis. Put the final calculations in reproducible research code. The
-[`methodology`](../docs/METHODOLOGY.md) defines the target graph and its checks.
+The research code does not fit a model or produce the target graph. See the
+[`methodology`](../docs/METHODOLOGY.md) for the planned analysis.
 
 ## Data layout
 
@@ -46,18 +46,14 @@ research/data/
     pins.json
 ```
 
-`source.json`, `manifest.json`, and `crosswalk.json` are JSON metadata. The
-normalized per-source tables and the combined research table are Parquet. The
-raw archive is never modified by the pipeline. Each `normalized.parquet`
-contains the same canonical evidence schema as the combined table, but only
-the rows from its source snapshot.
+`source.json`, `manifest.json`, and `crosswalk.json` are JSON metadata. The raw
+archive is immutable. Each `normalized.parquet` contains the canonical schema
+for one source snapshot. See [`DATASETS.md`](../docs/DATASETS.md) for the row
+contract and catalog details.
 
-## Python contracts
+## Code layout
 
-`src/eval_frontier/schemas/` contains the Pydantic models for canonical rows,
-catalog entries, and source metadata. `catalog/` contains the allowed model,
-harness, and metric values. There is no separate JSON Schema contract.
-
-Source archive code lives in `src/eval_frontier/sources/`. Source-specific
-adapters live in `sources/adapters/`. Canonicalization and Parquet writing live
-in `src/eval_frontier/evidence/`.
+The Pydantic models live in `src/eval_frontier/schemas/`. Source archive code
+lives in `src/eval_frontier/sources/`, adapters live in
+`src/eval_frontier/sources/adapters/`, and canonicalization and Parquet writing
+live in `src/eval_frontier/evidence/`.
