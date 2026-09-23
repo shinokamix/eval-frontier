@@ -50,6 +50,11 @@ alone is insufficient when token categories have different prices. The study
 may still inform the quality axis. Record why each result does or does not
 contribute to cost.
 
+The Terminal-Bench adapters omit the inconsistent `uncached_input_tokens` field.
+The pinned source snapshots retain it. A later pricing analysis may calculate
+noncached input as total minus cached input minus output after checking token
+accounting and trial coverage. Label the result as calculated.
+
 The target graph uses one stated quality definition and one stated cost basis.
 It also names the task population to which both estimates apply. Absolute USD
 coordinates need reported costs or token counts priced under the chosen basis.
@@ -138,15 +143,19 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The pinned snapshots come from Kroda, OpenBench, and Aarora. Kroda and some
-OpenBench snapshots share the GPT-5.5, Codex, medium-effort system and report
-`solved`. This is a candidate quality link. The OpenBench snapshots are related
-reports and need a check for reused tasks and runs.
+The pinned evidence table includes Aarora, DeepSWE, Kroda, four OpenBench
+versions, Terminal-Bench 2.1 and 4.0, and SWE-Marathon. The pipeline has not
+reviewed shared tasks, reused runs, cost coverage, or study connections across
+these sources. The OpenBench versions need a check for reused tasks and runs.
 
-No two pinned sources currently share both a system and the `cost_usd` metric.
-Aarora reports cost per scored task on two different cost bases and a mean
-quality score that excludes failed tasks. These values cannot yet define the
-target cross-study graph. More sources and a cost-basis review are needed.
+Terminal-Bench 2.1 and 4.0 use different task sets. Their leaderboard snapshots
+contain configuration aggregates rather than paired task-level outcomes.
+Terminal-Bench 4.0 reports a 95% accuracy interval, but its Grok 4.7 cost
+covers only 324 of 330 trials. Aarora reports cost per scored task on two
+different cost bases and a mean quality score that excludes failed tasks.
+The source-level rows do not yet justify a shared quality and cost scale or the
+target cross-study graph. The study-settings and cost-basis review in the first
+implementation step remains necessary.
 
 ## Implementation order
 

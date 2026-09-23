@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "602aaaac05aa84141e26609666e72213d81e5cf5a99272d759725a871e0cf835",
+  "sourceId": "terminal-bench-4-0",
+  "title": "Terminal-Bench 4.0 official leaderboard",
+  "canonicalUrl": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/4/leaderboards/4-0-0",
+  "capturedAt": "2026-09-23T18:03:21.794024Z",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "artifacts/leaderboard.json",
+      "role": "results",
+      "mediaType": "application/json",
+      "sha256": "867e08cc099e1a649661f8675b4ce63747eb43dac9504cfbde2ba0b8690eada8",
+      "acquisition": {
+        "type": "http",
+        "url": "https://ofhuhcpkvzjlejydnvyd.supabase.co/functions/v1/leaderboard-read?package=terminal-bench%2Fterminal-bench&name=4-0-0",
+        "finalUrl": "https://ofhuhcpkvzjlejydnvyd.supabase.co/functions/v1/leaderboard-read?package=terminal-bench%2Fterminal-bench&name=4-0-0",
+        "method": "GET",
+        "status": 200
+      }
+    }
+  ]
+}

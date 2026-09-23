@@ -58,6 +58,8 @@ def canonicalize_source(
                     direction=metric.direction,
                     sample_size=native.get("sample_sizes", {}).get(source_metric),
                     standard_error=native.get("standard_errors", {}).get(source_metric),
+                    interval_lower=native.get("interval_lowers", {}).get(source_metric),
+                    interval_upper=native.get("interval_uppers", {}).get(source_metric),
                 )
             )
     return rows

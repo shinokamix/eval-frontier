@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "terminal-bench-4-0",
+  "title": "Terminal-Bench 4.0 official leaderboard",
+  "canonicalUrl": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/4?tab=leaderboard&leaderboard=4-0-0",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "leaderboard.json",
+      "role": "results",
+      "url": "https://ofhuhcpkvzjlejydnvyd.supabase.co/functions/v1/leaderboard-read?package=terminal-bench%2Fterminal-bench&name=4-0-0"
+    }
+  ]
+}

@@ -60,23 +60,23 @@ METRICS = {
             direction="lower",
         ),
         MetricDefinition(
-            id="terminal_bench_2_1_accuracy_pct",
-            label="Terminal-Bench 2.1 successful trials",
+            id="trial_success_rate_pct",
+            label="Successful trials",
             unit="percent",
             statistic="ratio",
             direction="higher",
         ),
         MetricDefinition(
-            id="terminal_bench_2_1_reward_hacks_pct",
-            label="Terminal-Bench 2.1 trials disqualified for reward hacking",
+            id="reward_hack_disqualification_rate_pct",
+            label="Trials disqualified for reward hacking",
             unit="percent",
             statistic="ratio",
             direction="lower",
         ),
         *[
             MetricDefinition(
-                id=f"terminal_bench_pass_at_{k}",
-                label=f"Terminal-Bench pass@{k} task estimate",
+                id=f"task_pass_at_{k}",
+                label=f"Task pass@{k} estimate",
                 unit="fraction",
                 statistic="mean",
                 direction="higher",
@@ -84,29 +84,40 @@ METRICS = {
             for k in range(2, 6)
         ],
         MetricDefinition(
-            id="terminal_bench_total_cost_usd",
-            label="Terminal-Bench total reported trial cost",
+            id="reported_cost_across_trials_usd",
+            label="Reported cost across trials",
             unit="USD",
             statistic="sum",
             direction="lower",
         ),
         MetricDefinition(
-            id="terminal_bench_avg_trial_duration_s",
-            label="Terminal-Bench mean trial wall-clock duration",
+            id="total_tokens_across_trials",
+            label="Reported total tokens across trials",
+            unit="tokens",
+            statistic="sum",
+            direction="lower",
+        ),
+        MetricDefinition(
+            id="mean_trial_duration_s",
+            label="Mean trial duration",
             unit="seconds per trial",
             statistic="mean",
             direction="lower",
         ),
-        *[
-            MetricDefinition(
-                id=f"terminal_bench_{kind}_tokens",
-                label=f"Terminal-Bench {kind.replace('_', ' ')} tokens",
-                unit="tokens",
-                statistic="sum",
-                direction="lower",
-            )
-            for kind in ("uncached_input", "cached_input", "output")
-        ],
+        MetricDefinition(
+            id="cached_input_tokens_across_trials",
+            label="Cached input tokens across trials",
+            unit="tokens",
+            statistic="sum",
+            direction="lower",
+        ),
+        MetricDefinition(
+            id="output_tokens_across_trials",
+            label="Output tokens across trials",
+            unit="tokens",
+            statistic="sum",
+            direction="lower",
+        ),
         MetricDefinition(
             id="cached_input_tokens",
             label="Cached input tokens",

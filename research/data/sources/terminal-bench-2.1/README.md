@@ -16,10 +16,16 @@ crosswalk keeps separate metric IDs and units.
 The publisher counts those trials as failures in accuracy and pass@k, while
 retaining their resource usage in the cost and token totals.
 
-For the five GPT-6 Astra rows, the published `total_tokens` equals
-`uncached_input_tokens + output_tokens` and excludes `cached_input_tokens`.
-The adapter preserves the three published token fields separately. Do not add
-them to reproduce `total_tokens` for those rows.
+The adapter records published total, cached input, and output tokens. It omits
+`uncached_input_tokens`: 16 rows match the [2.1 generator's](https://github.com/harbor-framework/terminal-bench-2-1/blob/67f1daf5b331fd10f5e8bc05bfc626aac26eeb39/leaderboard/src/leaderboard/core/metrics.py#L127-L152)
+definition of input minus cached input, while five Codex GPT-6 Astra rows
+match the [4.0 generator's](https://github.com/harbor-framework/terminal-bench/blob/37d0c6e752365435ac58677d1d425b8e4c07cb31/leaderboard/src/leaderboard/core/metrics.py#L150-L175)
+definition of all input. One row has no cached input, so the conventions are
+indistinguishable there. The pinned JSON keeps the published field. The snapshot
+does not explain why the five Codex rows use a different convention.
+
+The API does not state coverage for reported costs or token totals, so those
+measurements have no sample size.
 
 The results API does not state a license or redistribution terms. The archive
 contains only the leaderboard response needed for the evidence rows. It does
