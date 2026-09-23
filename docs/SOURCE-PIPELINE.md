@@ -36,6 +36,11 @@ when they explain the results or redistribution terms.
 
 Capture the files and verify their hashes:
 
+If results occupy a byte range inside a larger public file, set `rangeStart`
+and `rangeEnd` on the artifact. Both boundaries are inclusive. The capture
+command requires an HTTP 206 response and records the range in the manifest.
+Use this only when the selected bytes form a complete results artifact.
+
 ```bash
 uv run --project research eval-frontier capture <source-id>
 uv run --project research eval-frontier verify

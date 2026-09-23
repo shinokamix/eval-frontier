@@ -72,12 +72,22 @@ def capture(data_dir: Path, source_id: str) -> str:
     captured: list[dict[str, Any]] = []
     payloads: list[tuple[SourceArtifact, bytes]] = []
     for artifact in definition.artifacts:
-        request = urllib.request.Request(str(artifact.url), headers={"User-Agent": "eval-frontier"})
+        headers = {"User-Agent": "eval-frontier"}
+        if artifact.range_start is not None and artifact.range_end is not None:
+            headers["Range"] = f"bytes={artifact.range_start}-{artifact.range_end}"
+        request = urllib.request.Request(str(artifact.url), headers=headers)
         with urllib.request.urlopen(request) as response:
             body = response.read()
             final_url = response.geturl()
             status = response.status
             media_type = response.headers.get("content-type")
+            content_range = response.headers.get("content-range")
+        if artifact.range_start is not None and artifact.range_end is not None:
+            expected_range = f"bytes {artifact.range_start}-{artifact.range_end}/"
+            if status != 206 or not content_range or not content_range.startswith(expected_range):
+                raise ValueError(f"Source did not honor byte range: {artifact.path}")
+            if len(body) != artifact.range_end - artifact.range_start + 1:
+                raise ValueError(f"Incomplete source byte range: {artifact.path}")
         captured.append(
             {
                 "path": f"artifacts/{artifact.path}",
@@ -90,6 +100,11 @@ def capture(data_dir: Path, source_id: str) -> str:
                     "finalUrl": final_url,
                     "method": "GET",
                     "status": status,
+                    **(
+                        {"range": headers["Range"], "contentRange": content_range}
+                        if artifact.range_start is not None and artifact.range_end is not None
+                        else {}
+                    ),
                 },
             }
         )

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "swe-marathon-v1.1",
+  "title": "SWE-Marathon v1.1 official trial results",
+  "canonicalUrl": "https://www.swe-marathon.org/",
+  "license": "not stated for website results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "results-v1.1.json",
+      "role": "results",
+      "url": "https://www.swe-marathon.org/assets/index-Cnn3YyxR.js",
+      "rangeStart": 1054612,
+      "rangeEnd": 5121794
+    }
+  ]
+}

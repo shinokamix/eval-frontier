@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "2168608a042bdd5cd6a42d96eef64a73954c282dc6b226669174f41fdf4f8ddc",
+  "sourceId": "swe-marathon-v1.1",
+  "title": "SWE-Marathon v1.1 official trial results",
+  "canonicalUrl": "https://www.swe-marathon.org/",
+  "capturedAt": "2026-09-23T17:49:20.517710Z",
+  "license": "not stated for website results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "artifacts/results-v1.1.json",
+      "role": "results",
+      "mediaType": "application/javascript; charset=utf-8",
+      "sha256": "753def0ed0c3c6b642cfaa3bf8b688198bd26547c37d49387bb1de64695d4853",
+      "acquisition": {
+        "type": "http",
+        "url": "https://www.swe-marathon.org/assets/index-Cnn3YyxR.js",
+        "finalUrl": "https://www.swe-marathon.org/assets/index-Cnn3YyxR.js",
+        "method": "GET",
+        "status": 206,
+        "range": "bytes=1054612-5121794",
+        "contentRange": "bytes 1054612-5121794/5194422"
+      }
+    }
+  ]
+}

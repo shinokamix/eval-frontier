@@ -14,5 +14,7 @@ HARNESSES = {
         HarnessDefinition(id="mini-swe-agent", label="mini-swe-agent"),
         HarnessDefinition(id="terminus-2", label="Terminus 2"),
         HarnessDefinition(id="gemini-cli", label="Gemini CLI"),
+        HarnessDefinition(id="grok-build", label="Grok Build"),
+        HarnessDefinition(id="muse-code", label="Muse Code"),
     ]
 }

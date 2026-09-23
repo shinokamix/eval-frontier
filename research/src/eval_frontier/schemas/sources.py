@@ -18,6 +18,8 @@ class SourceArtifact(BaseModel):
     path: str = Field(min_length=1)
     role: Literal["license", "methodology", "provenance", "results", "summary"]
     url: HttpUrl
+    range_start: int | None = Field(default=None, alias="rangeStart", ge=0)
+    range_end: int | None = Field(default=None, alias="rangeEnd", ge=0)
 
     @field_validator("path")
     @classmethod
@@ -26,6 +28,18 @@ class SourceArtifact(BaseModel):
         if parsed.is_absolute() or ".." in parsed.parts:
             raise ValueError("Source artifact path must stay within the snapshot")
         return path
+
+    @model_validator(mode="after")
+    def validate_range(self) -> SourceArtifact:
+        if (self.range_start is None) != (self.range_end is None):
+            raise ValueError("Source artifact byte range needs both boundaries")
+        if (
+            self.range_start is not None
+            and self.range_end is not None
+            and self.range_end < self.range_start
+        ):
+            raise ValueError("Source artifact byte range is reversed")
+        return self
 
 
 class SourceDefinition(BaseModel):

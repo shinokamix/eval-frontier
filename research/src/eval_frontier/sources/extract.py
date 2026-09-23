@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from ..schemas.sources import SourcePins
-from .adapters import aarora, deepswe, kroda, openbench, terminal_bench
+from .adapters import aarora, deepswe, kroda, openbench, swe_marathon, terminal_bench
 from .archive import read_json, verify_snapshot
 
 EXTRACTORS = {
@@ -17,6 +17,7 @@ EXTRACTORS = {
     "aarora-harness-benchmarks": aarora.extract,
     "deepswe-v1.1": deepswe.extract,
     "terminal-bench-2.1": terminal_bench.extract,
+    "swe-marathon-v1.1": swe_marathon.extract,
 }
 
 

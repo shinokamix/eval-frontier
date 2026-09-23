@@ -49,5 +49,9 @@ MODELS = {
         ModelDefinition(id="muse-spark-1.1", label="Muse Spark 1.1"),
         ModelDefinition(id="muse-spark-1.2", label="Muse Spark 1.2"),
         ModelDefinition(id="qwen3.8-max", label="Qwen3.8 Max"),
+        ModelDefinition(id="claude-fable-5.1", label="Claude Fable 5.1"),
+        ModelDefinition(id="grok-4.6", label="Grok 4.6"),
+        ModelDefinition(id="grok-4.7", label="Grok 4.7"),
+        ModelDefinition(id="muse-spark-1.3", label="Muse Spark 1.3"),
     ]
 }
