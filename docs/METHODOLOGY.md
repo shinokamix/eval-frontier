@@ -143,16 +143,14 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The pinned evidence table includes Aarora, DeepSWE, Kroda, four OpenBench
-versions, Terminal-Bench 2.1 and 4.0, and SWE-Marathon. The pipeline has not
-reviewed shared tasks, reused runs, cost coverage, or study connections across
-these sources. The OpenBench versions need a check for reused tasks and runs.
+The pinned evidence table includes DeepSWE, Terminal-Bench 2.1 and 4.0, and
+SWE-Marathon. The pipeline has not reviewed shared tasks, reused runs, cost
+coverage, or study connections across these sources.
 
 Terminal-Bench 2.1 and 4.0 use different task sets. Their leaderboard snapshots
 contain configuration aggregates rather than paired task-level outcomes.
 Terminal-Bench 4.0 reports a 95% accuracy interval, but its Grok 4.7 cost
-covers only 324 of 330 trials. Aarora reports cost per scored task on two
-different cost bases and a mean quality score that excludes failed tasks.
+covers only 324 of 330 trials.
 The source-level rows do not yet justify a shared quality and cost scale or the
 target cross-study graph. The study-settings and cost-basis review in the first
 implementation step remains necessary.

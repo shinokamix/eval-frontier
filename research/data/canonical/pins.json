@@ -1,13 +1,7 @@
 {
   "schemaVersion": 1,
   "sources": {
-    "aarora-harness-benchmarks": "8824bbb6b060cd0c51bfe94e9d14da0527e98bbcebd27b471c0407d36baf239d",
     "deepswe-v1.1": "377c1cb6b86a11258506f1ad5567604c3c40546e354c5c7db1c85dead3a431a1",
-    "kroda-coding-agent-baselines": "72f5c501feb7da5054ceccea20376853c5a97809d42d613f348d0e8c76d247c4",
-    "openbench-m3": "6caf0b0b077fc2a89049a5a6cce40a6f01a6c9ae3450a177e2feeabddb79159f",
-    "openbench-m3.5": "10600ee5267d20d039eb3f5e9fc9852581208295472782ad350215470d0f3d51",
-    "openbench-m4": "06fbb36203ab0ae3bc20cf9378b07bb603cf8dec02460ed283465e954b5448d3",
-    "openbench-m4.5": "007cba24348cc93450febe1135675bedae6071f727cc19d5fc71d61520757a79",
     "terminal-bench-2.1": "50810aed12194a06d9f78b74806b7d8b48d16d003ea4699034bf81826fbf2bf8",
     "terminal-bench-4-0": "602aaaac05aa84141e26609666e72213d81e5cf5a99272d759725a871e0cf835",
     "swe-marathon-v1.1": "2168608a042bdd5cd6a42d96eef64a73954c282dc6b226669174f41fdf4f8ddc"

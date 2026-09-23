@@ -6,10 +6,7 @@ from pathlib import Path
 
 from ..schemas.sources import SourcePins
 from .adapters import (
-    aarora,
     deepswe,
-    kroda,
-    openbench,
     swe_marathon,
     terminal_bench,
     terminal_bench_4,
@@ -17,12 +14,6 @@ from .adapters import (
 from .archive import read_json, verify_snapshot
 
 EXTRACTORS = {
-    "openbench-m3": lambda content: openbench.extract(content, "m3", no_effort={"devin"}),
-    "openbench-m3.5": lambda content: openbench.extract(content, "m3.5"),
-    "openbench-m4": lambda content: openbench.extract(content, "m4"),
-    "openbench-m4.5": lambda content: openbench.extract(content, "m4.5", excluded={"devin"}),
-    "kroda-coding-agent-baselines": kroda.extract,
-    "aarora-harness-benchmarks": aarora.extract,
     "deepswe-v1.1": deepswe.extract,
     "terminal-bench-2.1": terminal_bench.extract,
     "terminal-bench-4-0": terminal_bench_4.extract,
