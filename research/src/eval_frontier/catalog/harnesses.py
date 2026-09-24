@@ -14,5 +14,8 @@ HARNESSES = {
         HarnessDefinition(id="gemini-cli", label="Gemini CLI"),
         HarnessDefinition(id="grok-build", label="Grok Build"),
         HarnessDefinition(id="muse-code", label="Muse Code"),
+        HarnessDefinition(id="chisel", label="Chisel"),
+        HarnessDefinition(id="devin", label="Devin"),
+        HarnessDefinition(id="cursor-cli", label="Cursor CLI"),
     ]
 }

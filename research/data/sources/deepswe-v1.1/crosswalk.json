@@ -32,8 +32,8 @@
   },
   "harnesses": { "mini-swe-agent": "mini-swe-agent" },
   "metrics": {
-    "pass_at_1": "deepswe_pass_at_1",
-    "pass_at_4": "deepswe_pass_at_4",
+    "pass_at_1": "scored_attempt_pass_rate",
+    "pass_at_4": "task_any_pass_rate_at_4",
     "mean_cost_usd": "mean_cost_per_scored_attempt_usd",
     "mean_duration_seconds": "mean_duration_per_scored_attempt_s"
   }

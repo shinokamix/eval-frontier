@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "frontiercode-v1.1",
+  "title": "FrontierCode 1.1 official leaderboard",
+  "canonicalUrl": "https://cognition.com/frontiercode",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "leaderboard.json",
+      "role": "results",
+      "url": "https://cognition.com/data/frontiercode-leaderboard/data.json"
+    }
+  ]
+}

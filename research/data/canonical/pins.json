@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "sources": {
     "deepswe-v1.1": "377c1cb6b86a11258506f1ad5567604c3c40546e354c5c7db1c85dead3a431a1",
+    "frontiercode-v1.1": "e0663f1222fb90127abda3872a68a592e8e3566fe1b4ab59db1ffdefa650ba89",
     "terminal-bench-2.1": "50810aed12194a06d9f78b74806b7d8b48d16d003ea4699034bf81826fbf2bf8",
     "terminal-bench-4-0": "602aaaac05aa84141e26609666e72213d81e5cf5a99272d759725a871e0cf835",
     "swe-marathon-v1.1": "2168608a042bdd5cd6a42d96eef64a73954c282dc6b226669174f41fdf4f8ddc"

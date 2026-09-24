@@ -7,6 +7,7 @@ from pathlib import Path
 from ..schemas.sources import SourcePins
 from .adapters import (
     deepswe,
+    frontiercode,
     swe_marathon,
     terminal_bench,
     terminal_bench_4,
@@ -15,6 +16,7 @@ from .archive import read_json, verify_snapshot
 
 EXTRACTORS = {
     "deepswe-v1.1": deepswe.extract,
+    "frontiercode-v1.1": frontiercode.extract,
     "terminal-bench-2.1": terminal_bench.extract,
     "terminal-bench-4-0": terminal_bench_4.extract,
     "swe-marathon-v1.1": swe_marathon.extract,

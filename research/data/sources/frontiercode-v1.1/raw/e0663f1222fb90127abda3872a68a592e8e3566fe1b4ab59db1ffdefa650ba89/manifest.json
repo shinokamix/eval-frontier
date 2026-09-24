@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "e0663f1222fb90127abda3872a68a592e8e3566fe1b4ab59db1ffdefa650ba89",
+  "sourceId": "frontiercode-v1.1",
+  "title": "FrontierCode 1.1 official leaderboard",
+  "canonicalUrl": "https://cognition.com/frontiercode",
+  "capturedAt": "2026-09-23T21:14:25.199135Z",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "artifacts/leaderboard.json",
+      "role": "results",
+      "mediaType": "application/json; charset=utf-8",
+      "sha256": "edba28c872b94a4abf665ed5443c52a001c75646eb4ae01a2c83a794128893bc",
+      "acquisition": {
+        "type": "http",
+        "url": "https://cognition.com/data/frontiercode-leaderboard/data.json",
+        "finalUrl": "https://cognition.com/data/frontiercode-leaderboard/data.json",
+        "method": "GET",
+        "status": 200
+      }
+    }
+  ]
+}
