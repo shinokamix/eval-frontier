@@ -48,6 +48,7 @@ function ExploreScatterPoint({
           'absolute flex size-6 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-1 focus-visible:ring-white/70',
           active && 'z-10',
         )}
+        // oxlint-disable-next-line shadcn/no-inline-styles -- position follows the axis scale
         style={{ left, top }}
         delay={0}
         closeOnClick={false}
@@ -78,7 +79,7 @@ function ExploreScatterPoint({
                     variants={revealVariants}
                   />
                 }
-                className="min-w-52 max-w-[calc(100vw-2rem)] border border-white/10 bg-[#111111] p-3 shadow-lg"
+                className="min-w-52 max-w-[calc(100vw-2rem)] border border-white/10 bg-overlay p-3 shadow-lg"
               >
                 <Text
                   as="div"
@@ -93,7 +94,7 @@ function ExploreScatterPoint({
                     as="dt"
                     variant="inline"
                     size="caption"
-                    className="text-white/45"
+                    tone="subtle"
                   >
                     Efficiency
                   </Text>
@@ -108,7 +109,7 @@ function ExploreScatterPoint({
                     as="dt"
                     variant="inline"
                     size="caption"
-                    className="text-white/45"
+                    tone="subtle"
                   >
                     Quality
                   </Text>

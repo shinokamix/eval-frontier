@@ -3,6 +3,11 @@
 @theme {
   --font-sans: 'Instrument Sans', system-ui, sans-serif;
   --font-mono: 'Commit Mono', ui-monospace, monospace;
+  --color-background: #090909;
+  --color-foreground: #f4f4f4;
+  --color-surface: #151515;
+  --color-overlay: #111111;
+  --color-muted: #8d8a82;
 }
 
 .page-layout {
@@ -35,7 +40,7 @@ body,
 }
 
 body {
-  @apply bg-[#090909] font-sans font-normal leading-normal text-[#f4f4f4];
+  @apply bg-background font-sans font-normal leading-normal text-foreground;
 }
 
 h1,

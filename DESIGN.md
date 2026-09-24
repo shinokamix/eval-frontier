@@ -1,3 +1,20 @@
+# Color
+
+Page color lives in `src/app/styles.css` as theme tokens. Use the utility
+instead of the hex value.
+
+| Token        | Utility           | Value     | Use                                          |
+| ------------ | ----------------- | --------- | -------------------------------------------- |
+| `background` | `bg-background`   | `#090909` | Page background and panels sitting on it     |
+| `foreground` | `text-foreground` | `#f4f4f4` | Default text and diagram strokes             |
+| `surface`    | `bg-surface`      | `#151515` | A raised fill inside a diagram               |
+| `overlay`    | `bg-overlay`      | `#111111` | Floating panels, such as the scatter tooltip |
+| `muted`      | `text-muted`      | `#8d8a82` | Secondary labels                             |
+
+`white` and `black`, including opacity, are for hairline borders, chart grid
+lines, subdued chart labels, and overlays on photography. A new hex color needs
+a token in the theme.
+
 # Spacing and sizing
 
 Use Tailwind's spacing scale for padding, margins, gaps, and control sizes. The
@@ -82,6 +99,9 @@ prop accepts these values:
 
 `body` is the default variant. Typography classes belong to the variant and must
 not be overridden at the call site.
+
+Use `tone="subtle"` for subdued chart labels. The `Text` component owns their
+color so call sites do not need a text color class.
 
 Mobile navigation labels use `variant="inline"` with `size="navigation"`. This
 keeps control copy semantically inline while applying the larger navigation type

@@ -43,6 +43,7 @@ function EdgeBlur({ edge }: EdgeBlurProps) {
               : '-top-12 bottom-0 [mask-position:bottom]',
           )}
           key={layer.backdropFilter}
+          // oxlint-disable-next-line shadcn/no-inline-styles -- each layer has its own blur and mask
           style={layer}
         />
       ))}
@@ -50,8 +51,8 @@ function EdgeBlur({ edge }: EdgeBlurProps) {
       <div
         className={cn(
           'absolute inset-0',
-          'bg-[linear-gradient(var(--edge-direction),#090909_0%,rgb(9_9_9/50%)_35%,rgb(9_9_9/25%)_60%,rgb(9_9_9/8%)_80%,transparent_100%)]',
-          'not-supports-[backdrop-filter:blur(1px)]:bg-[linear-gradient(var(--edge-direction),#090909_35%,transparent_100%)]',
+          'bg-[linear-gradient(var(--edge-direction),var(--color-background)_0%,color-mix(in_srgb,var(--color-background)_50%,transparent)_35%,color-mix(in_srgb,var(--color-background)_25%,transparent)_60%,color-mix(in_srgb,var(--color-background)_8%,transparent)_80%,transparent_100%)]',
+          'not-supports-[backdrop-filter:blur(1px)]:bg-[linear-gradient(var(--edge-direction),var(--color-background)_35%,transparent_100%)]',
         )}
       />
     </div>

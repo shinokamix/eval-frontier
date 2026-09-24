@@ -33,6 +33,7 @@ interface TextProps {
   readonly as?: keyof HTMLElementTagNameMap;
   readonly variant?: TextVariant;
   readonly size?: 'hero' | 'navigation' | 'caption';
+  readonly tone?: 'default' | 'subtle';
   readonly className?: string;
   readonly children?: ReactNode;
   readonly id?: string;
@@ -53,6 +54,7 @@ function Text(props: Readonly<TextProps>) {
         props.size === 'navigation' &&
           'text-[clamp(2.5rem,8vw,3.5rem)] leading-[1.1] tracking-[-0.04em]',
         props.size === 'caption' && 'text-xs leading-4',
+        props.tone === 'subtle' && 'text-white/45',
         props.className,
       ),
       id: props.id,

@@ -131,6 +131,7 @@ function ExploreScatter({ points }: ExploreScatterProps) {
           <div key={tick}>
             <div
               className="absolute top-full mt-2 -translate-x-1/2 text-white/45"
+              // oxlint-disable-next-line shadcn/no-inline-styles -- position follows the axis scale
               style={{ left: `${toAxisPercent(tick)}%` }}
             >
               <Text
@@ -142,6 +143,7 @@ function ExploreScatter({ points }: ExploreScatterProps) {
             </div>
             <div
               className="absolute right-full mr-3 -translate-y-1/2 text-white/45"
+              // oxlint-disable-next-line shadcn/no-inline-styles -- position follows the axis scale
               style={{ top: `${100 - toAxisPercent(tick)}%` }}
             >
               <Text

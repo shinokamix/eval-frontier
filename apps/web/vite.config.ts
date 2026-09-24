@@ -52,6 +52,12 @@ export default defineConfig({
       denyWarnings: true,
       reportUnusedDisableDirectives: 'error',
     },
+    settings: {
+      shadcn: {
+        ui: '@/shared/components',
+        note: 'See DESIGN.md for spacing, typography, and approved exceptions.',
+      },
+    },
     rules: {
       'architecture/boundaries': 'error',
       // React 19 uses the automatic JSX transform.
@@ -91,6 +97,12 @@ export default defineConfig({
       'unicorn/filename-case': ['error', { case: 'kebabCase' }],
       'no-console': ['error', { allow: ['error', 'warn'] }],
       'vite-plus/prefer-vite-plus-imports': 'error',
+      'shadcn/no-restyle': ['error', { allow: ['layout'] }],
+      'shadcn/no-raw-colors': 'error',
+      'shadcn/no-arbitrary-values': ['error', { allow: ['layout'] }],
+      'shadcn/no-inline-styles': 'error',
+      'shadcn/no-unknown-classes': 'error',
+      'shadcn/require-static-classes': 'error',
       'stylistic/padding-line-between-statements': [
         'error',
         { blankLine: 'always', prev: '*', next: 'return' },
@@ -125,8 +137,16 @@ export default defineConfig({
         name: 'architecture',
         specifier: './scripts/oxlint-architecture-plugin.mjs',
       },
+      { name: 'shadcn', specifier: '@shadcn/lint' },
     ],
     overrides: [
+      {
+        files: [
+          'src/shared/components/edge-blur/edge-blur.tsx',
+          'src/shared/components/text/text.ts',
+        ],
+        rules: { 'shadcn/no-arbitrary-values': 'off' },
+      },
       {
         files: ['vite.config.ts'],
         env: { node: true },

@@ -11,14 +11,14 @@ function HarnessDiagram() {
       className="flex w-full flex-col gap-4 py-6"
     >
       <div className="relative border border-white/25 py-8 pl-8 pr-3 md:py-10 md:pl-12 md:pr-8">
-        <div className="absolute -top-3 left-4 bg-[#090909] px-3 md:left-8">
+        <div className="absolute -top-3 left-4 bg-background px-3 md:left-8">
           <Text variant="value">Harness</Text>
         </div>
 
         <div className="relative grid grid-cols-[42%_42%] grid-rows-[--spacing(40)_--spacing(20)_--spacing(40)] justify-between gap-y-12">
           <svg
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 size-full overflow-visible"
+            className="pointer-events-none absolute inset-0 size-full overflow-visible text-foreground"
             viewBox="0 0 600 496"
             preserveAspectRatio="none"
             fill="none"
@@ -35,13 +35,13 @@ function HarnessDiagram() {
               >
                 <path
                   d="M2 1 L7 4 L2 7"
-                  stroke="#f4f4f4"
+                  stroke="currentColor"
                   strokeWidth="1"
                 />
               </marker>
             </defs>
             <g
-              stroke="#f4f4f4"
+              stroke="currentColor"
               strokeOpacity="0.65"
               strokeWidth="1"
               markerEnd={`url(#${arrowId})`}
@@ -60,7 +60,7 @@ function HarnessDiagram() {
               />
             </g>
             <g
-              stroke="#f4f4f4"
+              stroke="currentColor"
               strokeOpacity="0.4"
               strokeWidth="1"
               strokeDasharray="4 4"
@@ -77,7 +77,7 @@ function HarnessDiagram() {
             </g>
           </svg>
 
-          <div className="relative col-start-1 row-start-1 flex flex-col justify-center gap-3 border border-white/25 bg-[#090909] p-2 md:p-4">
+          <div className="relative col-start-1 row-start-1 flex flex-col justify-center gap-3 border border-white/25 bg-background p-2 md:p-4">
             <Text
               variant="value"
               size="caption"
@@ -106,7 +106,7 @@ function HarnessDiagram() {
             </div>
           </div>
 
-          <div className="relative col-start-2 row-start-1 flex flex-col justify-center gap-3 border border-white/25 bg-[#090909] p-2 md:p-4">
+          <div className="relative col-start-2 row-start-1 flex flex-col justify-center gap-3 border border-white/25 bg-background p-2 md:p-4">
             <Text
               variant="value"
               size="caption"
@@ -135,11 +135,11 @@ function HarnessDiagram() {
             </div>
           </div>
 
-          <div className="relative col-start-1 row-start-2 flex items-center justify-center border border-white/70 bg-[#151515]">
+          <div className="relative col-start-1 row-start-2 flex items-center justify-center border border-white/70 bg-surface">
             <Text variant="value">Model</Text>
           </div>
 
-          <div className="relative col-start-1 row-start-3 flex flex-col justify-center gap-3 border border-white/25 bg-[#090909] p-2 md:p-4">
+          <div className="relative col-start-1 row-start-3 flex flex-col justify-center gap-3 border border-white/25 bg-background p-2 md:p-4">
             <Text
               variant="value"
               size="caption"
@@ -168,7 +168,7 @@ function HarnessDiagram() {
             </div>
           </div>
 
-          <div className="relative col-start-2 row-start-3 flex flex-col justify-center gap-3 border border-white/25 bg-[#090909] p-2 md:p-4">
+          <div className="relative col-start-2 row-start-3 flex flex-col justify-center gap-3 border border-white/25 bg-background p-2 md:p-4">
             <Text
               variant="value"
               size="caption"

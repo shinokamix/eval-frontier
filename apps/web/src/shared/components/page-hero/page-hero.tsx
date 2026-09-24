@@ -24,9 +24,10 @@ function PageHero({
         className="absolute inset-0 h-full w-full object-cover grayscale"
         fetchPriority="high"
         src={image}
+        // oxlint-disable-next-line shadcn/no-inline-styles -- focal point differs per photograph
         style={{ objectPosition: imagePosition }}
       />
-      <div className="absolute inset-0 bg-linear-to-t from-[#090909] via-black/20 to-black/50" />
+      <div className="absolute inset-0 bg-linear-to-t from-background via-black/20 to-black/50" />
       <div className="page-gutter relative grid w-full gap-6 pb-12 pt-36 md:pb-16">
         <Text variant="value">{label}</Text>
         <div className="max-w-5xl">

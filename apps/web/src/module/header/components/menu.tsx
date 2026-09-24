@@ -17,7 +17,7 @@ interface MenuProps {
 function Menu({ pathname, onClose }: MenuProps) {
   return (
     <Dialog.Popup
-      className="fixed inset-0 z-10 overflow-y-auto bg-[#090909] page-gutter pt-28 pb-8 opacity-100 transition-opacity duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 md:hidden"
+      className="fixed inset-0 z-10 overflow-y-auto bg-background page-gutter pt-28 pb-8 opacity-100 transition-opacity duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 md:hidden"
       id="mobile-navigation"
     >
       <Dialog.Title className="sr-only">
@@ -42,7 +42,7 @@ function Menu({ pathname, onClose }: MenuProps) {
 
         <motion.div
           animate="open"
-          className="flex items-end justify-between text-[#8d8a82]"
+          className="flex items-end justify-between text-muted"
           initial="closed"
           variants={footerVariants}
         >
