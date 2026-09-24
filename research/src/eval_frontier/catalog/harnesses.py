@@ -17,5 +17,8 @@ HARNESSES = {
         HarnessDefinition(id="chisel", label="Chisel"),
         HarnessDefinition(id="devin", label="Devin"),
         HarnessDefinition(id="cursor-cli", label="Cursor CLI"),
+        HarnessDefinition(id="antigravity-sdk", label="Antigravity SDK"),
+        HarnessDefinition(id="qwen-coder", label="Qwen Coder"),
+        HarnessDefinition(id="kimi-code", label="Kimi Code"),
     ]
 }

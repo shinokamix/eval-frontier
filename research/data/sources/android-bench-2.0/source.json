@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "android-bench-2.0",
+  "title": "Android Bench 2.0 official leaderboard",
+  "canonicalUrl": "https://developer.android.com/bench",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated for leaderboard results",
+  "artifacts": [
+    {
+      "path": "leaderboard.html",
+      "role": "results",
+      "url": "https://developer.android.com/bench"
+    }
+  ]
+}

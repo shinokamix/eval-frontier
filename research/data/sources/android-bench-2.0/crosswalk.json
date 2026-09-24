@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "models": {
+    "GPT 6 Astra": "gpt-6-astra",
+    "Claude Fable 5 1": "claude-fable-5.1",
+    "GPT 5.6 Sol": "gpt-5.6-sol",
+    "Claude Opus 5": "claude-opus-5",
+    "Qwen3.8 Max": "qwen3.8-max",
+    "Kimi K3": "kimi-k3",
+    "Gemini 3.8 Flash": "gemini-3-8-flash",
+    "Gemini 3.7 Flash": "gemini-3-7-flash",
+    "Claude Sonnet 5": "claude-sonnet-5",
+    "GPT 5.6 Terra": "gpt-5.6-terra",
+    "GPT 5.6 Luna": "gpt-5.6-luna"
+  },
+  "harnesses": {
+    "codex": "codex",
+    "claude-code": "claude-code",
+    "qwen-coder": "qwen-coder",
+    "kimi-code": "kimi-code",
+    "antigravity-sdk": "antigravity-sdk"
+  },
+  "metrics": {
+    "pass_rate_pct": "trial_success_rate_pct",
+    "completion_rate_pct": "mean_task_completion_pct",
+    "average_latency_s": "mean_duration_per_benchmark_run_s",
+    "average_cost_usd": "mean_cost_per_benchmark_run_usd"
+  }
+}

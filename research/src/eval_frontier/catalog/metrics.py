@@ -150,5 +150,26 @@ METRICS = {
             statistic="mean",
             direction="lower",
         ),
+        MetricDefinition(
+            id="mean_task_completion_pct",
+            label="Mean task completion",
+            unit="percent",
+            statistic="mean",
+            direction="higher",
+        ),
+        MetricDefinition(
+            id="mean_duration_per_benchmark_run_s",
+            label="Mean duration per full benchmark run",
+            unit="seconds per benchmark run",
+            statistic="mean",
+            direction="lower",
+        ),
+        MetricDefinition(
+            id="mean_cost_per_benchmark_run_usd",
+            label="Mean cost per full benchmark run",
+            unit="USD per benchmark run",
+            statistic="mean",
+            direction="lower",
+        ),
     ]
 }
