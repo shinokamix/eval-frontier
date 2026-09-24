@@ -1,9 +1,9 @@
 # Canonical evidence data
 
 This pipeline stage converts heterogeneous source artifacts into one validated
-evidence table. The target quality against `cost_per_task` graph uses later
-analysis outputs. Statistical synthesis, posterior draws, and the graph do not
-belong in this table.
+evidence table. The target graph of relative task success against relative
+reported USD cost uses later analysis outputs. Statistical synthesis, posterior
+draws, and the graph do not belong in this table.
 
 ## Pipeline
 

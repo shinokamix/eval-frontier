@@ -2,11 +2,14 @@
 
 ## Goal
 
-The target research result is one cross-study graph of quality against
-`cost_per_task` for coding-agent systems. The horizontal axis shows cost per
-attempted task in USD. The vertical axis shows the declared quality outcome.
-Each system is a model, harness, and effort setting. The graph shows estimates
-and uncertainty from a Bayesian analysis, not a rank made from raw scores.
+The target research result is a cross-study graph of relative success and
+relative reported USD cost for coding-agent systems. Each system is a model,
+harness, and effort setting. The horizontal axis shows a typical within-study
+ratio of mean cost per attempted task to a named reference system. The vertical
+axis shows the average change in task success probability from that system, in
+percentage points, across a declared set of evaluation campaigns. The graph
+shows estimates and uncertainty from a Bayesian analysis, not a rank made from
+raw scores.
 
 The analysis considers every relevant captured study. A study can inform the
 quality estimate, the cost estimate, or both. A plotted system needs enough
@@ -19,50 +22,76 @@ This document describes the planned analysis. The current build stops at
 
 ## What the axes mean
 
-Quality needs one declared meaning within each analysis. The first candidate
-is the probability that an attempted task is solved. A partial score can enter
-that analysis only if its scoring rule supports the same outcome. Otherwise it
-needs a separate quality analysis. A mean score that excludes failed tasks does
-not measure success across all attempted tasks.
+The primary quality outcome is whether an attempted task is solved. Failures
+and timeouts count in the denominator. A source that excludes some attempts
+from scoring cannot enter this outcome without a supported conversion. Partial
+scores and pass@k measure different outcomes and need separate analyses.
 
-`cost_per_task` means the mean USD cost of an attempted task, including failed
-attempts and timeouts when their costs are known. Source metrics with a
-different denominator, such as cost per completed task, keep their original
-meaning. The analysis records the pricing date and accounting basis. Metered
-API bills and hardware-derived costs do not share an absolute USD scale without
-a declared conversion or pricing scenario.
+The primary cost outcome is reported USD spent per attempted task, including
+failed attempts and timeouts when their costs are known. A horizontal value of
+0.7 means the system typically costs 70% as much as the reference. A value
+above 1 means higher cost. Within a study, both costs must cover the same
+charges and kinds of attempts. Record the source's accounting basis, cost
+coverage, and any reported pricing date. USD ratios do not remove differences
+in what sources count as cost.
 
-For the cost axis, use the cost reported by the benchmark only when it covers
-the same charges and attempted tasks as the declared analysis. A reported cost
-per solved or completed task cannot serve as cost per attempted task unless
-source data support that conversion. If the benchmark does not report a usable
-cost but reports token usage by billable category, calculate USD cost from
-those counts and a recorded model-specific price schedule. Record the schedule's
-source, date, currency, and rates for input, cached input,
-output, and any other billed token categories. Include every model used by the
-system and any other billed charges that the cost definition covers. Keep the
-calculated value separate from the reported tokens and label it as an estimate.
-Do not replace a reported cost with a calculated one merely because both exist.
+The vertical value is the system's success probability minus the reference
+system's success probability, multiplied by 100 and averaged over the target
+campaigns. A value of +5 means five percentage points more attempted tasks
+solved on average across those campaigns. This difference depends on task
+difficulty. Model quality effects on a scale suitable for binary outcomes,
+then calculate the percentage-point difference from posterior draws. Do not
+divide each study's score by its best score.
 
-If neither a comparable reported cost nor enough token detail for a defensible
-calculation exists, that result cannot inform the cost axis. A total token count
-alone is insufficient when token categories have different prices. The study
-may still inform the quality axis. Record why each result does or does not
-contribute to cost.
+## Target comparisons
 
-The Terminal-Bench adapters omit the inconsistent `uncached_input_tokens` field.
-The pinned source snapshots retain it. A later pricing analysis may calculate
-noncached input as total minus cached input minus output after checking token
-accounting and trial coverage. Label the result as calculated.
+Define one evaluation campaign as one independent set of tasks and runs under
+a stated scoring and cost protocol. Reports that reuse a campaign do not add
+another independent unit. Choose target campaigns with usable quality and cost
+comparisons before fitting. Give each independent campaign equal weight in the
+primary summary, so a large leaderboard does not determine the target
+population by itself. Show how the result changes under declared task-family
+weights.
 
-The target graph uses one stated quality definition and one stated cost basis.
-It also names the task population to which both estimates apply. Absolute USD
-coordinates need reported costs or token counts priced under the chosen basis.
-Relative cost differences alone cannot set that scale.
-If the evidence cannot support a shared scale, the analysis reports separate
-groups instead of placing incomparable estimates on one axis. A study that
-reports only one outcome still contributes to that outcome where its evidence
-is comparable.
+For each campaign, estimate the difference in success probability and the
+ratio of arithmetic mean costs per attempted task between a system and the
+reference. The vertical coordinate is the weighted average of the campaign
+success differences in percentage points. The horizontal coordinate is the
+exponential of the weighted average of campaign log cost ratios. It is a
+typical multiplicative cost ratio, not a ratio of pooled USD totals. Use the
+same target campaigns for both coordinates. Evidence from a campaign that
+informs only one outcome may still help estimate that outcome, but it does not
+silently change the target population of the final two-axis point.
+
+Posterior predictions may supply a comparison when the reference was not run
+in a target campaign, provided reviewed shared systems connect the evidence.
+Do not predict across disconnected groups. Report which coordinates depend on
+indirect comparisons and how much each campaign contributes.
+
+Use benchmark-reported USD cost in the primary cost analysis. A published
+total can become mean cost per attempted task only when the number and cost
+coverage of those attempts are known. When two configurations have the same
+number of attempted tasks and complete cost coverage, their ratio of total
+costs equals their ratio of mean costs per attempted task. Otherwise, normalize
+each total by its supported attempt count. A cost per completed task, scored
+attempt, rollout, or full benchmark run retains that meaning until the source
+supports conversion. Exclude incomplete or ambiguous cost coverage from the
+primary cost estimate and record the reason. The result may still inform
+quality. Token counts are a separate resource outcome, not a substitute for
+USD cost. The primary analysis does not maintain an API price schedule or
+calculate USD from tokens.
+
+Review missing costs by system, task, and success outcome. Missing costs can
+change a comparison if expensive failures or particular systems are more
+likely to lack a reported value. Keep complete-case results separate from
+sensitivity analyses that make explicit assumptions about those missing costs.
+
+The reference system sets both relative axes to 1 for cost and 0 for quality.
+Choose it before fitting, based on the reviewed comparison network. It need
+not appear in every study, but connected comparisons must support an indirect
+estimate. Reference choice changes the coordinates, not the underlying pairwise
+comparisons. Report disconnected groups separately. A study with one usable
+outcome can still inform that outcome.
 
 ## How studies connect
 
@@ -73,10 +102,11 @@ much each study affects the result. It does not reject a study merely because
 one of these settings differs.
 
 Before fitting, review each source's task family, scoring rule, cost
-denominator, system version, run settings, and failure handling. Record whether
-the source informs quality, cost, or both. Identify reports that reuse tasks or
-runs so that one evaluation campaign does not count as independent evidence
-twice. Preserve links from every decision to the source rows and artifacts.
+denominator, cost coverage, system version, run settings, and failure handling.
+Record whether the source informs quality, cost, or both. Identify reports that
+reuse tasks or runs so that one evaluation campaign does not count as
+independent evidence twice. Preserve links from every decision to the source
+rows and artifacts.
 
 A shared system connects comparisons only when the outcome has the same
 meaning on both sides of the link. Keep disconnected groups separate. Review
@@ -86,24 +116,32 @@ visible; it does not treat matching system IDs as proof of comparability.
 
 ## Bayesian analysis
 
-The primary candidate is a hierarchical random-effects network meta-analysis.
-Within each study, estimate differences between systems on shared tasks and
-their uncertainty. Group repeated trials by task. Preserve dependence when
-several systems use the same tasks or when one run reports both outcomes.
+The primary candidate is a hierarchical, two-outcome random-effects network
+meta-analysis. Within each study, estimate differences between systems on
+shared tasks and their uncertainty. Group repeated trials by task. Preserve
+dependence when several systems use the same tasks or when one run reports both
+outcomes. Use task effects where task-level results exist. Studies with only
+configuration aggregates need a likelihood that reflects their published
+denominators and uncertainty.
 
-Combine the within-study comparisons through shared systems. Study-specific
-baselines account for differences in benchmark difficulty. Between-study
-variation describes how system effects change across studies. Do not average
-raw benchmark scores or raw per-study cost ratios to locate a system on the
-graph.
+Combine the within-study comparisons through shared systems. Separate study
+baselines account for benchmark difficulty and cost levels. Between-study
+variation describes how system effects change across studies. Estimate quality
+effects on a binary-outcome scale. Model arithmetic mean cost with a log link,
+or derive arithmetic mean cost ratios from the chosen cost likelihood. Do not
+average raw benchmark scores or raw per-study cost ratios to locate a system
+on the graph.
 
-Quality and cost can need different likelihoods and effect scales. For the
-binary quality candidate, model task success as a binary outcome. For cost,
-define how the model treats zero costs, failures, timeouts, and skewed values.
-Specify the likelihoods, priors, cost basis, and practical difference thresholds
-before fitting. Aggregate results enter an outcome only when their denominator
-and uncertainty support that outcome. A point estimate alone does not supply
-its sampling uncertainty.
+For cost, define how the model treats zero costs, failures, timeouts, and skewed
+values. Specify the likelihoods, priors, cost basis, campaign weights,
+and practical difference thresholds before fitting. Aggregate results enter
+an outcome only when their denominator and uncertainty support that outcome.
+A point estimate alone does not supply its sampling uncertainty. A ratio of
+geometric mean costs must not be labeled as a ratio of arithmetic mean costs.
+For an aggregate cost without a reported spread, seek trial-level data or a
+supported uncertainty estimate. If neither exists, present the cost comparison
+descriptively. Any model that supplies its uncertainty mainly through a prior
+must report that dependence and remain a sensitivity analysis.
 
 First fit and check each outcome. The final graph needs joint posterior draws
 for quality and cost, or an explicit sensitivity analysis for unknown
@@ -116,15 +154,15 @@ draws, but Pareto membership is not the primary research result.
 Use a notebook to inspect the evidence, map study connections, plot
 within-study comparisons, and develop the model. Keep the final calculations
 in reproducible research code so the notebook and graph can be regenerated
-from pinned source snapshots. The web app receives only the completed research
-graph after its analysis and checks exist.
+from pinned source snapshots.
 
-The graph labels both axes and the reference cost basis. For each system, show
-the posterior estimate and uncertainty on both axes. State which studies inform
-each estimate, whether the links are direct or indirect, and how many
-independent evaluation campaigns contribute. Link the plotted estimates to
-their study comparisons and source artifacts. Show exclusions, disconnected
-groups, and results that change under reasonable modeling choices.
+The graph labels both relative axes, the reference system, the task population,
+and the cost accounting basis. For each system, show the posterior estimate and
+uncertainty on both axes. State which studies inform each estimate, whether the
+links are direct or indirect, and how many independent evaluation campaigns
+contribute. Link the plotted estimates to their study comparisons and source
+artifacts. Show exclusions, disconnected groups, and results that change under
+reasonable modeling choices.
 
 ## Checks before publication
 
@@ -132,9 +170,9 @@ Test the estimator and graph code on simulated data with known effects. Check
 posterior predictions, model convergence, between-study variation, and
 sensitivity to priors. Compare direct and indirect evidence where the network
 allows it. Repeat the analysis without each study and without weak links.
-Check how alternative task-family groups and cost accounting choices change
-the graph. Repeat the cost analysis without calculated prices to show how much
-the result depends on token-based estimates.
+Check how alternative task-family groups, campaign weights, and cost accounting
+choices change the graph. Explore the effect of plausible assumptions about
+missing costs and uncertain cost coverage outside the primary analysis.
 
 More task rows within one study reduce uncertainty about that study. They do
 not replace independent studies needed to learn between-study variation. If a
@@ -143,33 +181,35 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The pinned evidence table includes DeepSWE, Terminal-Bench 2.1 and 4.0, and
-SWE-Marathon. The pipeline has not reviewed shared tasks, reused runs, cost
-coverage, or study connections across these sources.
+The pinned evidence table includes Android Bench 2.0, DeepSWE, FrontierCode
+1.1, SWE-Marathon 1.1, and Terminal-Bench 2.1 and 4.0. Each reports a USD
+cost metric, but those metrics use different denominators. The pipeline has
+not reviewed shared tasks, reused runs, cost coverage, or study connections
+across these sources.
 
 Terminal-Bench 2.1 and 4.0 use different task sets. Their leaderboard snapshots
 contain configuration aggregates rather than paired task-level outcomes.
 Terminal-Bench 4.0 reports a 95% accuracy interval, but its Grok 4.7 cost
-covers only 324 of 330 trials.
-The source-level rows do not yet justify a shared quality and cost scale or the
-target cross-study graph. The study-settings and cost-basis review in the first
-implementation step remains necessary.
+covers only 324 of 330 trials. SWE-Marathon lacks USD cost for 762 of 7,810
+trials. DeepSWE reports cost per scored attempt and excludes some errors from
+the scored set. FrontierCode reports cost per rollout. Android Bench reports
+cost per full 30-task run. These definitions need review before any source
+informs the primary cost outcome. The source-level rows do not yet justify the
+target cross-study graph.
 
 ## Implementation order
 
 1. Build a reviewed record of study settings, shared-data campaigns, outcome
-   definitions, cost bases, token categories, and inclusion decisions. Add a
-   versioned price schedule for calculated costs and report which costs are
-   reported, calculated, or unavailable. Report the network for each axis. The
-   current evidence rows have `condition`, but do not encode all settings needed
-   for this review.
+   definitions, reported USD cost bases, denominators, coverage, missingness,
+   uncertainty, and inclusion decisions. Report the network for each axis and
+   choose a reference system and target campaigns. The current evidence rows
+   have `condition`, but do not encode all settings needed for this review.
 2. Use a notebook to inspect both networks and within-study comparisons.
    Implement the comparisons with uncertainty and dependence in research code.
-3. Fit and check the Bayesian model for quality and cost. Test prior and
-   leave-one-study-out sensitivity.
-4. Generate joint quality and cost estimates where the evidence supports them.
-   Publish the checked graph as a derived research artifact. Pass that artifact
-   to the web app after the research pipeline produces it.
+3. Fit and check the quality and cost models, then their joint analysis. Test
+   prior, campaign-weight, and leave-one-study-out sensitivity.
+4. Generate joint relative quality and cost estimates where the evidence
+   supports them. Publish the checked graph as a derived research artifact.
 
 Analysis outputs belong in separate derived artifacts. The canonical evidence
 table remains unchanged.

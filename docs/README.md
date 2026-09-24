@@ -1,7 +1,8 @@
 # Documentation
 
-- [`METHODOLOGY.md`](METHODOLOGY.md) describes the planned quality against
-  `cost_per_task` graph, planned Bayesian analysis, and publication checks.
+- [`METHODOLOGY.md`](METHODOLOGY.md) describes the planned graph of relative
+  task success against relative reported USD cost, Bayesian analysis, and
+  publication checks.
 - [`DATASETS.md`](DATASETS.md) describes the canonical evidence table and its
   current validation rules.
 - [`../research/README.md`](../research/README.md) describes the working Python
