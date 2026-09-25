@@ -100,7 +100,8 @@ Update the source's existing README with an `Analysis readiness` section:
 Use plain decisions: usable, usable subset, needs a stated check, or insufficient
 information. Evaluate quality and cost separately against the methodology.
 Link numerical claims to the notebook or captured artifact. Update one
-row in [`source-audit.md`](../research/analysis/source-audit.md).
+row in the readiness section of
+[`source_audit.py`](../research/analysis/notebooks/source_audit.py).
 
 The audit is complete when every source has a supported decision and remaining
 limits are explicit. Missing publisher data can remain a limit. Start analysis

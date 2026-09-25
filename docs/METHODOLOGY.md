@@ -181,7 +181,7 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The [source audit](../research/analysis/source-audit.md) records readiness for
+The [source audit notebook](../research/analysis/notebooks/source_audit.py) records readiness for
 all six pinned sources. DeepSWE and both Terminal-Bench versions now include
 captured trial details, and Android Bench includes task-level pass counts.
 The audit reports complete-cost subsets, missingness, aggregate mismatches,
