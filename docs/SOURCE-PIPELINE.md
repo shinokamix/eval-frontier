@@ -75,8 +75,9 @@ overlaps. It changes no files.
 A mismatch reported in the audit is a finding to resolve or exclude, not a
 reason to overwrite the published value.
 
-For a new format, add numerical reconciliation checks to the adapter or the
-notebook where needed. Check every configuration, not a sample. Compare row counts
+For a new format, add numerical reconciliation checks to the adapter, or to
+`sources/reconcile.py` when they compare trial details with published
+aggregates, and show the result in the notebook. Check every configuration, not a sample. Compare row counts
 before and after the build and explain changes to other sources. After code
 changes, run `research:check`, `research:lint`, `research:format`,
 `research:types`, and `research:deps` through Moon.

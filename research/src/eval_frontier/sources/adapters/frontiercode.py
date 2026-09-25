@@ -108,7 +108,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                         "benchmark_version": "1.1",
                         "aggregate": True,
                         "effort": None if effort == "none" else effort,
-                        "condition": subset,
+                        "campaign": subset,
                         "metrics": metrics,
                     }
                 )

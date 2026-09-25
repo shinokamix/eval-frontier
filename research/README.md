@@ -57,6 +57,9 @@ research/data/
     pins.json
 ```
 
+`build` also checks the whole table against the pins and the captured
+snapshots; see [`DATASETS.md`](../docs/DATASETS.md#current-build-checks).
+
 `source.json`, `manifest.json`, and `crosswalk.json` are JSON metadata. The raw
 archive is immutable. Each `normalized.parquet` contains the canonical schema
 for one source snapshot. See [`DATASETS.md`](../docs/DATASETS.md) for the row
@@ -66,5 +69,7 @@ contract and catalog details.
 
 The Pydantic models live in `src/eval_frontier/schemas/`. Source archive code
 lives in `src/eval_frontier/sources/`, adapters live in
-`src/eval_frontier/sources/adapters/`, and canonicalization and Parquet writing
-live in `src/eval_frontier/evidence/`.
+`src/eval_frontier/sources/adapters/`, and checks of trial details against
+published aggregates live in `src/eval_frontier/sources/reconcile.py`.
+Canonicalization, table checks, and Parquet writing live in
+`src/eval_frontier/evidence/`.

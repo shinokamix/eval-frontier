@@ -54,7 +54,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                         "benchmark_version": "v1.1",
                         "trial": trial_id,
                         "effort": trial.get("reasoningEffort", config.get("reasoningEffort")),
-                        "condition": trial["status"],
+                        "outcome_status": trial["status"],
                         "metrics": metrics,
                     }
                 )

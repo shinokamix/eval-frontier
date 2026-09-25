@@ -6,7 +6,7 @@ app = marimo.App(width="medium")
 
 @app.cell
 def _():
-    import json
+    from dataclasses import asdict
 
     import altair as alt
     import marimo as mo
@@ -15,9 +15,9 @@ def _():
 
     from eval_frontier.catalog import HARNESSES, METRICS, MODELS
     from eval_frontier.schemas import EvidenceRow
-    from eval_frontier.sources.details import harbor_trials
+    from eval_frontier.sources.reconcile import harbor_rows
 
-    return EvidenceRow, HARNESSES, METRICS, MODELS, alt, harbor_trials, json, mo, np, pd
+    return EvidenceRow, HARNESSES, METRICS, MODELS, alt, asdict, harbor_rows, mo, np, pd
 
 
 @app.cell
@@ -39,34 +39,15 @@ def _(alt):
 
 
 @app.cell
-def _(json, mo, np, pd):
+def _(mo, np, pd):
     data_dir = mo.notebook_dir().parents[1] / "data"
-    pins = json.loads((data_dir / "canonical" / "pins.json").read_text())["sources"]
     evidence = pd.read_parquet(data_dir / "canonical" / "evidence.parquet")
-
-    # `condition` names a campaign only in these sources; elsewhere it is an
-    # outcome status or configuration name and does not split configurations.
-    campaign_sources = [
-        "android-bench-2.0",
-        "frontiercode-v1.1",
-        "terminal-bench-2.1",
-        "terminal-bench-4-0",
-    ]
     rows = evidence.assign(
         level=np.select(
             [evidence.trial_id.notna(), evidence.task_id.notna()], ["trial", "task"], "config"
-        ),
-        campaign=evidence.condition.where(evidence.source_id.isin(campaign_sources)),
+        )
     )
-    CONFIG = ["source_id", "model_id", "harness_id", "effort", "campaign"]
-
-    def raw(source_id):
-        return data_dir / "sources" / source_id / "raw" / pins[source_id]
-
-    def results(source_id):
-        manifest = json.loads((raw(source_id) / "manifest.json").read_text())
-        path = next(a["path"] for a in manifest["artifacts"] if a["role"] == "results")
-        return json.loads((raw(source_id) / path).read_text())
+    CONFIG = ["source_id", "model_id", "harness_id", "effort", "campaign_id"]
 
     mo.md(
         "# Source audit\n\n"
@@ -79,9 +60,10 @@ def _(json, mo, np, pd):
         "Terms used below: a **system** is `(model, harness, effort)`; a "
         "**configuration** is a system within one source and campaign. `level` is "
         "`trial` when a row has a `trial_id`, `task` when it has only a `task_id`, "
-        "and `config` otherwise."
+        "and `config` otherwise. `campaign_id` separates runs of the same system "
+        "within a source, such as a leaderboard row or a task subset."
     )
-    return CONFIG, evidence, pins, raw, results, rows
+    return CONFIG, data_dir, evidence, rows
 
 
 @app.cell
@@ -119,50 +101,18 @@ def _(mo):
     mo.md(r"""
     ## 2. Contract and provenance
 
-    The notebook stops here if the table breaks its contract: columns match
-    `EvidenceRow`, each source has exactly its pinned snapshot, IDs and metric
-    metadata match the catalogs, no two rows share the row grain, and every
-    `source_path` exists in the pinned snapshot.
+    `moon run research:build` stops when the table breaks its contract: every
+    row validates as `EvidenceRow`, IDs and metric metadata come from the
+    catalogs, each source has exactly its pinned snapshot, no two rows share
+    the row grain, and every `source_path` exists in the pinned snapshot.
     """)
     return
 
 
 @app.cell
-def _(EvidenceRow, HARNESSES, METRICS, MODELS, evidence, mo, pins, raw):
-    assert list(evidence.columns) == list(EvidenceRow.model_fields)
-    assert evidence.groupby("source_id").snapshot_id.unique().map(list).to_dict() == {
-        s: [snap] for s, snap in pins.items()
-    }
-    assert set(evidence.model_id) <= MODELS.keys()
-    assert set(evidence.harness_id) <= HARNESSES.keys()
-    metric_meta = evidence[["metric_id", "unit", "statistic", "direction"]].drop_duplicates()
-    assert all(
-        (METRICS[m].unit, METRICS[m].statistic, METRICS[m].direction) == (u, s, d)
-        for m, u, s, d in metric_meta.itertuples(index=False)
-    )
-    assert metric_meta.metric_id.is_unique
-    grain = [
-        "source_id",
-        "study_id",
-        "benchmark_id",
-        "task_id",
-        "trial_id",
-        "attempt_id",
-        "model_id",
-        "harness_id",
-        "effort",
-        "condition",
-        "metric_id",
-    ]
-    assert not evidence.duplicated(grain).any()
-    paths = evidence[["source_id", "source_path"]].drop_duplicates()
-    missing_paths = [
-        f"{s}/{p}" for s, p in paths.itertuples(index=False) if not (raw(s) / p).is_file()
-    ]
-    assert not missing_paths, missing_paths
-
+def _(HARNESSES, METRICS, MODELS, evidence, mo):
     mo.md(
-        f"All checks pass for {len(evidence):,} rows and {len(paths)} source paths. "
+        f"{len(evidence):,} rows from {evidence.source_path.nunique()} source paths. "
         f"The table uses {evidence.model_id.nunique()} of {len(MODELS)} catalog models, "
         f"{evidence.harness_id.nunique()} of {len(HARNESSES)} harnesses and "
         f"{evidence.metric_id.nunique()} of {len(METRICS)} metrics."
@@ -216,7 +166,7 @@ def _(EvidenceRow, SEQUENTIAL, alt, evidence, mo):
 def _(mo, rows):
     usual_effort = ["none", "low", "medium", "high", "xhigh", "max"]
     effort_configs = (
-        rows.drop_duplicates(["source_id", "model_id", "harness_id", "effort", "campaign"])
+        rows.drop_duplicates(["source_id", "model_id", "harness_id", "effort", "campaign_id"])
         .assign(effort=rows.effort.fillna("unknown"))
         .groupby(["source_id", "effort"])
         .size()
@@ -260,13 +210,17 @@ def _(mo, rows):
             .rename("rows")
             .reset_index(),
             mo.md(
-                "`condition` is source-native. It is a campaign in Android Bench, "
-                "FrontierCode, and Terminal-Bench (the leaderboard row), an outcome "
-                "status in SWE-Marathon and DeepSWE trials, and a configuration name in "
-                "DeepSWE aggregates:"
+                "Source-native campaigns and outcome statuses. A campaign is a "
+                "leaderboard row in Terminal-Bench and a task subset in FrontierCode. "
+                "Other sources publish one run per system. `outcome_status` is the "
+                "publisher's trial status, which is not always task success:"
             ),
             rows.groupby(["source_id", "level"])
-            .condition.agg(values="nunique", examples=lambda x: sorted(x.unique())[:4])
+            .agg(
+                campaigns=("campaign_id", "nunique"),
+                statuses=("outcome_status", lambda x: sorted(x.dropna().unique())),
+                unscored=("scored", lambda x: x.eq(False).sum()),
+            )
             .reset_index(),
         ]
     )
@@ -354,38 +308,15 @@ def _(mo):
 
 
 @app.cell
-def _(harbor_trials, pd, raw, results):
-    def terminal_bench(source_id):
-        records = []
-        for row in results(source_id)["rows"]:
-            trials = [trial for _, _, trial in harbor_trials(raw(source_id), row)]
-            costs = [t["cost_usd"] for t in trials if t["cost_usd"] is not None]
-            records.append(
-                {
-                    "row_id": row["id"],
-                    "model": row["metadata"]["model_display"]["label"],
-                    "effort": row["metadata"]["reasoning_effort"],
-                    "published_trials": row["metrics"]["n_trials"],
-                    "trials": len(trials),
-                    "known_costs": len(costs),
-                    "known_cost_sum": sum(costs),
-                    "published_cost": row["metrics"]["total_cost_usd"],
-                    "trials_with_retries": sum(t["n_attempts"] > 1 for t in trials),
-                    "unscored": sum(not t["is_scored"] for t in trials),
-                    "agent_versions": sorted({t["agent_version"] for t in trials} - {None}),
-                    "trial_ids": [t["id"] for t in trials],
-                }
-            )
-        table = pd.DataFrame(records)
-        table["count_matches"] = table.trials == table.published_trials
-        table["cost_matches"] = (table.known_cost_sum - table.published_cost).abs() <= 0.0051
-        table["reconciled"] = (
-            (table.known_costs == table.trials) & table.count_matches & table.cost_matches
+def _(asdict, data_dir, harbor_rows, pd):
+    FLAGS = ["count_matches", "cost_matches", "reconciled", "no_retries"]
+    tb = {
+        s: pd.DataFrame(
+            {**asdict(r), **{flag: getattr(r, flag) for flag in FLAGS}}
+            for r in harbor_rows(data_dir, s)
         )
-        table["no_retries"] = (table.trials_with_retries == 0) & (table.unscored == 0)
-        return table
-
-    tb = {s: terminal_bench(s) for s in ("terminal-bench-2.1", "terminal-bench-4-0")}
+        for s in ("terminal-bench-2.1", "terminal-bench-4-0")
+    }
     return (tb,)
 
 
@@ -416,20 +347,32 @@ def _(mo, tb):
 
 
 @app.cell
-def _(json, mo, pd, raw):
-    deepswe_trials = pd.DataFrame(
-        json.loads((raw("deepswe-v1.1") / "artifacts" / "trials.json").read_text())["rows"]
-    )
-    deepswe = deepswe_trials.groupby("config").agg(
-        model=("model", "first"),
-        harness=("harness", "first"),
-        effort=("reasoning_effort", "first"),
-        attempts=("trial_name", "size"),
-        known_costs=("cost_usd", "count"),
-        excluded=("included_in_score", lambda x: (~x).sum()),
-    )
-    deepswe["complete_cost"] = deepswe.known_costs == deepswe.attempts
-    deepswe_missing = deepswe_trials[deepswe_trials.cost_usd.isna()]
+def _(CONFIG, rows):
+    def trial_table(source_id):
+        """One row per trial: outcome, publisher status, and cost when known."""
+        source = rows[(rows.source_id == source_id) & (rows.level == "trial")]
+        solved = source[source.metric_id == "solved"].set_index("trial_id")
+        cost = source[source.metric_id == "cost_usd"].set_index("trial_id").value
+        return solved[[*CONFIG, "outcome_status", "scored"]].assign(solved=solved.value, cost=cost)
+
+    def cost_coverage(trials):
+        table = trials.groupby(CONFIG, dropna=False).agg(
+            attempts=("solved", "size"),
+            known_costs=("cost", "count"),
+            unscored=("scored", lambda x: x.eq(False).sum()),
+        )
+        return table.assign(complete_cost=table.known_costs == table.attempts)
+
+    deepswe_trials = trial_table("deepswe-v1.1")
+    swe_trials = trial_table("swe-marathon-v1.1")
+    deepswe = cost_coverage(deepswe_trials)
+    swe = cost_coverage(swe_trials)
+    return deepswe, deepswe_trials, swe, swe_trials
+
+
+@app.cell
+def _(deepswe, deepswe_trials, mo):
+    deepswe_missing = deepswe_trials[deepswe_trials.cost.isna()]
     mo.vstack(
         [
             mo.md(
@@ -438,33 +381,19 @@ def _(json, mo, pd, raw):
                 "duration means with the leaderboard. "
                 f"{len(deepswe)} configurations, {len(deepswe_trials):,} trials. "
                 f"Complete cost: {deepswe.complete_cost.sum()}. "
-                f"Missing costs: {(~deepswe_missing.included_in_score).sum()} on excluded "
-                f"attempts, {deepswe_missing.included_in_score.sum()} on scored attempts. "
+                f"Missing costs: {deepswe_missing.scored.eq(False).sum()} on excluded "
+                f"attempts, {deepswe_missing.scored.eq(True).sum()} on scored attempts. "
                 "Configurations with missing costs:"
             ),
             deepswe[~deepswe.complete_cost],
         ]
     )
-    return deepswe, deepswe_trials
+    return
 
 
 @app.cell
-def _(mo, pd, results):
-    swe_trials = pd.DataFrame(
-        {
-            **trial,
-            "task": task["task"],
-            "effort": trial.get("reasoningEffort", config.get("reasoningEffort")),
-        }
-        for task in results("swe-marathon-v1.1").values()
-        for config in task["configs"]
-        for trial in config["trials"]
-    )
-    swe = swe_trials.groupby(["model", "agent", "effort"], dropna=False).agg(
-        attempts=("task", "size"), known_costs=("costUsd", "count")
-    )
-    swe["complete_cost"] = swe.known_costs == swe.attempts
-    swe_missing = swe_trials[swe_trials.costUsd.isna()]
+def _(mo, swe, swe_trials):
+    swe_missing = swe_trials[swe_trials.cost.isna()]
     mo.vstack(
         [
             mo.md(
@@ -475,10 +404,10 @@ def _(mo, pd, results):
                 "then missing costs by trial status and reward:"
             ),
             swe[~swe.complete_cost],
-            swe_missing.groupby(["status", "reward"]).size().rename("missing_costs"),
+            swe_missing.groupby(["outcome_status", "solved"]).size().rename("missing_costs"),
         ]
     )
-    return swe, swe_trials
+    return
 
 
 @app.cell
@@ -570,7 +499,7 @@ def _(CONFIG, mo, rows):
 @app.cell
 def _(ACCENT, alt, mo, rows):
     # Excluded DeepSWE attempts are not part of the published score.
-    scored = rows[(rows.metric_id == "solved") & (rows.condition != "excluded_error")]
+    scored = rows[(rows.metric_id == "solved") & rows.scored.ne(False)]
     task_pass = scored.groupby(["source_id", "task_id"]).value.mean().rename("pass_rate")
     difficulty = (
         alt.Chart(task_pass.reset_index())
@@ -632,7 +561,7 @@ def _(mo):
 
 
 @app.cell
-def _(CONFIG, deepswe, mo, pd, rows, swe, tb):
+def _(CONFIG, mo, pd, rows, tb):
     QUALITY = {
         "android-bench-2.0": ("trial_success_rate_pct", 0.01),
         "deepswe-v1.1": ("scored_attempt_pass_rate", 1),
@@ -668,7 +597,7 @@ def _(CONFIG, deepswe, mo, pd, rows, swe, tb):
         )
     )
     tb_complete = pd.concat(
-        t.set_index("row_id").pipe(lambda x: x.reconciled & x.no_retries) for t in tb.values()
+        t.set_index("campaign_id").pipe(lambda x: x.reconciled & x.no_retries) for t in tb.values()
     )
     config_summary = pd.concat([quality, cost, trials], axis=1).reset_index()
     config_summary["cost_status"] = "unverified"
@@ -676,18 +605,13 @@ def _(CONFIG, deepswe, mo, pd, rows, swe, tb):
     config_summary.loc[trial_sourced, "cost_status"] = (
         config_summary.known_costs == config_summary.attempts
     ).map({True: "complete", False: "incomplete"})
-    tb_rows = config_summary.campaign.isin(tb_complete.index)
+    tb_rows = config_summary.campaign_id.isin(tb_complete.index)
     config_summary.loc[tb_rows, "cost_status"] = (
-        config_summary.campaign[tb_rows]
+        config_summary.campaign_id[tb_rows]
         .map(tb_complete)
         .map({True: "complete", False: "incomplete"})
     )
     config_summary.loc[config_summary.cost.isna(), "cost_status"] = "no cost"
-
-    # Trial rows in the evidence table must agree with the raw snapshots.
-    complete_counts = config_summary[config_summary.cost_status == "complete"].source_id
-    assert (complete_counts == "deepswe-v1.1").sum() == deepswe.complete_cost.sum()
-    assert (complete_counts == "swe-marathon-v1.1").sum() == swe.complete_cost.sum()
 
     mo.vstack(
         [
@@ -717,7 +641,7 @@ def _(alt, config_summary, mo):
                 "model_id",
                 "harness_id",
                 "effort",
-                "campaign",
+                "campaign_id",
                 alt.Tooltip("cost:Q", format="$.2f"),
                 alt.Tooltip("quality:Q", format=".1%"),
                 "cost_status",

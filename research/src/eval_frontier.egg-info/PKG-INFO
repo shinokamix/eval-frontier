@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: eval-frontier
-Version: 0.1.0
-Summary: Research package for evaluation frontier analysis
-Requires-Python: >=3.11
-Requires-Dist: pyarrow>=25.0.1
-Requires-Dist: pydantic>=2.13.5

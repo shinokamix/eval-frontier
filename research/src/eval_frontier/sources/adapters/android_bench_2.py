@@ -83,7 +83,6 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "benchmark": "android-bench",
                 "benchmark_version": "2.0",
                 "aggregate": True,
-                "condition": "long-horizon-30-task-run",
                 "sample_sizes": {"pass_rate_pct": 150},
                 "interval_lowers": {"pass_rate_pct": lower},
                 "interval_uppers": {"pass_rate_pct": upper},
@@ -130,7 +129,6 @@ def extract(content: str) -> list[dict[str, Any]]:
                     "benchmark_version": "2.0",
                     "aggregate": True,
                     "task_id": task,
-                    "condition": "task-five-runs",
                     "sample_sizes": {"pass_rate_pct": 5},
                     "metrics": {"pass_rate_pct": 100 * passes / 5},
                 }

@@ -198,7 +198,8 @@ comparisons before fitting; the pipeline does not yet produce model estimates.
    definitions, reported USD cost bases, denominators, coverage, missingness,
    uncertainty, and inclusion decisions. Report the network for each axis and
    choose a reference system and target campaigns. The current evidence rows
-   have `condition`, but do not encode all settings needed for this review.
+   have `campaign_id`, retry, and scoring fields, but do not encode all settings
+   needed for this review.
 2. Use a notebook to inspect both networks and within-study comparisons.
    Implement the comparisons with uncertainty and dependence in research code.
 3. Fit and check the quality and cost models, then their joint analysis. Test

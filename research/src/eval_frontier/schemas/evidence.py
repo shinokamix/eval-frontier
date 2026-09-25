@@ -27,7 +27,7 @@ class EvidenceRow(BaseModel):
     model_id: str
     harness_id: str
     effort: str | None = None
-    condition: str | None = None
+    campaign_id: str | None = None
 
     metric_id: str
     value: FiniteFloat
@@ -39,5 +39,9 @@ class EvidenceRow(BaseModel):
     standard_error: FiniteFloat | None = Field(default=None, ge=0)
     interval_lower: FiniteFloat | None = None
     interval_upper: FiniteFloat | None = None
+    outcome_status: str | None = None
+    scored: bool | None = None
+    attempt_count: int | None = Field(default=None, ge=1)
+    agent_version: str | None = None
     timed_out: bool | None = None
     failure_type: str | None = None

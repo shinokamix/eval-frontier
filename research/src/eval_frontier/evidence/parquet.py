@@ -24,7 +24,7 @@ EVIDENCE_SCHEMA = pa.schema(
         pa.field("model_id", pa.string(), nullable=False),
         pa.field("harness_id", pa.string(), nullable=False),
         pa.field("effort", pa.string()),
-        pa.field("condition", pa.string()),
+        pa.field("campaign_id", pa.string()),
         pa.field("metric_id", pa.string(), nullable=False),
         pa.field("value", pa.float64(), nullable=False),
         pa.field("unit", pa.string(), nullable=False),
@@ -34,6 +34,10 @@ EVIDENCE_SCHEMA = pa.schema(
         pa.field("standard_error", pa.float64()),
         pa.field("interval_lower", pa.float64()),
         pa.field("interval_upper", pa.float64()),
+        pa.field("outcome_status", pa.string()),
+        pa.field("scored", pa.bool_()),
+        pa.field("attempt_count", pa.int64()),
+        pa.field("agent_version", pa.string()),
         pa.field("timed_out", pa.bool_()),
         pa.field("failure_type", pa.string()),
     ]
@@ -41,6 +45,8 @@ EVIDENCE_SCHEMA = pa.schema(
 
 
 def write(path: Path, rows: list[EvidenceRow]) -> None:
+    if EVIDENCE_SCHEMA.names != list(EvidenceRow.model_fields):
+        raise ValueError("Parquet schema and EvidenceRow fields differ")
     path.parent.mkdir(parents=True, exist_ok=True)
     table = pa.Table.from_pylist([row.model_dump() for row in rows], schema=EVIDENCE_SCHEMA)
     pq.write_table(table, path)

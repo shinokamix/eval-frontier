@@ -76,7 +76,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "benchmark_version": "4.0.0",
                 "aggregate": True,
                 "effort": metadata["reasoning_effort"],
-                "condition": row_id,
+                "campaign": row_id,
                 "sample_sizes": sample_sizes,
                 "interval_lowers": {"accuracy": round(metrics["accuracy"] - ci_half_width, 10)},
                 "interval_uppers": {"accuracy": round(metrics["accuracy"] + ci_half_width, 10)},

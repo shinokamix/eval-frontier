@@ -8,6 +8,7 @@ from ..schemas.sources import SourceCrosswalk, SourcePins
 from ..sources.archive import read_json, source
 from ..sources.extract import extract
 from .canonicalize import canonicalize_source
+from .checks import check_table
 from .parquet import write
 
 
@@ -34,6 +35,7 @@ def build(data_dir: Path, output: Path) -> Path:
         )
         all_rows.extend(source_rows)
 
+    check_table(data_dir, pins, all_rows)
     all_rows.sort(
         key=lambda row: (
             row.source_id,

@@ -35,8 +35,10 @@ only for source manifests, immutable snapshot metadata, and source crosswalks.
 One row represents one measurement for one task or aggregate result:
 
 ```text
-study × benchmark × task × trial × model × harness × effort × metric
+study × benchmark × task × trial × attempt × model × harness × effort × campaign × metric
 ```
+
+The build rejects two rows with the same grain.
 
 The table is in long format. A single experiment therefore produces several
 rows, one for each reported metric such as `solved`, `quality`, `duration_s`,
@@ -69,8 +71,12 @@ benchmark_version
 task_id
 trial_id
 attempt_id
-condition
+campaign_id
 ```
+
+`campaign_id` separates runs of the same system within one source: a
+Terminal-Bench leaderboard row or a FrontierCode task subset. It is null when
+the source publishes one run per system.
 
 Trial-level sources fill in task and trial identifiers. Task-level aggregates
 retain `task_id` and their sample size, with no invented trial identifiers.
@@ -115,12 +121,20 @@ sample_size
 standard_error
 interval_lower
 interval_upper
+outcome_status
+scored
+attempt_count
+agent_version
 timed_out
 failure_type
 ```
 
 These fields support aggregate publications and execution failures without
-forcing task-level sources to invent values.
+forcing task-level sources to invent values. `outcome_status` keeps the
+publisher's trial status, which is not always task success. `scored` is false
+for an attempt the publisher excludes from its score. `attempt_count` is the
+number of attempts inside one trial, so a value above one marks retries.
+`agent_version` is the harness version the source reports for the trial.
 
 ## Canonical catalogs
 
@@ -156,6 +170,10 @@ resolves source labels through its crosswalk, and validates every output row
 with `EvidenceRow`. Missing optional values remain null. Each row retains its
 source path and locator. The Parquet schema and row order are deterministic.
 
+`evidence/checks.py` then checks the whole table: each source has exactly its
+pinned snapshot, no two rows share the grain, and every `source_path` exists
+in the pinned snapshot.
+
 An unknown canonical ID, malformed number, missing required identity field,
-or missing source provenance stops the build. Statistical checks for derived
+missing source provenance, or a failed table check stops the build. Statistical checks for derived
 results are planned in [`METHODOLOGY.md`](METHODOLOGY.md).

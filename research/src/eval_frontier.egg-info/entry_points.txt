@@ -1,2 +1,0 @@
-[console_scripts]
-eval-frontier = eval_frontier.cli:main
