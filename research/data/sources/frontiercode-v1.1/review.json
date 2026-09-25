@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "frontiercode-v1.1",
+  "snapshotId": "e0663f1222fb90127abda3872a68a592e8e3566fe1b4ab59db1ffdefa650ba89",
+  "reviewedOn": "2026-09-26",
+  "quality": {
+    "status": "descriptive",
+    "metricId": "trial_success_rate_pct",
+    "level": "config",
+    "notes": [
+      "The actual attempt counts are unknown: some fractions are inconsistent with five runs of 100 or 150 tasks.",
+      "Runs flagged for unfair internet use score zero.",
+      "Weighted rubric score is a separate outcome."
+    ]
+  },
+  "cost": {
+    "status": "descriptive",
+    "metricId": "mean_cost_per_rollout_usd",
+    "level": "config",
+    "basis": "mean USD per rollout",
+    "basisConfirmed": false,
+    "notes": [
+      "Coverage and spread of the published means are unknown, and no trial export was found."
+    ]
+  },
+  "campaigns": {
+    "unit": "task subset: Main (100 tasks) or Extended (150 tasks)",
+    "overlap": "unresolved",
+    "notes": [
+      "Whether Main and Extended share tasks or runs is unresolved.",
+      "Matching system IDs with SWE-Marathon and Terminal-Bench are candidate links only."
+    ]
+  },
+  "nextActions": [
+    "Obtain actual attempt counts and trial outcome and cost details from the publisher.",
+    "Resolve the overlap between the Main and Extended campaigns."
+  ]
+}

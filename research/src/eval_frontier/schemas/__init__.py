@@ -1,9 +1,10 @@
-"""Pydantic contracts for sources, catalogs, and canonical evidence."""
+"""Pydantic contracts for sources, catalogs, canonical evidence, and reviews."""
 
 from .evidence import EvidenceRow
 from .harnesses import HarnessDefinition
 from .metrics import MetricDefinition
 from .models import ModelDefinition
+from .review import SourceReview
 from .sources import SourceArtifact, SourceCrosswalk, SourceDefinition, SourcePins
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     "SourceCrosswalk",
     "SourceDefinition",
     "SourcePins",
+    "SourceReview",
 ]

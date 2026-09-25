@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "android-bench-2.0",
+  "snapshotId": "8959c641e1189fdc633f0d98b3ddff2b87cf649125d35bcfe531dc0fb8234ab9",
+  "reviewedOn": "2026-09-26",
+  "quality": {
+    "status": "usable",
+    "metricId": "trial_success_rate_pct",
+    "level": "task",
+    "notes": [
+      "Each configuration has 30 tasks with five runs each; task counts reproduce the displayed pass rate within rounding.",
+      "Use task rows or configuration aggregates, not both as independent observations.",
+      "Completion rate is partial credit and is not the binary success outcome."
+    ]
+  },
+  "cost": {
+    "status": "descriptive",
+    "basis": "mean cost per full 30-task benchmark run",
+    "basisConfirmed": false,
+    "notes": [
+      "The cards give no individual costs or cost spread, so the full-run mean cannot become a cost per attempted task.",
+      "The methodology cautions that low costs can reflect early termination."
+    ]
+  },
+  "campaigns": {
+    "unit": "one run per system",
+    "overlap": "unresolved",
+    "notes": [
+      "Effort is unknown for every configuration, so no system can link this source to another."
+    ]
+  },
+  "nextActions": [
+    "Obtain effort settings for each configuration.",
+    "Obtain trial costs and the coverage of the full-run cost."
+  ]
+}

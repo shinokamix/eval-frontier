@@ -181,10 +181,12 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The [source audit notebook](../research/analysis/notebooks/source_audit.py) records readiness for
-all six pinned sources. DeepSWE and both Terminal-Bench versions now include
+Each pinned source has a reviewed `review.json` with its quality and cost
+readiness, admission rules, and exclusions. The
+[source audit notebook](../research/analysis/notebooks/source_audit.py) applies
+those decisions to all six sources. DeepSWE and both Terminal-Bench versions now include
 captured trial details, and Android Bench includes task-level pass counts.
-The audit reports complete-cost subsets, missingness, aggregate mismatches,
+The audit reports admitted cost subsets, missingness, aggregate mismatches,
 and candidate system links. These checks do not establish comparable cost
 accounting or independent campaigns.
 

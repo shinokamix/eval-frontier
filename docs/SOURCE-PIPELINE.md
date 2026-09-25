@@ -1,7 +1,8 @@
 # Add or update a source
 
-Finish with a pinned snapshot, validated evidence, and a readiness decision in
-`research/data/sources/<source-id>/README.md`. Use the same process when an
+Finish with a pinned snapshot, validated evidence, a README that describes the
+capture and extraction, and reviewed decisions in
+`research/data/sources/<source-id>/review.json`. Use the same process when an
 existing source changes. [DATASETS.md](DATASETS.md) defines the evidence contract;
 [METHODOLOGY.md](METHODOLOGY.md) defines the analysis outcomes.
 
@@ -84,24 +85,34 @@ changes, run `research:check`, `research:lint`, `research:format`,
 
 ## Record the decision
 
-Update the source's existing README with an `Analysis readiness` section:
+The source README describes how the snapshot was captured, what the adapter
+extracts, what each locator means, and the results terms. It holds no counts
+or analysis judgements: counts come from the notebook, and judgements go in
+`review.json`, which the analysis reads. `SourceReview` in
+`research/src/eval_frontier/schemas/review.py` defines the file:
 
-- **Snapshot.** Link to the checked manifest.
-- **Quality.** State the outcome, denominator, error handling, available
-  uncertainty, and which configurations can be used.
-- **Cost.** State the charges and attempt types covered, missingness, available
-  spread, and which configurations can be used. A matching total does not prove
-  complete coverage. Keep aggregate and trial representations of the same runs
-  out of the same likelihood.
-- **Comparability.** Record system versions, unknown effort, shared tasks or
-  runs, and unresolved campaign overlap. Matching IDs are candidate links.
-- **Next action.** Name the remaining check or missing information. Separate
+- **`snapshotId`.** The pinned snapshot the review covers. The notebook flags a
+  review whose snapshot differs from the pin.
+- **`quality` and `cost`.** A status for each outcome, evaluated separately
+  against the methodology: `usable`, `usable_subset`, `descriptive`, or
+  `insufficient`. Name the one metric and level that represent the outcome;
+  aggregate and trial representations of the same runs never enter the same
+  likelihood. For quality, state how unscored attempts count. For cost, state
+  the publisher's accounting basis, whether it is confirmed, and for a usable
+  subset the admission rules a configuration must pass: `complete_coverage`,
+  `matching_total`, or `no_retries`. A matching total does not prove complete
+  coverage.
+- **`campaigns`.** What one `campaign_id` means and whether campaigns overlap
+  with each other or with other captured sources. Matching IDs are candidate
+  links, not evidence of independence.
+- **`exclusions`.** Campaigns or systems kept out of an outcome, each with its
+  reason. Omitted fields match any value.
+- **`nextActions`.** The remaining checks or missing information. Separate
   captured evidence from an online lead that has not been captured.
 
-Use plain decisions: usable, usable subset, needs a stated check, or insufficient
-information. Evaluate quality and cost separately against the methodology.
-Link numerical claims to the notebook or captured artifact. Update one
-row in the readiness section of
+Put short reasons in `notes`. Link numerical claims to the notebook or a
+captured artifact rather than copying counts. Check the result in the
+readiness section of
 [`source_audit.py`](../research/analysis/notebooks/source_audit.py).
 
 The audit is complete when every source has a supported decision and remaining

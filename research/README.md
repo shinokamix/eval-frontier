@@ -22,9 +22,10 @@ moon run research:build
 
 `build` writes the evidence table from pinned snapshots. The marimo notebook
 [`analysis/notebooks/source_audit.py`](analysis/notebooks/source_audit.py)
-checks that table against the snapshots and shows cost coverage,
-reconciliation, and candidate links. It also holds the exploratory analysis of
-the table and the readiness summary to read before starting analysis.
+shows cost coverage, reconciliation, and candidate links. It also holds the
+exploratory analysis of the table and applies each source's reviewed decisions
+in `review.json` to produce the readiness summary to read before starting
+analysis.
 Open it with `moon run research:notebook`, which rebuilds the table first.
 Source capture is a separate step. For new or updated sources, follow
 [the source process](../docs/SOURCE-PIPELINE.md).
@@ -47,6 +48,8 @@ research/data/
   sources/<source-id>/
     source.json
     crosswalk.json
+    review.json
+    README.md
     raw/<snapshot-id>/
       manifest.json
       artifacts/
@@ -60,7 +63,10 @@ research/data/
 `build` also checks the whole table against the pins and the captured
 snapshots; see [`DATASETS.md`](../docs/DATASETS.md#current-build-checks).
 
-`source.json`, `manifest.json`, and `crosswalk.json` are JSON metadata. The raw
+`source.json`, `manifest.json`, and `crosswalk.json` are JSON metadata.
+`review.json` holds the reviewed analysis decisions for the pinned snapshot,
+and `README.md` describes the capture and extraction; see
+[the source process](../docs/SOURCE-PIPELINE.md#record-the-decision). The raw
 archive is immutable. Each `normalized.parquet` contains the canonical schema
 for one source snapshot. See [`DATASETS.md`](../docs/DATASETS.md) for the row
 contract and catalog details.
@@ -71,5 +77,7 @@ The Pydantic models live in `src/eval_frontier/schemas/`. Source archive code
 lives in `src/eval_frontier/sources/`, adapters live in
 `src/eval_frontier/sources/adapters/`, and checks of trial details against
 published aggregates live in `src/eval_frontier/sources/reconcile.py`.
+`src/eval_frontier/sources/review.py` loads each source's `review.json` and
+checks it against the catalogs and pins.
 Canonicalization, table checks, and Parquet writing live in
 `src/eval_frontier/evidence/`.

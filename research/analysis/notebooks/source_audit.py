@@ -16,8 +16,22 @@ def _():
     from eval_frontier.catalog import HARNESSES, METRICS, MODELS
     from eval_frontier.schemas import EvidenceRow
     from eval_frontier.sources.reconcile import harbor_rows
+    from eval_frontier.sources.review import load_reviews, stale_reviews
 
-    return EvidenceRow, HARNESSES, METRICS, MODELS, alt, asdict, harbor_rows, mo, np, pd
+    return (
+        EvidenceRow,
+        HARNESSES,
+        METRICS,
+        MODELS,
+        alt,
+        asdict,
+        harbor_rows,
+        load_reviews,
+        mo,
+        np,
+        pd,
+        stale_reviews,
+    )
 
 
 @app.cell
@@ -61,9 +75,25 @@ def _(mo, np, pd):
         "**configuration** is a system within one source and campaign. `level` is "
         "`trial` when a row has a `trial_id`, `task` when it has only a `task_id`, "
         "and `config` otherwise. `campaign_id` separates runs of the same system "
-        "within a source, such as a leaderboard row or a task subset."
+        "within a source, such as a leaderboard row or a task subset.\n\n"
+        "Each source's `review.json` records the reviewed decisions this notebook "
+        "applies: which representation of each outcome to use, the admission rules "
+        "for cost, and exclusions."
     )
     return CONFIG, data_dir, evidence, rows
+
+
+@app.cell
+def _(data_dir, load_reviews, mo, stale_reviews):
+    reviews = load_reviews(data_dir)
+    stale = stale_reviews(data_dir, reviews)
+    mo.md(
+        f"**Stale reviews:** {', '.join(stale)} were made for another snapshot. "
+        "Review these sources again before using their decisions."
+        if stale
+        else ""
+    )
+    return (reviews,)
 
 
 @app.cell
@@ -309,7 +339,7 @@ def _(mo):
 
 @app.cell
 def _(asdict, data_dir, harbor_rows, pd):
-    FLAGS = ["count_matches", "cost_matches", "reconciled", "no_retries"]
+    FLAGS = ["complete_cost", "count_matches", "cost_matches", "reconciled", "no_retries"]
     tb = {
         s: pd.DataFrame(
             {**asdict(r), **{flag: getattr(r, flag) for flag in FLAGS}}
@@ -547,47 +577,49 @@ def _(mo):
     ## 7. Cost and quality
 
     One point per configuration, one panel per source: tasks, cost accounting,
-    and denominators differ between sources. Each source contributes exactly
-    one quality and one cost representation, listed below. Android Bench
-    reports cost per 30-task run and has no cost axis. This is a description,
+    and denominators differ between sources. Each source's review names one
+    quality and one cost representation, listed below. This is a description,
     not the target graph.
 
-    Cost status is `complete` when every trial has a cost (and, for
-    Terminal-Bench, the row reconciles without retries), `incomplete`
-    otherwise, `unverified` when only an aggregate is published, and `no cost`
-    when the source reports none.
+    Cost status applies the review: `admitted` when the configuration passes
+    every admission rule of a usable subset, `not admitted` when it fails one,
+    `unverified` when the review keeps cost descriptive, `excluded` by a
+    reviewed exclusion, and `no cost` when the source reports none.
     """)
     return
 
 
 @app.cell
-def _(CONFIG, mo, pd, rows, tb):
-    QUALITY = {
-        "android-bench-2.0": ("trial_success_rate_pct", 0.01),
-        "deepswe-v1.1": ("scored_attempt_pass_rate", 1),
-        "frontiercode-v1.1": ("trial_success_rate_pct", 0.01),
-        "swe-marathon-v1.1": ("solved", 1),
-        "terminal-bench-2.1": ("trial_success_rate_pct", 0.01),
-        "terminal-bench-4-0": ("trial_success_rate_pct", 0.01),
-    }
-    COST = {
-        "deepswe-v1.1": "mean_cost_per_scored_attempt_usd",
-        "frontiercode-v1.1": "mean_cost_per_rollout_usd",
-        "swe-marathon-v1.1": "cost_usd",
-        "terminal-bench-2.1": "cost_usd",
-        "terminal-bench-4-0": "cost_usd",
-    }
+def _(CONFIG, METRICS, mo, pd, reviews, rows, tb):
+    choices = pd.DataFrame(
+        {
+            "source_id": source_id,
+            "outcome": outcome,
+            "status": getattr(review, outcome).status,
+            "metric_id": getattr(review, outcome).metric_id,
+            "level": getattr(review, outcome).level,
+        }
+        for source_id, review in reviews.items()
+        for outcome in ("quality", "cost")
+    )
 
-    quality_rows = rows[rows.metric_id == rows.source_id.map(lambda s: QUALITY[s][0])]
+    def chosen(outcome):
+        pick = choices[(choices.outcome == outcome) & choices.metric_id.notna()]
+        return rows.merge(pick[["source_id", "metric_id", "level"]])
+
+    quality_rows = chosen("quality")
+    quality_rows = quality_rows[
+        quality_rows.scored.ne(False)
+        | quality_rows.source_id.map(lambda s: reviews[s].quality.unscored_attempts != "exclude")
+    ]
+    percent = quality_rows.metric_id.map(lambda m: METRICS[m].unit == "percent")
     quality = (
-        (quality_rows.value * quality_rows.source_id.map(lambda s: QUALITY[s][1]))
+        quality_rows.value.where(~percent, quality_rows.value / 100)
         .groupby([quality_rows[c] for c in CONFIG], dropna=False)
         .mean()
         .rename("quality")
     )
-    cost_rows = rows[rows.metric_id == rows.source_id.map(COST)]
-    cost = cost_rows.groupby(CONFIG, dropna=False).value.mean().rename("cost")
-
+    cost = chosen("cost").groupby(CONFIG, dropna=False).value.mean().rename("cost")
     trials = (
         rows[rows.level == "trial"]
         .groupby(CONFIG, dropna=False)
@@ -596,29 +628,69 @@ def _(CONFIG, mo, pd, rows, tb):
             known_costs=("metric_id", lambda m: (m == "cost_usd").sum()),
         )
     )
-    tb_complete = pd.concat(
-        t.set_index("campaign_id").pipe(lambda x: x.reconciled & x.no_retries) for t in tb.values()
+    configs = pd.concat([quality, cost, trials], axis=1).reset_index()
+
+    # Terminal-Bench trial rows exist only for known costs, so its rules come
+    # from the reconciliation; other trial sources carry every attempt.
+    harbor = pd.concat(
+        pd.DataFrame(
+            {
+                "source_id": source_id,
+                "campaign_id": t.campaign_id,
+                "complete_coverage": t.complete_cost,
+                "matching_total": t.count_matches & t.cost_matches,
+                "no_retries": t.no_retries,
+            }
+        )
+        for source_id, t in tb.items()
     )
-    config_summary = pd.concat([quality, cost, trials], axis=1).reset_index()
-    config_summary["cost_status"] = "unverified"
-    trial_sourced = config_summary.source_id.isin(["deepswe-v1.1", "swe-marathon-v1.1"])
-    config_summary.loc[trial_sourced, "cost_status"] = (
-        config_summary.known_costs == config_summary.attempts
-    ).map({True: "complete", False: "incomplete"})
-    tb_rows = config_summary.campaign_id.isin(tb_complete.index)
-    config_summary.loc[tb_rows, "cost_status"] = (
-        config_summary.campaign_id[tb_rows]
-        .map(tb_complete)
-        .map({True: "complete", False: "incomplete"})
+    RULES = list(harbor.columns[2:])
+    configs = configs.merge(harbor, on=["source_id", "campaign_id"], how="left")
+    rules = (
+        configs[RULES]
+        .assign(
+            complete_coverage=configs.complete_coverage.where(
+                configs.complete_coverage.notna(), configs.known_costs == configs.attempts
+            )
+        )
+        .eq(True)
     )
-    config_summary.loc[config_summary.cost.isna(), "cost_status"] = "no cost"
+
+    def excluded(row, outcome):
+        return any(
+            e.outcome == outcome
+            and all(
+                getattr(e, field) in (None, getattr(row, field))
+                for field in ("campaign_id", "model_id", "harness_id", "effort")
+            )
+            for e in reviews[row.source_id].exclusions
+        )
+
+    def cost_status(row):
+        review = reviews[row.source_id].cost
+        if pd.isna(row.cost):
+            return "no cost"
+        if excluded(row, "cost"):
+            return "excluded"
+        if review.status == "usable":
+            return "admitted"
+        if review.status == "usable_subset":
+            passed = all(rules.at[row.Index, rule] for rule in review.admission)
+            return "admitted" if passed else "not admitted"
+        return "unverified"
+
+    configs["cost_status"] = [cost_status(r) for r in configs.itertuples()]
+    configs["quality_excluded"] = [excluded(r, "quality") for r in configs.itertuples()]
+    config_summary = configs.drop(columns=RULES)
 
     mo.vstack(
         [
-            pd.DataFrame({"quality": {s: m for s, (m, _) in QUALITY.items()}, "cost": COST}).fillna(
-                "—"
+            choices.pivot(
+                index="source_id", columns="outcome", values=["status", "metric_id", "level"]
             ),
             config_summary.groupby("source_id").cost_status.value_counts().unstack(fill_value=0),
+            mo.md("Configurations excluded from quality by review:"),
+            config_summary[config_summary.quality_excluded][[*CONFIG, "quality"]],
         ]
     )
     return (config_summary,)
@@ -627,9 +699,9 @@ def _(CONFIG, mo, pd, rows, tb):
 @app.cell
 def _(alt, config_summary, mo):
     status_colors = alt.Scale(
-        domain=["complete", "incomplete", "unverified"], range=["#2a78d6", "#eb6834", "#1baf7a"]
+        domain=["admitted", "not admitted", "unverified"], range=["#2a78d6", "#eb6834", "#1baf7a"]
     )
-    plotted = config_summary.dropna(subset=["cost", "quality"])
+    plotted = config_summary[~config_summary.quality_excluded].dropna(subset=["cost", "quality"])
     scatter = (
         alt.Chart(plotted)
         .mark_point(stroke="white", strokeWidth=1)
@@ -696,7 +768,7 @@ def _(mo):
     ## 8. Candidate links between sources
 
     Shared systems between each pair of sources. Cost links count systems
-    with known effort and `complete` cost status on both sides.
+    with known effort and `admitted` cost status on both sides.
     """)
     return
 
@@ -710,7 +782,7 @@ def _(config_summary, pd):
 
     systems = {s: system_set(g) for s, g in config_summary.groupby("source_id")}
     cost_ready = config_summary[
-        (config_summary.cost_status == "complete") & config_summary.effort.notna()
+        (config_summary.cost_status == "admitted") & config_summary.effort.notna()
     ]
     cost_systems = {s: system_set(g) for s, g in cost_ready.groupby("source_id")}
     sources = sorted(systems)
@@ -765,92 +837,45 @@ def _(mo):
     mo.md(r"""
     ## 9. Readiness
 
-    Numbers come from the sections above; judgements and next actions are
-    reviewed by hand and must be updated when a source changes. Complete cost
-    data still need a review of the charges included before primary
+    Decisions come from each source's `review.json`; counts come from the
+    sections above. Update the review when a source or its snapshot changes.
+    Admitted costs still need a confirmed accounting basis before primary
     cross-study synthesis.
     """)
     return
 
 
 @app.cell
-def _(deepswe, deepswe_trials, mo, rows, swe, swe_trials, tb):
-    tb2, tb4 = tb["terminal-bench-2.1"], tb["terminal-bench-4-0"]
-    count_gaps = ", ".join(
-        f"{r.published_trials}-versus-{r.trials}" for r in tb2[~tb2.count_matches].itertuples()
-    )
-    android_tasks = rows[(rows.source_id == "android-bench-2.0") & (rows.level == "task")]
+def _(config_summary, mo, reviews):
+    def cell(text):
+        return text.replace("|", "\\|").replace("\n", " ")
 
-    def link(source_id, label):
-        return f"[{label}](../../data/sources/{source_id}/README.md)"
+    def readiness(source_id, review):
+        configs = config_summary[config_summary.source_id == source_id]
+        quality, cost = review.quality, review.cost
+        return (
+            f"[{source_id}](../../data/sources/{source_id}/review.json)",
+            f"{quality.status} · `{quality.metric_id}` ({quality.level})"
+            if quality.metric_id
+            else quality.status,
+            (
+                f"{cost.status}; {(configs.cost_status == 'admitted').sum()} of {len(configs)} "
+                f"admitted; basis {'confirmed' if cost.basis_confirmed else 'unconfirmed'}"
+            ),
+            review.campaigns.overlap,
+            str(len(review.exclusions)),
+            "<br>".join(cell(action) for action in review.next_actions),
+        )
 
-    readiness = [
-        (
-            link("swe-marathon-v1.1", "SWE-Marathon"),
-            f"{len(swe_trials):,} binary trial outcomes usable.",
-            f"{swe.complete_cost.sum()} of {len(swe)} configurations have complete costs.",
-            "Confirm accounting basis and compare task coverage and settings across studies.",
-        ),
-        (
-            link("terminal-bench-2.1", "Terminal-Bench 2.1"),
-            (
-                "CLI capture matches the prior leaderboard; published accuracy and SE usable. "
-                f"Count mismatches to review: {(~tb2.count_matches).sum()}."
-            ),
-            f"{tb2.reconciled.sum()} of {len(tb2)} rows have complete costs and matching totals.",
-            (
-                f"Explain {(~tb2.cost_matches).sum()} total mismatches and the {count_gaps} "
-                "attempt count; confirm accounting."
-            ),
-        ),
-        (
-            link("terminal-bench-4-0", "Terminal-Bench 4.0"),
-            (
-                "CLI capture matches the prior leaderboard; published accuracy and intervals "
-                f"available. {(~tb4.no_retries).sum()} rows need retry review."
-            ),
-            (
-                f"{tb4.reconciled.sum()} of {len(tb4)} rows have complete costs and matching "
-                f"totals; {(tb4.reconciled & tb4.no_retries).sum()} also lack retry flags."
-            ),
-            (
-                f"Explain {(~tb4.cost_matches).sum()} total mismatches and retry handling; "
-                "confirm accounting."
-            ),
-        ),
-        (
-            link("deepswe-v1.1", "DeepSWE"),
-            (
-                f"{len(deepswe_trials):,} attempted outcomes usable; all {len(deepswe)} scored "
-                "aggregates reconcile."
-            ),
-            f"{deepswe.complete_cost.sum()} of {len(deepswe)} configurations have complete costs.",
-            (
-                "Confirm accounting for configurations without `cost_basis`; review "
-                "shared-system settings."
-            ),
-        ),
-        (
-            link("android-bench-2.0", "Android Bench"),
-            f"{len(android_tasks)} task counts usable, five runs each.",
-            "Descriptive only; coverage and spread unknown.",
-            "Obtain effort settings and full-run cost details.",
-        ),
-        (
-            link("frontiercode-v1.1", "FrontierCode"),
-            "Descriptive only; denominators unknown.",
-            "Descriptive only; coverage and spread unknown.",
-            (
-                "Obtain actual attempt counts and trial details; resolve Main/Extended campaign "
-                "overlap."
-            ),
-        ),
-    ]
-    header = ("Source", "Quality", "Cost", "Next action")
+    header = ("Source", "Quality", "Cost", "Overlap", "Exclusions", "Next actions")
     mo.md(
         "\n".join(
             "| " + " | ".join(cells) + " |"
-            for cells in (header, (":---",) * len(header), *readiness)
+            for cells in (
+                header,
+                (":---",) * len(header),
+                *(readiness(s, r) for s, r in reviews.items()),
+            )
         )
     )
     return
@@ -865,8 +890,8 @@ def _(connected, links, mo):
     ### Start analysis
 
     {", ".join(connected)} remain connected by candidate shared systems after
-    restricting costs to complete, reconciled configurations with known effort
-    and no unresolved retry flags. FrontierCode is not needed to connect this
+    restricting costs to configurations with known effort that each source's
+    review admits. FrontierCode is not needed to connect this
     group. Android Bench shares {android.shared.sum()} system(s), none with
     known effort, and cannot establish a link. These are data-supported
     candidates, not approved modeling assumptions.

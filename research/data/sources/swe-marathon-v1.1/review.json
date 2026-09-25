@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "swe-marathon-v1.1",
+  "snapshotId": "2168608a042bdd5cd6a42d96eef64a73954c282dc6b226669174f41fdf4f8ddc",
+  "reviewedOn": "2026-09-26",
+  "quality": {
+    "status": "usable",
+    "metricId": "solved",
+    "level": "trial",
+    "notes": [
+      "Execution status `success` does not mean the task was solved; use the binary reward.",
+      "Preserve task clusters when comparing systems and check the attempted task mix."
+    ]
+  },
+  "cost": {
+    "status": "usable_subset",
+    "metricId": "cost_usd",
+    "level": "trial",
+    "basisConfirmed": false,
+    "admission": ["complete_coverage"],
+    "notes": [
+      "Missing costs include solved trials, so known-cost means do not estimate all-attempt means without an assumption.",
+      "Sampled trajectories expose no structured costs; restricted S3 logs are an unverified recovery option."
+    ]
+  },
+  "campaigns": {
+    "unit": "one run per system",
+    "overlap": "unresolved",
+    "notes": [
+      "Shared system IDs connect this source to both Terminal-Bench versions."
+    ]
+  },
+  "nextActions": [
+    "Confirm which USD charges the reported costs cover."
+  ]
+}

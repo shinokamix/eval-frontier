@@ -8,4 +8,4 @@
 - [`../research/README.md`](../research/README.md) describes the working Python
   pipeline and its output.
 - [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) covers adding, updating, and auditing sources.
-- [`Source audit`](../research/analysis/notebooks/source_audit.py) explores the evidence table and records what current data can support.
+- [`Source audit`](../research/analysis/notebooks/source_audit.py) explores the evidence table and applies each source's `review.json` to show what current data can support.

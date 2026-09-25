@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "terminal-bench-4-0",
+  "snapshotId": "52d54cbec728d566ca1eceabb6e585dd1b69f4a0f124c3626e19f1d7c3680fde",
+  "reviewedOn": "2026-09-26",
+  "quality": {
+    "status": "usable",
+    "metricId": "trial_success_rate_pct",
+    "level": "config",
+    "notes": [
+      "Published accuracy with its 95% interval; published successes reproduce accuracy.",
+      "Pass@k is a separate outcome; task pairing needs a separate review of trial rewards."
+    ]
+  },
+  "cost": {
+    "status": "usable_subset",
+    "metricId": "cost_usd",
+    "level": "trial",
+    "basisConfirmed": false,
+    "admission": ["complete_coverage", "matching_total", "no_retries"],
+    "notes": [
+      "Keep trial costs and their published total out of the same likelihood.",
+      "Public rows show only scored attempt 1 for trials with retries; whether denominators and costs include retries is unknown.",
+      "A matching partial sum cannot be divided by all attempts to estimate cost per attempted task."
+    ]
+  },
+  "campaigns": {
+    "unit": "leaderboard row, one submission of a system",
+    "overlap": "unresolved",
+    "notes": [
+      "Terminal-Bench 2.1 uses a different task set; run identities across the two versions are unchecked."
+    ]
+  },
+  "nextActions": [
+    "Explain the two rows whose trial costs do not add up to the published total.",
+    "Establish whether published successes and costs include retried attempts.",
+    "Confirm which USD charges the reported costs cover."
+  ]
+}

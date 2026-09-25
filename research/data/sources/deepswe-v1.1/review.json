@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "deepswe-v1.1",
+  "snapshotId": "d7a3b8003e4e7e4d0ced630910ea4c2bc7050d2c1f82a712327ac884669b7319",
+  "reviewedOn": "2026-09-26",
+  "quality": {
+    "status": "usable",
+    "metricId": "solved",
+    "level": "trial",
+    "unscoredAttempts": "count_as_failure",
+    "notes": [
+      "All configurations reproduce the published scored counts, passes, and task counts.",
+      "The publisher excludes provider, verifier, and network errors from its score; attempted-task analysis counts them as failures.",
+      "Agent timeouts and context-window failures already count as scored failures.",
+      "Pass@4 is a separate outcome."
+    ]
+  },
+  "cost": {
+    "status": "usable_subset",
+    "metricId": "cost_usd",
+    "level": "trial",
+    "basis": "token prices listed for the five GPT-6 Astra effort settings, without a separate compute fee; other configurations state no basis",
+    "basisConfirmed": false,
+    "admission": ["complete_coverage"],
+    "notes": [
+      "Published cost means cover scored attempts with a known cost, not all attempts.",
+      "Missing costs fall on both excluded and scored attempts."
+    ]
+  },
+  "campaigns": {
+    "unit": "one run per system",
+    "overlap": "unresolved",
+    "notes": [
+      "Every configuration uses mini-swe-agent, so this source says nothing about harness differences.",
+      "Candidate shared systems connect it to both Terminal-Bench versions."
+    ]
+  },
+  "nextActions": [
+    "Confirm the cost accounting of configurations without a stated cost basis.",
+    "Check whether any runs are shared with Terminal-Bench submissions."
+  ]
+}
