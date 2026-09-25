@@ -72,8 +72,11 @@ attempt_id
 condition
 ```
 
-Task-level sources fill in task and trial identifiers. Aggregate sources leave
-those fields null and provide the aggregate statistics instead.
+Trial-level sources fill in task and trial identifiers. Task-level aggregates
+retain `task_id` and their sample size, with no invented trial identifiers.
+Configuration aggregates leave both identifiers null. Sources may retain both
+aggregate and detailed representations; analysis must select one representation
+of each outcome to avoid counting the same attempts twice.
 
 ### System configuration
 

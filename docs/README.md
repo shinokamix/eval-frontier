@@ -7,4 +7,5 @@
   current validation rules.
 - [`../research/README.md`](../research/README.md) describes the working Python
   pipeline and its output.
-- [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) explains how to add a source.
+- [`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md) covers adding, updating, and auditing sources.
+- [`Source readiness`](../research/analysis/source-audit.md) records what current data can support.

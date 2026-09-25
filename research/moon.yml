@@ -8,6 +8,11 @@ tasks:
     outputs:
       - 'data/canonical/evidence.parquet'
       - 'data/sources/*/extracted/*/normalized.parquet'
+  notebook:
+    command: 'uv run --group analysis marimo edit analysis/notebooks'
+    deps:
+      - build
+    preset: 'server'
   check:
     command: 'uv run python -m compileall -q src'
   lint:

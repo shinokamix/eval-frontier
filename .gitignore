@@ -16,6 +16,8 @@ apps/web/node_modules/
 apps/web/public/data/research.json
 __pycache__/
 *.py[cod]
+__marimo__/
+*.egg-info/
 .tanstack
 dist
 dist-ssr

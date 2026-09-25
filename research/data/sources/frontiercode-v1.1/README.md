@@ -1,34 +1,36 @@
-# FrontierCode 1.1 source notes
+# FrontierCode 1.1
 
-This source uses [Cognition's official leaderboard](https://cognition.com/frontiercode)
-and its [FrontierCode 1.1 methodology](https://cognition.com/blog/frontier-code-1.1).
-The page loads `data/frontiercode-leaderboard/data.json`, which contains both
-versions 1.0 and 1.1. The adapter reads only `v1_1`. The URL can change; the
-manifest records the captured bytes, time, and SHA-256 hash.
+[Cognition's leaderboard](https://cognition.com/frontiercode) supplies a JSON
+file with versions 1.0 and 1.1. The adapter retains only `v1_1`, including all
+effort levels. Its 230 Main and Extended aggregates represent 115 system IDs
+across 40 model labels. `row:N` locates the subset object in the captured JSON.
 
-The 1.1 data has 230 model, effort, and subset aggregates across 40 model
-labels. Main has 100 tasks and Extended has 150. The original methodology
-describes five runs per task and effort, but the captured 1.1 results do not
-report an actual count for each aggregate. Some published pass rates are also
-inconsistent with 500 or 750 binary outcomes. The adapter leaves `sample_size`
-null rather than assigning an unsupported count. It keeps every effort,
-rather than selecting the best score as the web page does by default. A row
-locator points to the subset object in the captured JSON.
+The adapter keeps binary correctness separate from weighted rubric score.
+It converts correctness to percent and duration to seconds. Cost remains USD
+per rollout; output tokens remain mean output tokens per rollout. Null values
+stay absent. `Kimi K2.7` remains distinct from `Kimi K2.7 Code` because the
+publisher does not equate those labels.
 
-The [original methodology](https://cognition.com/blog/frontier-code) defines
-pass rate as the share of solutions clearing all blocking criteria. Score is
-the mean weighted rubric result, with a zero for a solution that fails a
-blocker. Under the 1.1 rules, runs flagged for unfair internet use also get
-zero score. The adapter keeps `correct` and `new_score` as separate metrics.
-It converts the source's `correct` fraction to percent for the shared
-`trial_success_rate_pct` metric, and `duration_min` to seconds for the shared
-`mean_trial_duration_s` metric. It also stores the leaderboard's flag rate,
-cost per rollout, output tokens, and tool-call and step means where present.
-Null metrics stay absent. These are published aggregates, not task-level
-observations. Cost per rollout differs from DeepSWE's cost per scored attempt;
-mean output tokens differ from total tokens across trials.
+## Analysis readiness
 
-The leaderboard does not state a license or redistribution terms for its
-results JSON. The source metadata records both as unstated. `Kimi K2.7` is
-kept distinct from the catalog's `Kimi K2.7 Code` because the publisher does
-not identify those labels as the same model.
+Checked snapshot [e0663f1222fb](raw/e0663f1222fb90127abda3872a68a592e8e3566fe1b4ab59db1ffdefa650ba89/manifest.json).
+Reproduce counts and configuration lists with
+[the source audit notebook](../../../analysis/notebooks/source_audit.py).
+
+Quality is descriptive only until actual denominators and error handling are
+established. Main has 100 tasks and Extended 150. The original methodology
+mentions five runs, but some 1.1 fractions are inconsistent with 500 or 750
+binary attempts. `sample_size` therefore stays null. The
+[1.1 methodology](https://cognition.com/blog/frontier-code-1.1) also assigns zero
+score to runs flagged for unfair internet use.
+
+Cost is descriptive only. The published means have no confirmed coverage or
+spread. The earlier online audit found the same aggregates and no trial export.
+Obtain actual attempt counts and outcome and cost details from the publisher
+before including either axis in the primary analysis.
+
+Main and Extended campaign independence is unresolved. Matching system IDs with
+SWE-Marathon and Terminal-Bench are candidate links, not evidence that this
+source can currently connect the analysis network.
+
+The results JSON has no stated license or redistribution terms.

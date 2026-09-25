@@ -13,6 +13,10 @@ dependencies = [
 ]
 
 [dependency-groups]
+analysis = [
+    "marimo>=0.25.0",
+    "pandas>=3.0.6",
+]
 dev = [
     "basedpyright>=1.31.0",
     "deptry>=0.23.0",
@@ -50,6 +54,10 @@ ignore = [
     "ISC001",
 ]
 
+[tool.ruff.lint.per-file-ignores]
+# marimo displays a cell's last expression.
+"analysis/notebooks/*.py" = ["B018"]
+
 [tool.ruff.format]
 docstring-code-format = true
 quote-style = "double"
@@ -60,7 +68,7 @@ include = ["src"]
 typeCheckingMode = "standard"
 
 [tool.deptry]
-extend_exclude = ["data"]
+extend_exclude = ["data", "analysis"]
 
 [project.scripts]
 eval-frontier = "eval_frontier.cli:main"

@@ -1,98 +1,107 @@
-# Add a source to the research pipeline
+# Add or update a source
 
-Add a source when you can identify a published results artifact and map its
-measurements to the canonical evidence table. The result is a pinned snapshot
-and new rows in `research/data/canonical/evidence.parquet`.
-Run the commands below from the repository root.
+Finish with a pinned snapshot, validated evidence, and a readiness decision in
+`research/data/sources/<source-id>/README.md`. Use the same process when an
+existing source changes. [DATASETS.md](DATASETS.md) defines the evidence contract;
+[METHODOLOGY.md](METHODOLOGY.md) defines the analysis outcomes.
 
-Use [the evidence data contract](DATASETS.md) to check the meaning of each
-output field. The models in `research/src/eval_frontier/schemas/` define the
-accepted metadata and row formats.
+## Capture or update the source
 
-## Check the published results
-
-Prefer a URL at a fixed revision, such as a commit hash. If the publisher only
-provides a changing URL, capture its bytes and pin the resulting SHA-256 based
-snapshot. Record the URL and capture time. Check the license and redistribution
-terms for the results artifact. If they are unstated, record `not stated` and
-report that limitation. Do not infer the results license from a related code
-repository. Identify the results file and its model, harness,
-benchmark, trial, and metric fields. Resolve any unclear metric definition or
-denominator before you map it to a canonical ID.
-
-Inspect a similar source under `research/data/sources/`. Read its
-`source.json`, `crosswalk.json`, adapter, and registration in
-`research/src/eval_frontier/sources/extract.py`. If its input format and
-exclusions match, you can reuse the adapter.
-
-## Capture the source files
-
-Create `research/data/sources/<source-id>/source.json` with `schemaVersion`
-set to `1`. Add a stable lowercase `id`, `title`, `canonicalUrl`, `license`,
-`redistribution`, and an `artifacts` list. Give each artifact a unique relative
-`path`, a `role`, and the artifact URL. Assign the `results`
-role to exactly one artifact. Include license, methodology, or provenance files
-when they explain the results or redistribution terms.
-
-Capture the files and verify their hashes:
-
-If results occupy a byte range inside a larger public file, set `rangeStart`
-and `rangeEnd` on the artifact. Both boundaries are inclusive. The capture
-command requires an HTTP 206 response and records the range in the manifest.
-Use this only when the selected bytes form a complete results artifact.
+1. Inspect the published results and a similar source's adapter. Establish what
+   each metric measures, its denominator, and how errors, retries, and timeouts count.
+   Keep unknown denominators unknown. Record unstated results licenses as
+   `not stated`; a code repository's license does not establish results terms.
+2. Create or update `source.json` and `crosswalk.json`. Give exactly one artifact
+   the `results` role. Map native labels to catalog IDs with the same meaning.
+   Add or update the adapter in `sources/adapters/` and its registration in
+   `sources/extract.py`. Every measurement needs a captured path and locator.
+3. Capture the source, then put the returned snapshot ID in
+   `research/data/canonical/pins.json`.
 
 ```bash
 uv run --project research eval-frontier capture <source-id>
-uv run --project research eval-frontier verify
 ```
 
-`capture` prints a snapshot ID and writes
-`research/data/sources/<source-id>/raw/<snapshot-id>/manifest.json`. Check the
-recorded URLs and capture time in the manifest. The `verify` command checks
-the captured files against their SHA-256 hashes. Capture preserves any existing
-snapshot with the same ID. Keep a changing URL out of later builds. If terms
-are not stated, capture only the results needed for the evidence rows and note
-the unresolved redistribution status in the source report.
-
-## Extract the source rows
-
-If no adapter matches, add one under
-`research/src/eval_frontier/sources/adapters/`. Register the source in
-`research/src/eval_frontier/sources/extract.py`. For each result row, return
-`_source_line`, the native `model` and `harness` labels, the experiment fields,
-and a `metrics` map. `_source_line` identifies the row in the captured results
-file. Apply source-specific exclusions and defaults in the adapter or its
-registration.
-
-Add the captured snapshot ID to `research/data/canonical/pins.json`. Then run:
+For DeepSWE, this command adds public trial details to the pinned results:
 
 ```bash
-uv run --project research eval-frontier extract <source-id>
+uv run --project research eval-frontier capture-details deepswe-v1.1
 ```
 
-The command reports the number of extracted rows. Check that the count is
-nonzero. The extractor requires an integer `_source_line` for each row.
-
-## Map labels and build the table
-
-Create `research/data/sources/<source-id>/crosswalk.json` with
-`schemaVersion` set to `1`. Add `models`, `harnesses`, and `metrics` maps for
-every label the adapter emits. Map each label to an ID in
-`research/src/eval_frontier/catalog/`. If the catalog lacks a value with the
-same meaning, add a catalog entry. Keep measurements with different meanings
-under separate IDs.
-
-Check the code and build the table:
+For either Terminal-Bench version, capture the leaderboard, every row's trial
+associations, and the associated jobs' trial metadata through Harbor CLI:
 
 ```bash
-moon run research:check
+uv run --project research eval-frontier capture-harbor terminal-bench-2.1
+uv run --project research eval-frontier capture-harbor terminal-bench-4-0
+```
+
+The command needs a working `harbor` executable. It records the CLI version,
+each command, the exact JSON bytes, and their hashes in the snapshot manifest.
+It does not download trajectories or task definitions.
+
+Trial details for existing runs update the same source. Record a new source ID
+for a distinct study or results collection, and review reused runs separately.
+
+Pin its returned ID after checking the capture. The manifest records every
+requested URL and checksum. For embedded JSON, `rangeStart` and `rangeEnd` in
+`source.json` request an inclusive byte range; the server must return HTTP 206.
+Capture only the needed results when redistribution terms are unstated.
+
+## Build the evidence
+
+After changing snapshots, mappings, or extraction, run from the repository root:
+
+```bash
 moon run research:build
 ```
 
-The build writes this source's rows to
-`research/data/sources/<source-id>/extracted/<snapshot-id>/normalized.parquet`.
-It also combines all pinned sources in
-`research/data/canonical/evidence.parquet`. Inspect both files. Confirm that
-the new rows have the intended model, harness, and metric IDs. Check that
-`source_path` names the results artifact and `source_locator` names its row.
-Review any changes to rows from existing sources.
+This writes the canonical and per-source Parquet tables.
+
+## Audit the existing data
+
+Open the [source audit notebook](../research/analysis/notebooks/source_audit.py):
+
+```bash
+moon run research:notebook
+```
+
+The task rebuilds the evidence tables first and opens marimo for `research/analysis/notebooks/`.
+
+It reads the pinned snapshots and `evidence.parquet`, reconciles available trial
+details with published aggregates, and shows cost coverage and candidate system
+overlaps. It changes no files.
+
+A mismatch reported in the audit is a finding to resolve or exclude, not a
+reason to overwrite the published value.
+
+For a new format, add numerical reconciliation checks to the adapter or the
+notebook where needed. Check every configuration, not a sample. Compare row counts
+before and after the build and explain changes to other sources. After code
+changes, run `research:check`, `research:lint`, `research:format`,
+`research:types`, and `research:deps` through Moon.
+
+## Record the decision
+
+Update the source's existing README with an `Analysis readiness` section:
+
+- **Snapshot.** Link to the checked manifest.
+- **Quality.** State the outcome, denominator, error handling, available
+  uncertainty, and which configurations can be used.
+- **Cost.** State the charges and attempt types covered, missingness, available
+  spread, and which configurations can be used. A matching total does not prove
+  complete coverage. Keep aggregate and trial representations of the same runs
+  out of the same likelihood.
+- **Comparability.** Record system versions, unknown effort, shared tasks or
+  runs, and unresolved campaign overlap. Matching IDs are candidate links.
+- **Next action.** Name the remaining check or missing information. Separate
+  captured evidence from an online lead that has not been captured.
+
+Use plain decisions: usable, usable subset, needs a stated check, or insufficient
+information. Evaluate quality and cost separately against the methodology.
+Link numerical claims to the notebook or captured artifact. Update one
+row in [`source-audit.md`](../research/analysis/source-audit.md).
+
+The audit is complete when every source has a supported decision and remaining
+limits are explicit. Missing publisher data can remain a limit. Start analysis
+with the supported comparisons; review both networks before choosing a reference.

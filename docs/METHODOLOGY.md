@@ -181,21 +181,16 @@ graph rather than presenting a precise rank.
 
 ## Current evidence limit
 
-The pinned evidence table includes Android Bench 2.0, DeepSWE, FrontierCode
-1.1, SWE-Marathon 1.1, and Terminal-Bench 2.1 and 4.0. Each reports a USD
-cost metric, but those metrics use different denominators. The pipeline has
-not reviewed shared tasks, reused runs, cost coverage, or study connections
-across these sources.
+The [source audit](../research/analysis/source-audit.md) records readiness for
+all six pinned sources. DeepSWE and both Terminal-Bench versions now include
+captured trial details, and Android Bench includes task-level pass counts.
+The audit reports complete-cost subsets, missingness, aggregate mismatches,
+and candidate system links. These checks do not establish comparable cost
+accounting or independent campaigns.
 
-Terminal-Bench 2.1 and 4.0 use different task sets. Their leaderboard snapshots
-contain configuration aggregates rather than paired task-level outcomes.
-Terminal-Bench 4.0 reports a 95% accuracy interval, but its Grok 4.7 cost
-covers only 324 of 330 trials. SWE-Marathon lacks USD cost for 762 of 7,810
-trials. DeepSWE reports cost per scored attempt and excludes some errors from
-the scored set. FrontierCode reports cost per rollout. Android Bench reports
-cost per full 30-task run. These definitions need review before any source
-informs the primary cost outcome. The source-level rows do not yet justify the
-target cross-study graph.
+FrontierCode still lacks confirmed aggregate denominators and cost spread.
+Android Bench lacks trial costs and effort settings. Review the surviving
+comparisons before fitting; the pipeline does not yet produce model estimates.
 
 ## Implementation order
 

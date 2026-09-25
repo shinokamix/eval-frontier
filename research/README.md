@@ -20,6 +20,17 @@ moon run research:build
 `research:check` compiles the Python source. The project also defines `lint`,
 `format`, `types`, and `deps` tasks for Ruff, Basedpyright, and Deptry.
 
+`build` writes the evidence table from pinned snapshots. The marimo notebook
+[`analysis/notebooks/source_audit.py`](analysis/notebooks/source_audit.py)
+checks that table against the snapshots and shows cost coverage,
+reconciliation, and candidate links.
+Open it with `moon run research:notebook`, which rebuilds the table first. Read the short
+[readiness summary](analysis/source-audit.md) before starting analysis.
+Source capture is a separate step. For new or updated sources, follow
+[the source process](../docs/SOURCE-PIPELINE.md).
+Terminal-Bench snapshots use `eval-frontier capture-harbor` and the installed
+`harbor` CLI for leaderboard rows, row associations, and trial metadata.
+
 The build output is:
 
 ```text
