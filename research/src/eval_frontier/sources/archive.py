@@ -7,6 +7,7 @@ import json
 import shutil
 import tempfile
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -67,11 +68,31 @@ def verify_snapshot(data_dir: Path, source_id: str, snap: str) -> dict[str, Any]
     return manifest
 
 
-def capture(data_dir: Path, source_id: str) -> str:
+def capture(
+    data_dir: Path,
+    source_id: str,
+    supplements: list[SourceArtifact] | None = None,
+) -> str:
     definition = source(data_dir, source_id)
     captured: list[dict[str, Any]] = []
-    payloads: list[tuple[SourceArtifact, bytes]] = []
-    for artifact in definition.artifacts:
+    payloads: list[tuple[str, bytes]] = []
+    if supplements is not None:
+        pins = read_json(data_dir / "canonical" / "pins.json")["sources"]
+        previous = verify_snapshot(data_dir, source_id, pins[source_id])
+        previous_root = data_dir / "sources" / source_id / "raw" / pins[source_id]
+        replacement_paths = {f"artifacts/{item.path}" for item in supplements}
+        for item in previous["artifacts"]:
+            if item["path"] in replacement_paths:
+                continue
+            captured.append(item)
+            payloads.append(
+                (
+                    item["path"].removeprefix("artifacts/"),
+                    (previous_root / item["path"]).read_bytes(),
+                )
+            )
+
+    def download(artifact: SourceArtifact) -> tuple[dict[str, Any], tuple[str, bytes]]:
         if artifact.capture_command is not None:
             raise ValueError(f"Use the configured CLI capture for {source_id}: {artifact.path}")
         headers = {"User-Agent": "eval-frontier"}
@@ -90,27 +111,32 @@ def capture(data_dir: Path, source_id: str) -> str:
                 raise ValueError(f"Source did not honor byte range: {artifact.path}")
             if len(body) != artifact.range_end - artifact.range_start + 1:
                 raise ValueError(f"Incomplete source byte range: {artifact.path}")
-        captured.append(
-            {
-                "path": f"artifacts/{artifact.path}",
-                "role": artifact.role,
-                "mediaType": media_type,
-                "sha256": sha256(body),
-                "acquisition": {
-                    "type": "http",
-                    "url": str(artifact.url),
-                    "finalUrl": final_url,
-                    "method": "GET",
-                    "status": status,
-                    **(
-                        {"range": headers["Range"], "contentRange": content_range}
-                        if artifact.range_start is not None and artifact.range_end is not None
-                        else {}
-                    ),
-                },
-            }
-        )
-        payloads.append((artifact, body))
+        metadata = {
+            "path": f"artifacts/{artifact.path}",
+            "role": artifact.role,
+            "mediaType": media_type,
+            "sha256": sha256(body),
+            "acquisition": {
+                "type": "http",
+                "url": str(artifact.url),
+                "finalUrl": final_url,
+                "method": "GET",
+                "status": status,
+                **(
+                    {"range": headers["Range"], "contentRange": content_range}
+                    if artifact.range_start is not None and artifact.range_end is not None
+                    else {}
+                ),
+            },
+        }
+        return metadata, (artifact.path, body)
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for metadata, payload in pool.map(
+            download, supplements if supplements is not None else definition.artifacts
+        ):
+            captured.append(metadata)
+            payloads.append(payload)
 
     snap = snapshot_id(captured)
     destination = data_dir / "sources" / source_id / "raw" / snap
@@ -120,7 +146,7 @@ def capture(data_dir: Path, source_id: str) -> str:
         try:
             (temporary / "artifacts").mkdir()
             for artifact, body in payloads:
-                path = temporary / "artifacts" / artifact.path
+                path = temporary / "artifacts" / artifact
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(body)
             write_json(

@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+from collections import defaultdict
+from statistics import mean
 from typing import Any
 
 
@@ -52,9 +54,9 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "sample_sizes": {
                     "pass_at_1": attempts,
                     "pass_at_4": tasks,
-                    "mean_cost_usd": attempts,
-                    "mean_duration_seconds": attempts,
                 },
+                "interval_lowers": {"pass_at_1": row["ci_lo"]},
+                "interval_uppers": {"pass_at_1": row["ci_hi"]},
                 "metrics": {
                     "pass_at_1": row["pass_at_1"],
                     "pass_at_4": row["pass_at_4"],
@@ -63,4 +65,70 @@ def extract(content: str) -> list[dict[str, Any]]:
                 },
             }
         )
+    return rows
+
+
+def extract_trials(content: str, summary: str) -> list[dict[str, Any]]:
+    """Retain all attempted outcomes and reconcile scored aggregates."""
+    published = json.loads(content)
+    trials = published["rows"]
+    if len(trials) != published["n_trials"]:
+        raise ValueError("DeepSWE trial count mismatch")
+    groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    rows = []
+    seen = set()
+    for index, trial in enumerate(trials, 1):
+        name = trial["trial_name"]
+        if name in seen or trial["source"] != "deep-swe":
+            raise ValueError(f"Invalid DeepSWE trial: {name}")
+        seen.add(name)
+        if type(trial["passed"]) is not bool or type(trial["included_in_score"]) is not bool:
+            raise ValueError(f"Invalid DeepSWE outcome: {name}")
+        groups[trial["config"]].append(trial)
+        metrics = {"solved": int(trial["passed"])}
+        if trial["cost_usd"] is not None:
+            if trial["cost_usd"] < 0:
+                raise ValueError(f"Negative DeepSWE cost: {name}")
+            metrics["cost_usd"] = trial["cost_usd"]
+        rows.append(
+            {
+                "_source_line": index,
+                "model": trial["model"],
+                "harness": trial["harness"],
+                "benchmark": trial["task_name"],
+                "benchmark_version": "v1.1",
+                "trial": name,
+                "effort": trial.get("reasoning_effort"),
+                "condition": trial["outcome"],
+                "failure_type": trial["error_category"],
+                "metrics": metrics,
+            }
+        )
+    aggregates = json.loads(summary)["rows"]
+    if set(groups) != {row["config"] for row in aggregates}:
+        raise ValueError("DeepSWE trial configurations differ from leaderboard")
+    for row in aggregates:
+        group = groups[row["config"]]
+        scored = [trial for trial in group if trial["included_in_score"]]
+        costs = [trial["cost_usd"] for trial in scored if trial["cost_usd"] is not None]
+        durations = [
+            trial["agent_duration_seconds"]
+            for trial in scored
+            if trial["agent_duration_seconds"] is not None
+        ]
+        if (
+            len(scored) != row["n_attempted"]
+            or sum(trial["passed"] for trial in scored) != row["n_passed"]
+            or len({trial["task_name"] for trial in scored}) != row["n_tasks_attempted"]
+            or len({trial["task_name"] for trial in scored if trial["passed"]})
+            != row["n_tasks_passed_any"]
+            or abs(mean(costs) - row["mean_cost_usd"]) > 1e-8
+            or abs(mean(durations) - row["mean_duration_seconds"]) > 1e-8
+            or any(
+                (trial["model"], trial["harness"], trial.get("reasoning_effort"))
+                != (row["model"], row["harness"], row.get("reasoning_effort"))
+                for trial in group
+            )
+        ):
+            raise ValueError(f"DeepSWE aggregate mismatch: {row['config']}")
     return rows

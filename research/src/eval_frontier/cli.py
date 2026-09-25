@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .evidence.build import build
 from .sources.archive import capture, verify_sources
+from .sources.details import capture_details
 from .sources.extract import extract
 from .sources.harbor_cli import capture_harbor_cli
 
@@ -27,6 +28,10 @@ def build_parser() -> argparse.ArgumentParser:
         "capture-harbor", help="Capture a Terminal-Bench leaderboard with Harbor CLI."
     )
     harbor_parser.add_argument("source_id")
+    details_parser = commands.add_parser(
+        "capture-details", help="Capture trial details with pinned results."
+    )
+    details_parser.add_argument("source_id")
     extract_parser = commands.add_parser("extract", help="Extract a pinned source.")
     extract_parser.add_argument("source_id")
     return parser
@@ -42,6 +47,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Captured {args.source_id}: {capture(data_dir, args.source_id)}")
     elif args.command == "capture-harbor":
         print(f"Captured {args.source_id}: {capture_harbor_cli(data_dir, args.source_id)}")
+    elif args.command == "capture-details":
+        print(f"Captured {args.source_id}: {capture_details(data_dir, args.source_id)}")
     elif args.command == "verify":
         print(f"Verified {verify_sources(data_dir)} snapshots.")
     elif args.command == "extract":

@@ -1,4 +1,4 @@
-"""Read captured Harbor CLI trials."""
+"""Read captured Harbor CLI trials and capture DeepSWE trial metadata."""
 
 from __future__ import annotations
 
@@ -6,6 +6,28 @@ import json
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
+
+from pydantic import HttpUrl
+
+from ..schemas.sources import SourceArtifact
+from .archive import capture
+
+
+def capture_details(data_dir: Path, source_id: str) -> str:
+    artifacts = []
+    if source_id == "deepswe-v1.1":
+        artifacts.append(
+            SourceArtifact(
+                path="trials.json",
+                role="provenance",
+                url=HttpUrl("https://deepswe.datacurve.ai/artifacts/v1.1/trials.json"),
+            )
+        )
+    elif source_id in {"terminal-bench-2.1", "terminal-bench-4-0"}:
+        raise ValueError(f"Use capture-harbor for {source_id}")
+    else:
+        raise ValueError(f"No public detail capture configured for {source_id}")
+    return capture(data_dir, source_id, artifacts)
 
 
 def harbor_trials(root: Path, row: dict[str, Any]) -> list[tuple[str, int, dict[str, Any]]]:

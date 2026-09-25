@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections import defaultdict
 from pathlib import Path
 
 from ..schemas.sources import SourcePins
@@ -47,6 +48,29 @@ def extract(data_dir: Path, source_id: str, snapshot_id: str | None = None) -> l
     except KeyError as exc:
         raise ValueError(f"No extractor registered for source: {source_id}") from exc
     native = extractor(content)
+    if source_id == "deepswe-v1.1":
+        detail = next(
+            (item for item in manifest["artifacts"] if item["path"] == "artifacts/trials.json"),
+            None,
+        )
+        if detail is not None:
+            detail_content = (
+                data_dir / "sources" / source_id / "raw" / snapshot_id / detail["path"]
+            ).read_text(encoding="utf-8")
+            counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+            for trial in json.loads(detail_content)["rows"]:
+                if trial["included_in_score"]:
+                    for metric, field in (
+                        ("mean_cost_usd", "cost_usd"),
+                        ("mean_duration_seconds", "agent_duration_seconds"),
+                    ):
+                        if trial[field] is not None:
+                            counts[trial["config"]][metric] += 1
+            for value in native:
+                value["sample_sizes"].update(counts[value["condition"]])
+            for value in deepswe.extract_trials(detail_content, content):
+                value["_source_path"] = detail["path"]
+                native.append(value)
     if source_id in {"terminal-bench-2.1", "terminal-bench-4-0"}:
         root = data_dir / "sources" / source_id / "raw" / snapshot_id
         for published, aggregate in zip(json.loads(content)["rows"], list(native), strict=True):

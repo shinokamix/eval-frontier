@@ -30,11 +30,15 @@
     "muse-spark-1-2": "muse-spark-1.2",
     "qwen3-8-max": "qwen3.8-max"
   },
-  "harnesses": { "mini-swe-agent": "mini-swe-agent" },
+  "harnesses": {
+    "mini-swe-agent": "mini-swe-agent"
+  },
   "metrics": {
     "pass_at_1": "scored_attempt_pass_rate",
     "pass_at_4": "task_any_pass_rate_at_4",
     "mean_cost_usd": "mean_cost_per_scored_attempt_usd",
-    "mean_duration_seconds": "mean_duration_per_scored_attempt_s"
+    "mean_duration_seconds": "mean_duration_per_scored_attempt_s",
+    "solved": "solved",
+    "cost_usd": "cost_usd"
   }
 }
