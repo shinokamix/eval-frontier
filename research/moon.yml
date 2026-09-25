@@ -7,6 +7,7 @@ tasks:
     command: 'uv run eval-frontier build'
     outputs:
       - 'data/canonical/evidence.parquet'
+      - 'data/sources/*/extracted/*/normalized.parquet'
   check:
     command: 'uv run python -m compileall -q src'
   lint:

@@ -1,0 +1,198 @@
+{
+  "id": "00519c71-3698-4f0c-a837-6568c180ee50",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/make-doom-for-mips",
+      "type": "package",
+      "digest": "sha256:2d83dd3dee8e0f055e09973934cf0d7e3169a9cd90704cba5c8940b170be9498",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "terminus-2",
+      "kwargs": {
+        "llm_kwargs": {
+          "extra_headers": {
+            "anthropic-beta": "server-side-fallback-2026-06-02"
+          }
+        },
+        "model_info": {
+          "supports_reasoning": true,
+          "supports_adaptive_thinking": true,
+          "supports_max_reasoning_effort": true,
+          "supports_xhigh_reasoning_effort": true
+        },
+        "temperature": 1,
+        "llm_call_kwargs": {
+          "fallback": [
+            {
+              "model": "claude-opus-4-8"
+            }
+          ],
+          "thinking": {
+            "type": "adaptive"
+          },
+          "max_tokens": 128000,
+          "output_config": {
+            "effort": "high"
+          },
+          "allowed_openai_params": [
+            "thinking",
+            "fallback"
+          ]
+        },
+        "reasoning_effort": "high"
+      },
+      "skills": [],
+      "model_name": "anthropic/claude-fable-5",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "daytona",
+      "delete": true,
+      "kwargs": {},
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:2d83dd3dee8e0f055e09973934cf0d7e3169a9cd90704cba5c8940b170be9498",
+      "name": "terminal-bench/make-doom-for-mips",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "terminus-2",
+      "kwargs": {
+        "llm_kwargs": {
+          "extra_headers": {
+            "anthropic-beta": "server-side-fallback-2026-06-02"
+          }
+        },
+        "model_info": {
+          "supports_reasoning": true,
+          "supports_adaptive_thinking": true,
+          "supports_max_reasoning_effort": true,
+          "supports_xhigh_reasoning_effort": true
+        },
+        "temperature": 1,
+        "llm_call_kwargs": {
+          "fallback": [
+            {
+              "model": "claude-opus-4-8"
+            }
+          ],
+          "thinking": {
+            "type": "adaptive"
+          },
+          "max_tokens": 128000,
+          "output_config": {
+            "effort": "high"
+          },
+          "allowed_openai_params": [
+            "thinking",
+            "fallback"
+          ]
+        },
+        "reasoning_effort": "high"
+      },
+      "model_name": "anthropic/claude-fable-5"
+    },
+    "job_id": "17f04e4f-1a75-4204-9b75-d042ef0333ec",
+    "trial_name": "make-doom-for-mips__KErNvR8",
+    "trials_dir": "jobs/tbench-2-1-fable-5__high-fallback",
+    "environment": {
+      "type": "daytona"
+    }
+  },
+  "job_id": "17f04e4f-1a75-4204-9b75-d042ef0333ec",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tbench-2-1-fable-5__high-fallback__scrubbed__17f04e4f-1a75-4204-9b75-d042ef0333ec",
+  "verifier": {
+    "started_at": "2026-06-05T00:21:00.91379+00:00",
+    "finished_at": "2026-06-05T00:21:49.598041+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/make-doom-for-mips",
+  "task_path": null,
+  "agent_info": {
+    "name": "terminus-2",
+    "version": "2.0.0",
+    "model_info": {
+      "name": "claude-fable-5",
+      "provider": "anthropic"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-06-05T00:05:33.340549+00:00",
+  "trial_name": "make-doom-for-mips__KErNvR8",
+  "agent_setup": {
+    "started_at": "2026-06-05T00:05:35.980191+00:00",
+    "finished_at": "2026-06-05T00:05:58.964996+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-06-05T00:21:50.260597+00:00",
+  "archive_path": "trials/00519c71-3698-4f0c-a837-6568c180ee50/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": {
+    "occurred_at": "2026-06-05 00:21:50.260597+00",
+    "exception_type": "AgentTimeoutError",
+    "exception_message": "",
+    "exception_traceback": ""
+  },
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-06-05T00:05:58.965107+00:00",
+    "finished_at": "2026-06-05T00:20:59.000118+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/00519c71-3698-4f0c-a837-6568c180ee50/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-06-05T00:05:33.343161+00:00",
+    "finished_at": "2026-06-05T00:05:35.980161+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "id": "000bda55-ac98-46a8-99b0-dd253532d339",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/install-windows-3.11",
+      "type": "package",
+      "digest": "sha256:1f1361b0012e1ad24054e7cfc039829459e8ab0631b3573d9b93499bf6b3563e",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "mini-swe-agent",
+      "kwargs": {
+        "config": {
+          "model": {
+            "model_kwargs": {
+              "store": false,
+              "include": [
+                "reasoning.encrypted_content"
+              ],
+              "api_base": "https://api.ai.meta.com/v1",
+              "extra_headers": {
+                "x-session-id": "terminal-bench-2.1--tb21-meta-mswea-dist-v1"
+              }
+            }
+          }
+        },
+        "max_tokens": 256000,
+        "model_info": {
+          "max_input_tokens": 1000000,
+          "max_output_tokens": 256000
+        },
+        "reasoning_effort": "xhigh",
+        "enable_prompt_cache_key": true
+      },
+      "skills": [],
+      "model_name": "openai/muse-spark-1.1",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {},
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 1,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:1f1361b0012e1ad24054e7cfc039829459e8ab0631b3573d9b93499bf6b3563e",
+      "name": "terminal-bench/install-windows-3.11",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "mini-swe-agent",
+      "kwargs": {
+        "config": {
+          "model": {
+            "model_kwargs": {
+              "store": false,
+              "include": [
+                "reasoning.encrypted_content"
+              ],
+              "api_base": "https://api.ai.meta.com/v1",
+              "extra_headers": {
+                "x-session-id": "terminal-bench-2.1--tb21-meta-mswea-dist-v1"
+              }
+            }
+          }
+        },
+        "max_tokens": 256000,
+        "model_info": {
+          "max_input_tokens": 1000000,
+          "max_output_tokens": 256000
+        },
+        "reasoning_effort": "xhigh",
+        "enable_prompt_cache_key": true
+      },
+      "model_name": "openai/muse-spark-1.1"
+    },
+    "job_id": "1c76cec0-5fbd-491c-b1d9-76021e225d4d",
+    "trial_name": "install-windows-3.11__FR868MP",
+    "trials_dir": "jobs/tb21-meta-mswea-dist-v1",
+    "environment": {
+      "type": "modal"
+    }
+  },
+  "job_id": "1c76cec0-5fbd-491c-b1d9-76021e225d4d",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tb21-meta-mswea-dist-v1__scrubbed__1c76cec0-5fbd-491c-b1d9-76021e225d4d",
+  "verifier": {
+    "started_at": "2026-07-09T07:11:55.715096+00:00",
+    "finished_at": "2026-07-09T07:13:09.721714+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/install-windows-3.11",
+  "task_path": null,
+  "agent_info": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "muse-spark-1.1",
+      "provider": "openai"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-07-09T06:11:21.246251+00:00",
+  "trial_name": "install-windows-3.11__FR868MP",
+  "agent_setup": {
+    "started_at": "2026-07-09T06:11:22.92832+00:00",
+    "finished_at": "2026-07-09T06:11:42.258984+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-07-09T07:13:10.938161+00:00",
+  "archive_path": "trials/000bda55-ac98-46a8-99b0-dd253532d339/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": {
+    "occurred_at": "2026-07-09 07:13:10.938161+00",
+    "exception_type": "AgentTimeoutError",
+    "exception_message": "",
+    "exception_traceback": ""
+  },
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-07-09T06:11:42.259594+00:00",
+    "finished_at": "2026-07-09T07:11:51.431862+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/000bda55-ac98-46a8-99b0-dd253532d339/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-07-09T06:11:21.251473+00:00",
+    "finished_at": "2026-07-09T06:11:22.928258+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

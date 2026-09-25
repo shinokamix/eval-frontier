@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from ..schemas.sources import SourcePins
@@ -14,6 +15,7 @@ from .adapters import (
     terminal_bench_4,
 )
 from .archive import read_json, verify_snapshot
+from .details import harbor_trials
 
 EXTRACTORS = {
     "android-bench-2.0": android_bench_2.extract,
@@ -45,10 +47,41 @@ def extract(data_dir: Path, source_id: str, snapshot_id: str | None = None) -> l
     except KeyError as exc:
         raise ValueError(f"No extractor registered for source: {source_id}") from exc
     native = extractor(content)
+    if source_id in {"terminal-bench-2.1", "terminal-bench-4-0"}:
+        root = data_dir / "sources" / source_id / "raw" / snapshot_id
+        for published, aggregate in zip(json.loads(content)["rows"], list(native), strict=True):
+            for path, index, trial in harbor_trials(root, published):
+                if trial["cost_usd"] is not None:
+                    native.append(
+                        {
+                            "_source_path": path,
+                            "_source_line": index,
+                            "model": aggregate["model"],
+                            "harness": aggregate["harness"],
+                            "effort": aggregate["effort"],
+                            "benchmark": trial["task_name"],
+                            "benchmark_version": aggregate["benchmark_version"],
+                            "trial": trial["id"],
+                            "condition": aggregate["condition"],
+                            "failure_type": trial["error_type"],
+                            "metrics": {"cost_usd": trial["cost_usd"]},
+                        }
+                    )
     rows = []
     for value in native:
         source_line = value.pop("_source_line", None)
-        if not isinstance(source_line, int):
+        if not isinstance(source_line, int) or source_line < 1:
             raise ValueError("Extractor did not provide source line provenance")
-        rows.append({"provenance": {"path": result["path"], "row": source_line}, "native": value})
+        source_path = value.pop("_source_path", result["path"])
+        if source_path not in {item["path"] for item in manifest["artifacts"]}:
+            raise ValueError(f"Uncaptured source path: {source_path}")
+        rows.append(
+            {
+                "provenance": {
+                    "path": source_path,
+                    "row": source_line,
+                },
+                "native": value,
+            }
+        )
     return rows

@@ -1,0 +1,157 @@
+{
+  "id": "00635754-0d21-4fd1-99ff-bd20b8e9d7eb",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-bhnlx029/task",
+      "type": "local",
+      "digest": "sha256:058fad3cab6e05a357d191e3219e97a3a6102d246b3e3233912791c3b6646323",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "OPENAI_PROJECT": "REDACTED_OPENAI_PROJECT",
+        "OPENAI_ORGANIZATION": "REDACTED_OPENAI_ORGANIZATION"
+      },
+      "name": "codex",
+      "kwargs": {
+        "version": "0.151.0",
+        "reasoning_effort": "xhigh"
+      },
+      "skills": [],
+      "model_name": "openai/gpt-6-astra",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true,
+        "hosted_modal_proxy_name": "hh-proxy"
+      },
+      "force_build": false,
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment",
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:058fad3cab6e05a357d191e3219e97a3a6102d246b3e3233912791c3b6646323",
+      "name": "terminal-bench/freight-dispatch-shift",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "OPENAI_PROJECT": "REDACTED_OPENAI_PROJECT",
+        "OPENAI_ORGANIZATION": "REDACTED_OPENAI_ORGANIZATION"
+      },
+      "name": "codex",
+      "kwargs": {
+        "version": "0.151.0",
+        "reasoning_effort": "xhigh"
+      },
+      "model_name": "openai/gpt-6-astra"
+    },
+    "job_id": "caf6e433-9fff-4475-b0bc-977f14ac7052",
+    "trial_name": "freight-dispatch-shift__a8befb27",
+    "trials_dir": "hosted-runs/caf6e433-9fff-4475-b0bc-977f14ac7052",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true,
+        "hosted_modal_proxy_name": "hh-proxy"
+      },
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment"
+    }
+  },
+  "job_id": "caf6e433-9fff-4475-b0bc-977f14ac7052",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "Terminal-Bench 4.0.0 · GPT-6 Astra / Codex · reasoning effort xhigh",
+  "verifier": {
+    "started_at": "2026-08-31T12:35:09.096887+00:00",
+    "finished_at": "2026-08-31T12:35:20.904404+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/freight-dispatch-shift",
+  "task_path": null,
+  "agent_info": {
+    "name": "codex",
+    "version": "0.151.0",
+    "model_info": {
+      "name": "gpt-6-astra",
+      "provider": "openai"
+    }
+  },
+  "can_delete": false,
+  "created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "started_at": "2026-08-31T12:13:20.974943+00:00",
+  "trial_name": "freight-dispatch-shift__a8befb27",
+  "agent_setup": {
+    "started_at": "2026-08-31T12:14:04.463772+00:00",
+    "finished_at": "2026-08-31T12:14:20.989221+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-08-31T12:35:20.904418+00:00",
+  "archive_path": "trials/00635754-0d21-4fd1-99ff-bd20b8e9d7eb/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-08-31T12:14:21.173699+00:00",
+    "finished_at": "2026-08-31T12:34:34.176404+00:00"
+  },
+  "created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  },
+  "trajectory_path": "trials/00635754-0d21-4fd1-99ff-bd20b8e9d7eb/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-08-31T12:13:21.018563+00:00",
+    "finished_at": "2026-08-31T12:14:04.463715+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  }
+}

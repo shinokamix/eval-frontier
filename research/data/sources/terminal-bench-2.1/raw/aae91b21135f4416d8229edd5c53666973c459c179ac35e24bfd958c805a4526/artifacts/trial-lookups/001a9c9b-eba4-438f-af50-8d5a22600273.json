@@ -1,0 +1,155 @@
+{
+  "id": "001a9c9b-eba4-438f-af50-8d5a22600273",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/kv-store-grpc",
+      "type": "package",
+      "digest": "sha256:973c5d4c111fb61a344457936f1c36400acd2d9e44389e7b319586fe23a7a307",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "API_TIMEOUT_MS": "3000000",
+        "ANTHROPIC_MODEL": "glm-5.1",
+        "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "${ZAI_API_KEY}",
+        "CLAUDE_CODE_SUBAGENT_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.123",
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "glm-5.1",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "daytona",
+      "delete": true,
+      "kwargs": {},
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:973c5d4c111fb61a344457936f1c36400acd2d9e44389e7b319586fe23a7a307",
+      "name": "terminal-bench/kv-store-grpc",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "API_TIMEOUT_MS": "3000000",
+        "ANTHROPIC_MODEL": "glm-5.1",
+        "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "${ZAI_API_KEY}",
+        "CLAUDE_CODE_SUBAGENT_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5.1",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.123",
+        "reasoning_effort": "max"
+      },
+      "model_name": "glm-5.1"
+    },
+    "job_id": "5b2904c3-c69a-4ad0-b30f-1d77729389f4",
+    "trial_name": "kv-store-grpc__UMEShMG",
+    "trials_dir": "jobs/tb-2-1-glm-5-1-gemini-3-pro-preview",
+    "environment": {
+      "type": "daytona"
+    }
+  },
+  "job_id": "5b2904c3-c69a-4ad0-b30f-1d77729389f4",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tb-2-1-glm-5-1-gemini-3-pro-preview__scrubbed__5b2904c3-c69a-4ad0-b30f-1d77729389f4",
+  "verifier": {
+    "started_at": "2026-05-01T21:57:31.111418+00:00",
+    "finished_at": "2026-05-01T21:57:36.74553+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/kv-store-grpc",
+  "task_path": null,
+  "agent_info": {
+    "name": "claude-code",
+    "version": "2.1.123",
+    "model_info": {
+      "name": "glm-5.1",
+      "provider": "unknown"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-05-01T21:55:06.535283+00:00",
+  "trial_name": "kv-store-grpc__UMEShMG",
+  "agent_setup": {
+    "started_at": "2026-05-01T21:55:08.326226+00:00",
+    "finished_at": "2026-05-01T21:55:22.096569+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-05-01T21:57:37.235766+00:00",
+  "archive_path": "trials/001a9c9b-eba4-438f-af50-8d5a22600273/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-05-01T21:55:22.096637+00:00",
+    "finished_at": "2026-05-01T21:57:26.909472+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/001a9c9b-eba4-438f-af50-8d5a22600273/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-05-01T21:55:06.542289+00:00",
+    "finished_at": "2026-05-01T21:55:08.326206+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

@@ -9,7 +9,8 @@
     {
       "path": "leaderboard.json",
       "role": "results",
-      "url": "https://ofhuhcpkvzjlejydnvyd.supabase.co/functions/v1/leaderboard-read?package=terminal-bench%2Fterminal-bench-2-1&name=main"
+      "url": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1?tab=leaderboard&leaderboard=main",
+      "captureCommand": ["harbor", "hub", "leaderboard", "show", "terminal-bench/terminal-bench-2-1/main", "--json"]
     }
   ]
 }

@@ -72,11 +72,13 @@ def capture(data_dir: Path, source_id: str) -> str:
     captured: list[dict[str, Any]] = []
     payloads: list[tuple[SourceArtifact, bytes]] = []
     for artifact in definition.artifacts:
+        if artifact.capture_command is not None:
+            raise ValueError(f"Use the configured CLI capture for {source_id}: {artifact.path}")
         headers = {"User-Agent": "eval-frontier"}
         if artifact.range_start is not None and artifact.range_end is not None:
             headers["Range"] = f"bytes={artifact.range_start}-{artifact.range_end}"
         request = urllib.request.Request(str(artifact.url), headers=headers)
-        with urllib.request.urlopen(request) as response:
+        with urllib.request.urlopen(request, timeout=60) as response:
             body = response.read()
             final_url = response.geturl()
             status = response.status

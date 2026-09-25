@@ -34,6 +34,7 @@
     "avg_trial_duration_sec": "mean_trial_duration_s",
     "total_tokens": "total_tokens_across_trials",
     "cached_input_tokens": "cached_input_tokens_across_trials",
-    "output_tokens": "output_tokens_across_trials"
+    "output_tokens": "output_tokens_across_trials",
+    "cost_usd": "cost_usd"
   }
 }

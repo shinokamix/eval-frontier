@@ -1,0 +1,135 @@
+{
+  "id": "002e5bbb-6c03-4f58-9c8c-211e39f6cb28",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/sqlite-db-truncate",
+      "type": "package",
+      "digest": "sha256:956f038b479cc3b9b493553b57a60a8ff4154526386c3914c0b99e93e1ab6e87",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "terminus-2",
+      "kwargs": {
+        "temperature": 1,
+        "reasoning_effort": "high"
+      },
+      "skills": [],
+      "model_name": "gemini/gemini-3.1-pro-preview",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "daytona",
+      "delete": true,
+      "kwargs": {},
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:956f038b479cc3b9b493553b57a60a8ff4154526386c3914c0b99e93e1ab6e87",
+      "name": "terminal-bench/sqlite-db-truncate",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "name": "terminus-2",
+      "kwargs": {
+        "temperature": 1,
+        "reasoning_effort": "high"
+      },
+      "model_name": "gemini/gemini-3.1-pro-preview"
+    },
+    "job_id": "d5eae728-5413-4143-b52b-34eb170b045d",
+    "trial_name": "sqlite-db-truncate__GbA5sqF",
+    "trials_dir": "jobs/tb-2-1-gemini-3-1-pro",
+    "environment": {
+      "type": "daytona"
+    }
+  },
+  "job_id": "d5eae728-5413-4143-b52b-34eb170b045d",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tb-2-1-gemini-3-1-pro__scrubbed__d5eae728-5413-4143-b52b-34eb170b045d",
+  "verifier": {
+    "started_at": "2026-05-05T05:34:53.523271+00:00",
+    "finished_at": "2026-05-05T05:34:59.213437+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/sqlite-db-truncate",
+  "task_path": null,
+  "agent_info": {
+    "name": "terminus-2",
+    "version": "2.0.0",
+    "model_info": {
+      "name": "gemini-3.1-pro-preview",
+      "provider": "gemini"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-05-05T05:31:31.456848+00:00",
+  "trial_name": "sqlite-db-truncate__GbA5sqF",
+  "agent_setup": {
+    "started_at": "2026-05-05T05:31:32.460337+00:00",
+    "finished_at": "2026-05-05T05:31:42.531357+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-05-05T05:34:59.480629+00:00",
+  "archive_path": "trials/002e5bbb-6c03-4f58-9c8c-211e39f6cb28/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-05-05T05:31:42.531435+00:00",
+    "finished_at": "2026-05-05T05:34:52.280696+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/002e5bbb-6c03-4f58-9c8c-211e39f6cb28/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-05-05T05:31:31.459914+00:00",
+    "finished_at": "2026-05-05T05:31:32.460266+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "id": "00860d15-920a-422b-acf1-ba3187904004",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-se8ytovm/task",
+      "type": "local",
+      "digest": "sha256:df8b7d99e23ad23ac9c92da35ff0a2714d78781e9424edd63143cc86860e096b",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "128000"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.273",
+        "reasoning_effort": "low"
+      },
+      "skills": [],
+      "model_name": "anthropic/claude-opus-5",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {},
+      "force_build": false,
+      "import_path": "hosted_harbor.isolation.environment:SupervisorEnvironment",
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "path": "/tmp/hosted-harbor-task-se8ytovm/task",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "128000"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.273",
+        "reasoning_effort": "low"
+      },
+      "model_name": "anthropic/claude-opus-5"
+    },
+    "job_id": "7595dfd2-22f0-4b03-81a9-c3c22b6ae047",
+    "trial_name": "ctr-optimization__eaf1fd3f",
+    "trials_dir": "hosted-runs/7595dfd2-22f0-4b03-81a9-c3c22b6ae047",
+    "environment": {
+      "type": "modal",
+      "import_path": "hosted_harbor.isolation.environment:SupervisorEnvironment"
+    }
+  },
+  "job_id": "7595dfd2-22f0-4b03-81a9-c3c22b6ae047",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "Terminal-Bench 4.0.0 · Opus 5 / Claude Code · reasoning effort low",
+  "verifier": {
+    "started_at": "2026-09-17T02:22:47.750002+00:00",
+    "finished_at": "2026-09-17T02:22:50.789421+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/ctr-optimization",
+  "task_path": null,
+  "agent_info": {
+    "name": "claude-code",
+    "version": "2.1.273",
+    "model_info": {
+      "name": "claude-opus-5",
+      "provider": "anthropic"
+    }
+  },
+  "can_delete": false,
+  "created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "started_at": "2026-09-16T21:31:23.795171+00:00",
+  "trial_name": "ctr-optimization__eaf1fd3f",
+  "agent_setup": {
+    "started_at": "2026-09-16T21:31:42.094441+00:00",
+    "finished_at": "2026-09-16T21:32:40.0562+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-09-17T02:22:50.789448+00:00",
+  "archive_path": "trials/00860d15-920a-422b-acf1-ba3187904004/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-09-16T21:32:40.344149+00:00",
+    "finished_at": "2026-09-17T02:22:27.182109+00:00"
+  },
+  "created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  },
+  "trajectory_path": "trials/00860d15-920a-422b-acf1-ba3187904004/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-09-16T21:31:23.844623+00:00",
+    "finished_at": "2026-09-16T21:31:42.094377+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  }
+}

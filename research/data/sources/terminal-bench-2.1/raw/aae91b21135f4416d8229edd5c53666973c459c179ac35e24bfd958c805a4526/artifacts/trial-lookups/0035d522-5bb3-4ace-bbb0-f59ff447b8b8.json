@@ -1,0 +1,150 @@
+{
+  "id": "0035d522-5bb3-4ace-bbb0-f59ff447b8b8",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/git-leak-recovery",
+      "type": "package",
+      "digest": "sha256:22a9ec10dbd4cd8b99477b70e1944103775ca41de9b9e0025ec4898cd17bd334",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CLAUDE_CODE_SIMPLE": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "reasoning_effort": "high"
+      },
+      "skills": [],
+      "model_name": "anthropic/claude-sonnet-5",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 1,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:22a9ec10dbd4cd8b99477b70e1944103775ca41de9b9e0025ec4898cd17bd334",
+      "name": "terminal-bench/git-leak-recovery",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CLAUDE_CODE_SIMPLE": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "reasoning_effort": "high"
+      },
+      "model_name": "anthropic/claude-sonnet-5"
+    },
+    "job_id": "84ac1a9d-52a7-491b-85fb-dc323231b67f",
+    "trial_name": "git-leak-recovery__a3a5208d",
+    "trials_dir": "hosted-runs/28d7974a-22f5-43ca-a92d-ec0aa76f7c7d",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      }
+    }
+  },
+  "job_id": "84ac1a9d-52a7-491b-85fb-dc323231b67f",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tb21-sonnet-5-cc__scrubbed__84ac1a9d-52a7-491b-85fb-dc323231b67f",
+  "verifier": {
+    "started_at": "2026-07-09T16:39:43.655782+00:00",
+    "finished_at": "2026-07-09T16:39:51.03872+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/git-leak-recovery",
+  "task_path": null,
+  "agent_info": {
+    "name": "claude-code",
+    "version": "2.1.205",
+    "model_info": {
+      "name": "claude-sonnet-5",
+      "provider": "anthropic"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-07-09T16:38:50.220365+00:00",
+  "trial_name": "git-leak-recovery__a3a5208d",
+  "agent_setup": {
+    "started_at": "2026-07-09T16:38:51.406622+00:00",
+    "finished_at": "2026-07-09T16:39:08.369049+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-07-09T16:39:51.683846+00:00",
+  "archive_path": "trials/0035d522-5bb3-4ace-bbb0-f59ff447b8b8/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-07-09T16:39:08.369169+00:00",
+    "finished_at": "2026-07-09T16:39:43.040445+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/0035d522-5bb3-4ace-bbb0-f59ff447b8b8/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-07-09T16:38:50.261243+00:00",
+    "finished_at": "2026-07-09T16:38:51.406556+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

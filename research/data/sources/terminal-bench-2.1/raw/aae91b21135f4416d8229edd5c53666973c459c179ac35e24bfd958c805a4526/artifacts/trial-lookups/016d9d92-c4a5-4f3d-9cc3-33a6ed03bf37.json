@@ -1,0 +1,159 @@
+{
+  "id": "016d9d92-c4a5-4f3d-9cc3-33a6ed03bf37",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/modernize-scientific-stack",
+      "type": "package",
+      "digest": "sha256:67a9952aca67df9c70510acf62faea336644a0e9d379f3aaf9df79f14c8fcb12",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      },
+      "name": "codex",
+      "kwargs": {
+        "version": "0.144.1",
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "openai/gpt-5.6-luna",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 1,
+    "extra_instructions": [
+      {
+        "path": "artifacts/legacy-extra-instructions/0.txt",
+        "digest": "sha256:afd0c8a14c6e2cd8ba27c391d91024a2537403afebad13b1849f419012be1e3e"
+      }
+    ],
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:67a9952aca67df9c70510acf62faea336644a0e9d379f3aaf9df79f14c8fcb12",
+      "name": "terminal-bench/modernize-scientific-stack",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      },
+      "name": "codex",
+      "kwargs": {
+        "version": "0.144.1",
+        "reasoning_effort": "max"
+      },
+      "model_name": "openai/gpt-5.6-luna"
+    },
+    "job_id": "413ec154-36fb-46f4-a0b2-2111e1c65501",
+    "trial_name": "modernize-scientific-stack__17c0f1a1",
+    "trials_dir": "hosted-runs/ca83f7d2-8505-409f-84b6-5220b156fdcc",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      }
+    },
+    "extra_instruction_paths": [
+      "artifacts/legacy-extra-instructions/0.txt"
+    ]
+  },
+  "job_id": "413ec154-36fb-46f4-a0b2-2111e1c65501",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "gpt-5.6-luna-no-cheat-instruction__scrubbed__413ec154-36fb-46f4-a0b2-2111e1c65501",
+  "verifier": {
+    "started_at": "2026-07-11T20:40:58.049511+00:00",
+    "finished_at": "2026-07-11T20:41:19.977365+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/modernize-scientific-stack",
+  "task_path": null,
+  "agent_info": {
+    "name": "codex",
+    "version": "0.144.1",
+    "model_info": {
+      "name": "gpt-5.6-luna",
+      "provider": "openai"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-07-11T20:39:01.868188+00:00",
+  "trial_name": "modernize-scientific-stack__17c0f1a1",
+  "agent_setup": {
+    "started_at": "2026-07-11T20:39:05.148178+00:00",
+    "finished_at": "2026-07-11T20:39:46.149588+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-07-11T20:41:21.801063+00:00",
+  "archive_path": "trials/016d9d92-c4a5-4f3d-9cc3-33a6ed03bf37/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-07-11T20:39:46.149756+00:00",
+    "finished_at": "2026-07-11T20:40:41.986299+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/016d9d92-c4a5-4f3d-9cc3-33a6ed03bf37/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-07-11T20:39:01.920547+00:00",
+    "finished_at": "2026-07-11T20:39:05.148089+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

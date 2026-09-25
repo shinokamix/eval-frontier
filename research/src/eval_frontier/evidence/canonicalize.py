@@ -51,6 +51,7 @@ def canonicalize_source(
                     harness_id=harness_id,
                     effort=native.get("effort"),
                     condition=native.get("condition"),
+                    failure_type=native.get("failure_type"),
                     metric_id=metric_id,
                     value=float(value),
                     unit=metric.unit,

@@ -1,0 +1,160 @@
+{
+  "id": "004bafb8-6bbe-42d9-998b-28d7627234e8",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-o4_sehv3/task",
+      "type": "local",
+      "digest": "sha256:790af6a6308be694896fa5258c3f3c1b536dfa75acdb9936799a4344a3e4573b",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "XAI_API_KEY": "${XAI_API_KEY}"
+      },
+      "name": "grok-build",
+      "kwargs": {
+        "grok_config": {
+          "model": {
+            "grok-4.7": {
+              "supports_reasoning_effort": true,
+              "inference_idle_timeout_secs": 1800
+            }
+          }
+        },
+        "reasoning_effort": "xhigh"
+      },
+      "skills": [],
+      "model_name": "xai/grok-4.7",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {},
+      "stream": false,
+      "force_build": false,
+      "import_path": "hosted_harbor.isolation.environment:SupervisorEnvironment",
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "path": "/tmp/hosted-harbor-task-o4_sehv3/task",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "XAI_API_KEY": "${XAI_API_KEY}"
+      },
+      "name": "grok-build",
+      "kwargs": {
+        "grok_config": {
+          "model": {
+            "grok-4.7": {
+              "supports_reasoning_effort": true,
+              "inference_idle_timeout_secs": 1800
+            }
+          }
+        },
+        "reasoning_effort": "xhigh"
+      },
+      "model_name": "xai/grok-4.7"
+    },
+    "job_id": "30225ce2-25f4-44c4-9fc5-67bf80dd4d17",
+    "trial_name": "react-lead-form__82280817",
+    "trials_dir": "/Users/alexgshaw/Developer/harbor/harbor/jobs/tb4-grok-4.7-xhigh",
+    "environment": {
+      "type": "modal",
+      "import_path": "hosted_harbor.isolation.environment:SupervisorEnvironment"
+    }
+  },
+  "job_id": "30225ce2-25f4-44c4-9fc5-67bf80dd4d17",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "tb4-grok-4.7-xhigh",
+  "verifier": {
+    "started_at": "2026-09-19T22:39:27.702377+00:00",
+    "finished_at": "2026-09-19T22:39:49.638195+00:00"
+  },
+  "owner_org": {
+    "id": "0c7d94ca-8074-4931-addd-ac212daab117",
+    "kind": "team",
+    "name": "harbor",
+    "display_name": "Harbor"
+  },
+  "task_name": "terminal-bench/react-lead-form",
+  "task_path": null,
+  "agent_info": {
+    "name": "grok-build",
+    "version": "1.0.34",
+    "model_info": {
+      "name": "grok-4.7",
+      "provider": "xai"
+    }
+  },
+  "can_delete": false,
+  "created_by": "08a519e0-9b19-42e4-b66c-8afcd5262ad4",
+  "started_at": "2026-09-19T21:13:02.381363+00:00",
+  "trial_name": "react-lead-form__82280817",
+  "agent_setup": {
+    "started_at": "2026-09-19T21:13:03.558798+00:00",
+    "finished_at": "2026-09-19T21:13:12.865089+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-09-19T22:39:49.638213+00:00",
+  "archive_path": "trials/004bafb8-6bbe-42d9-998b-28d7627234e8/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "08a519e0-9b19-42e4-b66c-8afcd5262ad4",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-09-19T21:13:13.039764+00:00",
+    "finished_at": "2026-09-19T22:39:20.959964+00:00"
+  },
+  "created_by_user": {
+    "id": "08a519e0-9b19-42e4-b66c-8afcd5262ad4",
+    "username": "alexgshaw",
+    "avatar_url": "https://avatars.githubusercontent.com/u/47223609?v=4",
+    "display_name": "Alex Shaw",
+    "github_username": "alexgshaw"
+  },
+  "trajectory_path": "trials/004bafb8-6bbe-42d9-998b-28d7627234e8/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-09-19T21:13:02.428557+00:00",
+    "finished_at": "2026-09-19T21:13:03.558742+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "08a519e0-9b19-42e4-b66c-8afcd5262ad4",
+    "username": "alexgshaw",
+    "avatar_url": "https://avatars.githubusercontent.com/u/47223609?v=4",
+    "display_name": "Alex Shaw",
+    "github_username": "alexgshaw"
+  }
+}

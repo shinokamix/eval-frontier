@@ -1,0 +1,143 @@
+{
+  "id": "00b2b345-c6b0-4479-8d0e-33811aa5f324",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-t4fiby8t/task",
+      "type": "local",
+      "digest": "sha256:38f141630a3803538908de5080d4a38e87fa3ce77a9fbbaad284cb7f9e89fe22",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "XAI_API_KEY": "${XAI_API_KEY}"
+      },
+      "name": "grok-build",
+      "kwargs": {},
+      "skills": [],
+      "model_name": "xai/grok-4.6",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment",
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "path": "/tmp/hosted-harbor-task-t4fiby8t/task",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "XAI_API_KEY": "${XAI_API_KEY}"
+      },
+      "name": "grok-build",
+      "model_name": "xai/grok-4.6"
+    },
+    "job_id": "2c89a14f-d14a-4ea8-ad8a-d08d90c67a5d",
+    "trial_name": "vba-userform-port__08333790",
+    "trials_dir": "hosted-runs/2c89a14f-d14a-4ea8-ad8a-d08d90c67a5d",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment"
+    }
+  },
+  "job_id": "2c89a14f-d14a-4ea8-ad8a-d08d90c67a5d",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "Terminal-Bench 4.0.0 · Grok 4.6 / Grok Build",
+  "verifier": {
+    "started_at": "2026-08-27T00:28:46.906209+00:00",
+    "finished_at": "2026-08-27T00:29:39.066541+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/vba-userform-port",
+  "task_path": null,
+  "agent_info": {
+    "name": "grok-build",
+    "version": "1.0.5",
+    "model_info": {
+      "name": "grok-4.6",
+      "provider": "xai"
+    }
+  },
+  "can_delete": false,
+  "created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "started_at": "2026-08-26T23:58:19.880907+00:00",
+  "trial_name": "vba-userform-port__08333790",
+  "agent_setup": {
+    "started_at": "2026-08-26T23:58:21.786354+00:00",
+    "finished_at": "2026-08-26T23:58:29.820903+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-08-27T00:29:39.066564+00:00",
+  "archive_path": "trials/00b2b345-c6b0-4479-8d0e-33811aa5f324/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-08-26T23:58:30.203888+00:00",
+    "finished_at": "2026-08-27T00:28:33.3969+00:00"
+  },
+  "created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  },
+  "trajectory_path": "trials/00b2b345-c6b0-4479-8d0e-33811aa5f324/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-08-26T23:58:19.924466+00:00",
+    "finished_at": "2026-08-26T23:58:21.786284+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  }
+}

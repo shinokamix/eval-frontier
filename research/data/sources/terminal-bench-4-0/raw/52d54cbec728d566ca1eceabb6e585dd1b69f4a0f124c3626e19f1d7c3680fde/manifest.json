@@ -1,0 +1,1785 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "52d54cbec728d566ca1eceabb6e585dd1b69f4a0f124c3626e19f1d7c3680fde",
+  "sourceId": "terminal-bench-4-0",
+  "title": "Terminal-Bench 4.0 official leaderboard",
+  "canonicalUrl": "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench/4?tab=leaderboard&leaderboard=4-0-0",
+  "capturedAt": "2026-09-25T20:42:48.088291Z",
+  "license": "not stated for leaderboard results",
+  "redistribution": "not stated",
+  "artifacts": [
+    {
+      "path": "artifacts/leaderboard.json",
+      "role": "results",
+      "mediaType": "application/json",
+      "sha256": "ade2140b6ca087d5884cab5bc1defc6489679cd37845268fb39c8920de0f469b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "show",
+          "terminal-bench/terminal-bench/4-0-0",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/5c537be4-7fc3-449b-8bfc-ceb9061c2535.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "3ea7f6ce881ed4936b5c8bbac6327b40eb5cfca386b103716c1787727aeb9859",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "5c537be4-7fc3-449b-8bfc-ceb9061c2535",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/c741608e-c94e-417d-b7a8-e67111a0c887.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "5ca84de9672728b7343b78da049d512235f1ba655e98e4a5729a5bd8fd0437e0",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "c741608e-c94e-417d-b7a8-e67111a0c887",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/16db8ad5-84aa-4588-b660-1ce68c0d45e2.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "79a69c26e39b1468c0a04cc8af53fcb7e986807622481e4e7a1243dcf490d6c7",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "16db8ad5-84aa-4588-b660-1ce68c0d45e2",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/3475050c-bf5e-4261-a3f6-0af5350af13f.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "d9e7705c883c20ca63bab768e1e6d2f649b30f997af9eead0a403254815cd664",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "3475050c-bf5e-4261-a3f6-0af5350af13f",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/9e1c5e11-748f-4f2e-911a-070a396d5bf8.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "44d54f858ecce6429c5a99dbb6a925900f02149852ec24fe06efe7d44ebd5120",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "9e1c5e11-748f-4f2e-911a-070a396d5bf8",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/4643b23c-53e8-47ae-a3bd-9abc900e9588.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "23a8c14526687ddbe69c3e6d08994d0a26e3a7a3653090b6a33589230ec8c8b6",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "4643b23c-53e8-47ae-a3bd-9abc900e9588",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/f3c3d5a6-6424-4acb-bfcc-615c3f79f6dd.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "0b970f54b09c4ef00d59bce28757468808d7ff5358aef74e671e487b6f0286bc",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "f3c3d5a6-6424-4acb-bfcc-615c3f79f6dd",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/83e6bf7e-aeb4-4116-9f30-ca8de96603fb.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "b7f16ec141eb5e5a8e814e8f3d94301cd5046102cd428c13cb163104451ecedd",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "83e6bf7e-aeb4-4116-9f30-ca8de96603fb",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/f7844abc-3109-4d5f-91ad-481df7b9fac2.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e925c724b691f2edc00e4ce3daa3d66c0932ddb4abdc7f3236616717b773845b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "f7844abc-3109-4d5f-91ad-481df7b9fac2",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/d71ac3d0-da36-49cb-89d9-323136e77111.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "58a6964fb9cd0bfb6113c8b114ad24475a1c5b5260b994bc2d18f993c25573cf",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "d71ac3d0-da36-49cb-89d9-323136e77111",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/b3ad58f3-b311-4d4d-875b-3158cf0309d6.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "05e08a094b8569b803f0b7a209f7956a914e492eafb8052bfcecc1c62ee68f94",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "b3ad58f3-b311-4d4d-875b-3158cf0309d6",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/0b2908ee-3035-447c-9876-e68fecb3f413.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "b9af6abd49a012c4731a71b9e02a20e17f055123eddf346c90bf8caf35d1caba",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "0b2908ee-3035-447c-9876-e68fecb3f413",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/8c102a88-0789-4ce7-b503-bd39e84e157b.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "2160509b29565f515538dfb0ce56bfe5a77ba6410d5e98ff685def69f5c2ca21",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "8c102a88-0789-4ce7-b503-bd39e84e157b",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/36c077e0-4879-4444-b315-8532d66401d6.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "0951acb16240efdcabab798c63247a0d9e5cd90f5f37c4d5454bf764ee7b1bcd",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "36c077e0-4879-4444-b315-8532d66401d6",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/e18d02ab-0973-4d86-872f-a353c8a7f344.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "452da55101d03f71f58cbddd7cb4635afdc27d2c450dcb1d332064e0e75c9e42",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "e18d02ab-0973-4d86-872f-a353c8a7f344",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/d72e8775-f4f1-4313-99e7-35b1cb499f24.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "b0afacf12e330d76d6f98e9c5bf7b7bc59e3ce0c56277bf58fab20affa61512b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "d72e8775-f4f1-4313-99e7-35b1cb499f24",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/84b39f56-fe3c-46c3-919f-3b67b73f9b49.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "9a085e179cca0721d931293bfb9b9175eb26252a08f01594880947912c0bbf47",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "84b39f56-fe3c-46c3-919f-3b67b73f9b49",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/0e349bde-b264-494d-a853-fada9c696192.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "daaabff504f04fa2969be358c0426b907ca97071028e6f7e970d7451c967aa03",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "0e349bde-b264-494d-a853-fada9c696192",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/03fe4f10-b683-427b-a820-61e38145d28b.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "abe4f545e813f84e4efe955c534cd4bc76095eeff0824f21bb9be6936f7ce31e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "03fe4f10-b683-427b-a820-61e38145d28b",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/952b4217-421f-4d14-849b-9968fcb2063b.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e023594d24c1385f5af8b9967730ef65999b1266bf83454d89a72838d40f0476",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "952b4217-421f-4d14-849b-9968fcb2063b",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/e53da412-5e92-408c-b369-c767924c7c1c.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "9e57359c0a263264dfa0f9eceab460d7b27105386aaa09b569e5280eccffd173",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "e53da412-5e92-408c-b369-c767924c7c1c",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/26354542-edc0-40cd-8f8d-9fe6fbe92ac3.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "4986f008eb1b3c069caae3133794ff8cbd7db9d29cbe42323ba91f0ac35abf40",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "26354542-edc0-40cd-8f8d-9fe6fbe92ac3",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/06850434-507d-4dbd-b74a-09d52519ee35.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e1c9daf4deed2c436c8792d6ac2cc34dcaa3e490c3777f47ba4eae70c484604b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "06850434-507d-4dbd-b74a-09d52519ee35",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/51c6d76e-5baa-48c1-97b3-88656c620eef.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e50a4a4e83e2a45dd45defe13718803608eb80b8558c04b72acd401fe52c91d1",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "51c6d76e-5baa-48c1-97b3-88656c620eef",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/0eed5a0d-96b6-491b-aeb7-cd5e4700c2d7.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "acbc250b0386fac0796056639376f01224e728aa0e846e70af197c15d4bfd66b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "0eed5a0d-96b6-491b-aeb7-cd5e4700c2d7",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/8180b9e4-4990-43d0-b906-cd8b43adaaa2.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "648b546bfa58888ba46c9f985a84cfb855c29f07962dd8cceb64db972d02ea15",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "8180b9e4-4990-43d0-b906-cd8b43adaaa2",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/row-trials/14f4da14-b86a-4dca-92d7-11178d4fe064.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "c3e7e32125163e812da1fa03e19fd5aae3ba74d4d4a0f25d89176f3f8d851d7e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "leaderboard",
+          "row",
+          "trial",
+          "list",
+          "14f4da14-b86a-4dca-92d7-11178d4fe064",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0009327f-9094-44f2-ab10-35df6e4a583d.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "d780070979431ee59307f26910d8a16a46f8f03c1ad5ded3e76440ac14e6b47f",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0009327f-9094-44f2-ab10-35df6e4a583d",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/46b9c704-4b5b-4a44-ba22-03e74fefc257/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "085c9e16b2d3e17e51ef1b3467aae31c71fb07d91d6b47393af3f15921d590fe",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "46b9c704-4b5b-4a44-ba22-03e74fefc257",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0019151c-bf1f-4738-a9c1-84abf254a453.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "84a8172c03f0adae9cb30e1e8cdf4f2b14ec2b5f3f26fe4e42387a172b8417ac",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0019151c-bf1f-4738-a9c1-84abf254a453",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/10722b22-0bbd-4c93-8d27-611fb8dd02a6/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "5a83e020c13a60c5df939d5dfef1e81f2c2303649a6dcb772de93ef04380e727",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "10722b22-0bbd-4c93-8d27-611fb8dd02a6",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/001e393b-5e36-436a-8db5-f18dda0fb4a5.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ba2fd87983042e26da468cd7c059b45b66a134189f6e94f1819dd23a72a4526d",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "001e393b-5e36-436a-8db5-f18dda0fb4a5",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/86e3ac63-37c4-4003-8248-483fdb9b43ce/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "6c2dc7a5b2043bd9c14e59a052d9c5b918ec304f50b0aab81ead05eddddcd60f",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "86e3ac63-37c4-4003-8248-483fdb9b43ce",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/001fae10-f2bb-4a7d-9ada-cce94bd774f8.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "902940f6438725165f9f7bca7e42daa7517262b75810a1acb33a564e21807bcb",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "001fae10-f2bb-4a7d-9ada-cce94bd774f8",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/2d418f81-17d6-4f9c-8d16-d104f4ed6caa/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ca6c076ac2c807b7a34284c19c7d8ef53636413bec254942538118e5b95c9d9c",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "2d418f81-17d6-4f9c-8d16-d104f4ed6caa",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0024a359-cd18-4822-aa03-c398cd818423.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "086353a7de43b2a901be837e023e455595c757e878afa72d8902c0f234148a59",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0024a359-cd18-4822-aa03-c398cd818423",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/b7444ba2-78b7-46a0-a3c1-2196d40a337d/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "2994ea986d975a6b80d594b0e73156cedce29d967bb0d73ebadf807073b32e10",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "b7444ba2-78b7-46a0-a3c1-2196d40a337d",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00255fb8-fc21-4324-952a-5e77f5a20e49.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "c7c2380cf9337c9e6e29f2daffc6a467cf29e650c068adcabc08ae9275b63e9a",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00255fb8-fc21-4324-952a-5e77f5a20e49",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/3de0aee9-6de7-4d94-83c4-ac5e789fe757/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "9bb95572bf13040e0fab155d9220daf409d8316997e9a304e97ef897d04a4aa4",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "3de0aee9-6de7-4d94-83c4-ac5e789fe757",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0030b76e-3579-4b6d-8bb1-039451d2c12d.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "8189f91f62446bc4eedaf710dce2bf5134feabdaf09ce9a2f61174bd393a7807",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0030b76e-3579-4b6d-8bb1-039451d2c12d",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/0e1a4181-26a9-42de-9d5a-6a36515f13e2/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "b79d1568bc256d3995d6148cdb76fdb5131d4f4e4d23d1eb17acf0cb2614d5e2",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "0e1a4181-26a9-42de-9d5a-6a36515f13e2",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0035a872-975d-4f49-8b0c-db4844bb6f75.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ee55a5f15d51e4950c87f63614dbf5a30e25ec9aee4b13525edf8bdbe4c17dfe",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0035a872-975d-4f49-8b0c-db4844bb6f75",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/a538f69d-7756-444a-9dfe-43a0ab10b3a8/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "11714fa603f9adf18cdcf645535bdac07ccfdb0bf722507865f91510cebdec8a",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "a538f69d-7756-444a-9dfe-43a0ab10b3a8",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/004bafb8-6bbe-42d9-998b-28d7627234e8.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "c8a92d37123618b88871bc04f04ee9d5494980434aad6c31a096ba1714d32514",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "004bafb8-6bbe-42d9-998b-28d7627234e8",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/30225ce2-25f4-44c4-9fc5-67bf80dd4d17/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "4d0608076ef15b31cd957f18a275595c03392a3c2da6628750198f813954ccf6",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "30225ce2-25f4-44c4-9fc5-67bf80dd4d17",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/005f7b66-9062-43b2-bf73-c8be302fa6f1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "cb573313243a78a7193a06c3ca71fc2b46947f889776051c311e65a794c7397f",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "005f7b66-9062-43b2-bf73-c8be302fa6f1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/991af5e0-8c5f-4511-9619-a2a46939ebd4/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "92b05a501583323992f8fd17deede0f523f3edcf6e3296ec96ab8206b78710ce",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "991af5e0-8c5f-4511-9619-a2a46939ebd4",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00635754-0d21-4fd1-99ff-bd20b8e9d7eb.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "44e83ecf10ba8277778adaecf219df1cab79ba1f5e92304bfacae54cb904a321",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00635754-0d21-4fd1-99ff-bd20b8e9d7eb",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/caf6e433-9fff-4475-b0bc-977f14ac7052/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ff1ae7f2bd8d04a8929ce5b3008015f6588159f339af67246cfef9e89892fcda",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "caf6e433-9fff-4475-b0bc-977f14ac7052",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/006e610a-6528-4db2-926e-da32526cbdd8.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "b89dba2877c2bbc02ee30924db643f5e425fa9460fb3d75dacdec98192fdf97e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "006e610a-6528-4db2-926e-da32526cbdd8",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/2350fd05-ea3b-407e-94ad-07b67c1ed847/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ddb4dfda6588c6d54da5fa91d16d86ec0378967689a5527083b213408f602f6b",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "2350fd05-ea3b-407e-94ad-07b67c1ed847",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0077475b-97d9-4d28-8a49-c5112ff9c235.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "2621c77e16b562c7e8f65ad6ac2679c05f324810cea41a83cc27d164fa3485fd",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0077475b-97d9-4d28-8a49-c5112ff9c235",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/cf440c37-307c-4a9a-9baf-71d52572fab4/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e139c421354b2333cf2020a31769b0a9822806a54b56da59d0f0600f966e86cf",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "cf440c37-307c-4a9a-9baf-71d52572fab4",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00860d15-920a-422b-acf1-ba3187904004.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "f781e6466bd9fae2abedb2f8b5cea9ca03287c27386fda9eabc776244b96bd1e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00860d15-920a-422b-acf1-ba3187904004",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/7595dfd2-22f0-4b03-81a9-c3c22b6ae047/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "edbc3376fb312a3262808029dc15cd36a1cee1a8e4d436a8f38e639d259a47e7",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "7595dfd2-22f0-4b03-81a9-c3c22b6ae047",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00879e34-1e4c-47a9-b44b-4756b383a65a.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "40fae8d7f89c72366fe4ebeccd0e2a4eb771534d480115ce2225e5bfa8da574a",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00879e34-1e4c-47a9-b44b-4756b383a65a",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/5aebbab5-1f8f-4cdb-8073-c6ce785a930d/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "1b16a76ee1d08922d367376ace99dfa3506463ab88b02e18cf814a8d11bfa1df",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "5aebbab5-1f8f-4cdb-8073-c6ce785a930d",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/009ca21e-b5a3-48ff-b573-38ca9557c8bf.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "fca88529d0f759273a64906c0305f912c953fa3050b0d792fdd2af4fcb5c28d6",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "009ca21e-b5a3-48ff-b573-38ca9557c8bf",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/a6319b9c-7dbc-42b1-8483-6c022e292ae2/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "4a9468b928965ba5e66eb2758113bdc91d26ea2b5c1fd18a374cb1a720b5d083",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "a6319b9c-7dbc-42b1-8483-6c022e292ae2",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00b2b345-c6b0-4479-8d0e-33811aa5f324.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "44410fb12578d568df90545eabd34bbfee6489730d077406d8c60d0df005e769",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00b2b345-c6b0-4479-8d0e-33811aa5f324",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/2c89a14f-d14a-4ea8-ad8a-d08d90c67a5d/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "334877863b5cfb068672fa0a1b19889955c24a899fc355ea333f5ed55b0a0b13",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "2c89a14f-d14a-4ea8-ad8a-d08d90c67a5d",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00b996ef-2ff6-402e-8511-10a3e2ac52f7.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "1dd7477b76eafa37b0adcca80aa09ddcc75f4bc358f3953ee46a29849647118e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00b996ef-2ff6-402e-8511-10a3e2ac52f7",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/a5758f1a-9ef2-4100-9893-34a99c99bd9c/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "aaf7e0107b94088ff3f621d572a683633d0aba8a47a265b8cd09c375ec51baf0",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "a5758f1a-9ef2-4100-9893-34a99c99bd9c",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/00d35695-9be4-5dd4-8600-913e02ed19cd.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "30ef13279d255e9e04430f571d79c316a9c23577321b2b895c0224eae6843d6c",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "00d35695-9be4-5dd4-8600-913e02ed19cd",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/18e4ee29-d8b4-516b-b79d-b8bad5bcd5be/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "1c8a8bfb7e9883a8d2a39920eccb123d68c315af8895ec78fd843926715da574",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "18e4ee29-d8b4-516b-b79d-b8bad5bcd5be",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/011de7e9-b08d-4212-ba78-5945ad40e091.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "4be1da520b1a25f9944f59f8fabfcbdcce9c0b065b95ed5fb068629784399aa4",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "011de7e9-b08d-4212-ba78-5945ad40e091",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/0f01715e-2f98-40e3-836f-1ac4fdce39a4/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "70b18ced5876586feac277ff0d9db95d56a3071c379c22a7cf61b8c7c3730a1c",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "0f01715e-2f98-40e3-836f-1ac4fdce39a4",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/01295732-567b-4626-a12a-eb9e521f590f.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "ea3ef90fd8da008fff790252a6aa624905ef5d3d1fbef2124c610bf08499e4cd",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "01295732-567b-4626-a12a-eb9e521f590f",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/b6211f84-8a65-44fd-85ed-d509db5d1861/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "56d60e5de2c6907b3a7dd9ca6827c592dca6da24cf87afc9437a3a07d92fb700",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "b6211f84-8a65-44fd-85ed-d509db5d1861",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/0131e909-3549-4546-a057-c1c2a0a3a818.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "2aedeec7591278a8b4486ec7eae855fa80a1045bfb690a22c42bceebd0e9e309",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "0131e909-3549-4546-a057-c1c2a0a3a818",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/b57a324c-8076-4954-b452-1121c68b3495/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "e91e84776f8b8d1221fa5a37f6deaeec64384cb2b7fd838aab8c382a68cc1925",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "b57a324c-8076-4954-b452-1121c68b3495",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/01413bd7-dcd2-4af7-b7a1-05cf167f9fbe.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "52a35d27f7a6de3a566acf97f30155519f855896b64ab767751d2813bb1d5635",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "01413bd7-dcd2-4af7-b7a1-05cf167f9fbe",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/da64e1b8-5de1-4246-814d-234f9a6ec09a/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "6f33736e63312e9f5c1442fbf6d4beca07165e85330531df7adadfb73a91c970",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "da64e1b8-5de1-4246-814d-234f9a6ec09a",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/017bb352-9604-49d9-a8d1-cf60bb00fd5c.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "cd38c936894d8146f61c73205170322f078fd55cd77c91a2d0d9585937978ac0",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "017bb352-9604-49d9-a8d1-cf60bb00fd5c",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/51a17348-a8b8-4c5e-b8d2-73a9a724c3b6/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "4d2a1a7871e42128a42054defe74756c0faff5848d8bca4c32c626db75887e0e",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "51a17348-a8b8-4c5e-b8d2-73a9a724c3b6",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/01b90a15-8f98-4dde-8350-bd3cc6415adc.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "3fd57a4a83a51dc93c5a8ecef12e985f7734e460482dbbdca2ff75b5bab22c47",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "01b90a15-8f98-4dde-8350-bd3cc6415adc",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/153e8318-9b14-4488-973c-345f4fa4b1ba/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "fcd5ba9062d247e4e7d02199868a285bceac4917d9efe7402051f2bcec8b8cd2",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "153e8318-9b14-4488-973c-345f4fa4b1ba",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/01f839d2-7372-43db-a702-cc77aec33ed6.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "bc0107e5342f7adb939c49ed66795f6b9c0370cdd876103eba0127abce49e450",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "01f839d2-7372-43db-a702-cc77aec33ed6",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/a1ac63a1-8a9b-4bc7-9906-2b63657ee1c2/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "bde1245c44234476575517ab5e00ed4aaeee1791fb596b52a397cebcf460eaf0",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "a1ac63a1-8a9b-4bc7-9906-2b63657ee1c2",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/trial-lookups/027340a1-3c66-4457-9ea0-d49c85adae9b.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "89f5cd54c2c0a7db42a856a695d177c9564dd091ddf9da78b9849426789b5160",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "trial",
+          "show",
+          "027340a1-3c66-4457-9ea0-d49c85adae9b",
+          "--json"
+        ]
+      }
+    },
+    {
+      "path": "artifacts/job-trials/3c35174a-3a05-4705-bf8e-c09a3d09f013/1.json",
+      "role": "provenance",
+      "mediaType": "application/json",
+      "sha256": "8d40113964f35c654e5a0139a61c7ce87177e9e32f3a4f501bcafd08e3e89c85",
+      "acquisition": {
+        "type": "harbor-cli",
+        "version": "0.23.0",
+        "command": [
+          "harbor",
+          "hub",
+          "job",
+          "trials",
+          "3c35174a-3a05-4705-bf8e-c09a3d09f013",
+          "--include-retries",
+          "--limit",
+          "1000",
+          "--page",
+          "1",
+          "--json"
+        ]
+      }
+    }
+  ]
+}

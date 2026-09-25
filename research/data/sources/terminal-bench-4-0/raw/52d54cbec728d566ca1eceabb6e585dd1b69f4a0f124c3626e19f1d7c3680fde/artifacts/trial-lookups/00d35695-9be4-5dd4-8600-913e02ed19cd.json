@@ -1,0 +1,190 @@
+{
+  "id": "00d35695-9be4-5dd4-8600-913e02ed19cd",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-a2mab2l_/task",
+      "type": "local",
+      "digest": "sha256:a645441376fea3d5b1acc15b64fe288eb0bb835724f6bf7a21adb1eca2bb814d",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "IS_SANDBOX": "1",
+        "API_TIMEOUT_MS": "3600000",
+        "ANTHROPIC_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "ANTHROPIC_API_BASE": "https://open.bigmodel.cn/api/anthropic",
+        "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "${ANTHROPIC_AUTH_TOKEN}",
+        "CLAUDE_CODE_EAGER_FLUSH": "1",
+        "CLAUDE_CODE_EFFORT_LEVEL": "max",
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "****",
+        "CLAUDE_ENABLE_STREAM_WATCHDOG": "0",
+        "CLAUDE_STREAM_IDLE_TIMEOUT_MS": "3600000",
+        "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.207",
+        "thinking": "adaptive",
+        "permission_mode": "bypassPermissions",
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "anthropic/glm-5.3",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": [
+        "open.bigmodel.cn"
+      ]
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment",
+      "extra_allowed_hosts": [
+        "open.bigmodel.cn"
+      ],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "path": "/tmp/hosted-harbor-task-a2mab2l_/task",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "IS_SANDBOX": "1",
+        "API_TIMEOUT_MS": "3600000",
+        "ANTHROPIC_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "ANTHROPIC_API_BASE": "https://open.bigmodel.cn/api/anthropic",
+        "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "${ANTHROPIC_AUTH_TOKEN}",
+        "CLAUDE_CODE_EAGER_FLUSH": "1",
+        "CLAUDE_CODE_EFFORT_LEVEL": "max",
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "****",
+        "CLAUDE_ENABLE_STREAM_WATCHDOG": "0",
+        "CLAUDE_STREAM_IDLE_TIMEOUT_MS": "3600000",
+        "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.207",
+        "thinking": "adaptive",
+        "permission_mode": "bypassPermissions",
+        "reasoning_effort": "max"
+      },
+      "model_name": "anthropic/glm-5.3",
+      "extra_allowed_hosts": [
+        "open.bigmodel.cn"
+      ]
+    },
+    "job_id": "18e4ee29-d8b4-516b-b79d-b8bad5bcd5be",
+    "trial_name": "distributed-dedup__b9be2e7f",
+    "trials_dir": "hosted-runs/18e4ee29-d8b4-516b-b79d-b8bad5bcd5be",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment",
+      "extra_allowed_hosts": [
+        "open.bigmodel.cn"
+      ]
+    }
+  },
+  "job_id": "18e4ee29-d8b4-516b-b79d-b8bad5bcd5be",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "TB 4.0.0 - GLM-5.3 / Claude Code",
+  "verifier": {
+    "started_at": "2026-08-26T22:39:39.371684+00:00",
+    "finished_at": "2026-08-26T22:46:45.128286+00:00"
+  },
+  "owner_org": {
+    "id": "6201cb62-e99f-44c1-acf6-c26f9e80cca0",
+    "kind": "personal",
+    "name": "ryanmarten",
+    "display_name": "Ryan Marten"
+  },
+  "task_name": "terminal-bench/distributed-dedup",
+  "task_path": null,
+  "agent_info": {
+    "name": "claude-code",
+    "version": "2.1.207",
+    "model_info": {
+      "name": "glm-5.3",
+      "provider": "anthropic"
+    }
+  },
+  "can_delete": false,
+  "created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "started_at": "2026-08-26T19:04:23.657257+00:00",
+  "trial_name": "distributed-dedup__b9be2e7f",
+  "agent_setup": {
+    "started_at": "2026-08-26T19:04:24.89927+00:00",
+    "finished_at": "2026-08-26T19:05:22.109767+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-08-26T22:46:45.128302+00:00",
+  "archive_path": "trials/00d35695-9be4-5dd4-8600-913e02ed19cd/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-08-26T19:05:22.109926+00:00",
+    "finished_at": "2026-08-26T22:39:28.495683+00:00"
+  },
+  "created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  },
+  "trajectory_path": "trials/00d35695-9be4-5dd4-8600-913e02ed19cd/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-08-26T19:04:23.71868+00:00",
+    "finished_at": "2026-08-26T19:04:24.899216+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  }
+}

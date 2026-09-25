@@ -1,0 +1,178 @@
+{
+  "id": "0019151c-bf1f-4738-a9c1-84abf254a453",
+  "lock": {
+    "task": {
+      "name": "task",
+      "path": "/tmp/hosted-harbor-task-3nlpvsk3/task",
+      "type": "local",
+      "digest": "sha256:2534e62c5ab3c8592f4e0de3dee14ff07a5c1c9434164e7f80e2f564273de014",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CLAUDE_CODE_SIMPLE": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.231",
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "anthropic/claude-opus-4-8",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false,
+      "environment_mode": "separate"
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "import_path": "hosted_harbor.modal_environment:HostedModalEnvironment",
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "bridge_inputs": {},
+    "schema_version": 2,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:2534e62c5ab3c8592f4e0de3dee14ff07a5c1c9434164e7f80e2f564273de014",
+      "name": "terminal-bench/hof-topology-interpenetration",
+      "source": "terminal-bench/terminal-bench"
+    },
+    "agent": {
+      "env": {
+        "CLAUDE_CODE_SIMPLE": "1"
+      },
+      "name": "claude-code",
+      "kwargs": {
+        "version": "2.1.231",
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "anthropic/claude-opus-4-8",
+      "mcp_servers": [],
+      "extra_allowed_hosts": []
+    },
+    "verifier": {
+      "disable": false,
+      "max_timeout_sec": null,
+      "override_timeout_sec": null
+    },
+    "artifacts": [],
+    "trial_name": "hof-topology-interpenetration__3a636522",
+    "trials_dir": "jobs/Terminal-Bench 4.0.0 · Opus 4.8 / Claude Code",
+    "environment": {
+      "type": "docker",
+      "delete": true,
+      "kwargs": {},
+      "mounts": null,
+      "force_build": false,
+      "import_path": null,
+      "override_tpu": null,
+      "override_cpus": null,
+      "override_gpus": null,
+      "override_memory_mb": null,
+      "extra_allowed_hosts": [],
+      "override_storage_mb": null,
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "credential_mode": "direct",
+    "extra_instructions": [],
+    "timeout_multiplier": 1,
+    "extra_instruction_paths": [],
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null
+  },
+  "job_id": "10722b22-0bbd-4c93-8d27-611fb8dd02a6",
+  "source": "terminal-bench/terminal-bench",
+  "status": "completed",
+  "job_name": "Terminal-Bench 4.0.0 · Opus 4.8 / Claude Code",
+  "verifier": {
+    "started_at": "2026-08-26T19:54:30.082067+00:00",
+    "finished_at": "2026-08-26T19:54:37.457631+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/hof-topology-interpenetration",
+  "task_path": null,
+  "agent_info": {
+    "name": "claude-code",
+    "version": "2.1.231",
+    "model_info": {
+      "name": "claude-opus-4-8",
+      "provider": "anthropic"
+    }
+  },
+  "can_delete": false,
+  "created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "started_at": "2026-08-26T18:22:44.626674+00:00",
+  "trial_name": "hof-topology-interpenetration__3a636522",
+  "agent_setup": {
+    "started_at": "2026-08-26T18:22:46.374939+00:00",
+    "finished_at": "2026-08-26T18:23:57.478305+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-08-26T19:54:41.75225+00:00",
+  "archive_path": "trials/0019151c-bf1f-4738-a9c1-84abf254a453/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-08-26T18:23:57.478494+00:00",
+    "finished_at": "2026-08-26T19:54:19.649428+00:00"
+  },
+  "created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  },
+  "trajectory_path": "trials/0019151c-bf1f-4738-a9c1-84abf254a453/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-08-26T18:22:44.679256+00:00",
+    "finished_at": "2026-08-26T18:22:46.374873+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "746d4ff2-40d7-4ad3-b1ac-cda3290cb01b",
+    "username": "ryanmarten",
+    "avatar_url": "https://avatars.githubusercontent.com/u/18333503?v=4",
+    "display_name": "Ryan Marten",
+    "github_username": "RyanMarten"
+  }
+}

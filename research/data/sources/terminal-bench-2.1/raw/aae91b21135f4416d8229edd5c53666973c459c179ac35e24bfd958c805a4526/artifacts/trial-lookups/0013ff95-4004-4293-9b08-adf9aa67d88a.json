@@ -1,0 +1,156 @@
+{
+  "id": "0013ff95-4004-4293-9b08-adf9aa67d88a",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/adaptive-rejection-sampler",
+      "type": "package",
+      "digest": "sha256:bcaa2399985cd57666018025846289ab25e193ae0dd8fb7f0ffab2410c24d4de",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CODEX_FORCE_API_KEY": "${CODEX_FORCE_API_KEY}"
+      },
+      "name": "codex",
+      "kwargs": {
+        "reasoning_effort": "max"
+      },
+      "skills": [],
+      "model_name": "gpt-5.6-terra",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "env": {
+        "ALLOWED_HOSTS": "api.openai.com"
+      },
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 1,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:bcaa2399985cd57666018025846289ab25e193ae0dd8fb7f0ffab2410c24d4de",
+      "name": "terminal-bench/adaptive-rejection-sampler",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+        "CODEX_FORCE_API_KEY": "${CODEX_FORCE_API_KEY}"
+      },
+      "name": "codex",
+      "kwargs": {
+        "reasoning_effort": "max"
+      },
+      "model_name": "gpt-5.6-terra"
+    },
+    "job_id": "77fc16b9-8db9-4d61-a172-dba037aba20b",
+    "trial_name": "adaptive-rejection-sampler__d1be99bf__retry_264e8e6d",
+    "trials_dir": "hosted-runs/41c52201-456b-48bf-a2c3-15d45e5e5fa5",
+    "environment": {
+      "env": {
+        "ALLOWED_HOSTS": "api.openai.com"
+      },
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      }
+    }
+  },
+  "job_id": "77fc16b9-8db9-4d61-a172-dba037aba20b",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "codex-gpt-5-6-terra-luna-tbench-2-1__scrubbed__77fc16b9-8db9-4d61-a172-dba037aba20b",
+  "verifier": {
+    "started_at": "2026-07-10T00:52:11.87536+00:00",
+    "finished_at": "2026-07-10T00:52:39.183135+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/adaptive-rejection-sampler",
+  "task_path": null,
+  "agent_info": {
+    "name": "codex",
+    "version": "0.144.1",
+    "model_info": {
+      "name": "gpt-5.6-terra",
+      "provider": "unknown"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-07-10T00:43:59.478197+00:00",
+  "trial_name": "adaptive-rejection-sampler__d1be99bf__retry_264e8e6d",
+  "agent_setup": {
+    "started_at": "2026-07-10T00:44:01.314407+00:00",
+    "finished_at": "2026-07-10T00:45:19.690743+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-07-10T00:52:40.8054+00:00",
+  "archive_path": "trials/0013ff95-4004-4293-9b08-adf9aa67d88a/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-07-10T00:45:19.690882+00:00",
+    "finished_at": "2026-07-10T00:51:55.816678+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/0013ff95-4004-4293-9b08-adf9aa67d88a/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-07-10T00:43:59.557742+00:00",
+    "finished_at": "2026-07-10T00:44:01.313471+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "id": "006febba-970b-4dca-b74b-d06ec15423f0",
+  "lock": {
+    "task": {
+      "name": "terminal-bench/build-cython-ext",
+      "type": "package",
+      "digest": "sha256:35dc561790e73f13e59837828ac0863c0893edc6b71d42cf7d58656c843adf12",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      },
+      "name": "cursor-cli",
+      "kwargs": {
+        "pricing": {
+          "input": 2,
+          "output": 6,
+          "cache_read": 0.5,
+          "cache_write": 2
+        }
+      },
+      "skills": [],
+      "model_name": "cursor/grok-4.5",
+      "mcp_servers": [],
+      "resume_trajectory": false,
+      "extra_allowed_hosts": []
+    },
+    "skills": [],
+    "verifier": {
+      "disable": false
+    },
+    "environment": {
+      "type": "modal",
+      "delete": true,
+      "kwargs": {
+        "dynamic_network": true
+      },
+      "force_build": false,
+      "extra_allowed_hosts": [],
+      "extra_docker_compose": [],
+      "cpu_enforcement_policy": "auto",
+      "memory_enforcement_policy": "auto"
+    },
+    "install_only": false,
+    "schema_version": 1,
+    "timeout_multiplier": 1.0
+  },
+  "config": {
+    "task": {
+      "ref": "sha256:35dc561790e73f13e59837828ac0863c0893edc6b71d42cf7d58656c843adf12",
+      "name": "terminal-bench/build-cython-ext",
+      "source": "terminal-bench/terminal-bench-2-1"
+    },
+    "agent": {
+      "env": {
+        "CURSOR_API_KEY": "${CURSOR_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      },
+      "name": "cursor-cli",
+      "kwargs": {
+        "pricing": {
+          "input": 2,
+          "output": 6,
+          "cache_read": 0.5,
+          "cache_write": 2
+        }
+      },
+      "model_name": "cursor/grok-4.5"
+    },
+    "job_id": "da969e44-7659-4c1a-8041-a5dc9e624ee0",
+    "trial_name": "build-cython-ext__74c04d82",
+    "trials_dir": "hosted-runs/23ffcc96-a814-460e-9ae2-043312f21414",
+    "environment": {
+      "type": "modal",
+      "kwargs": {
+        "dynamic_network": true
+      }
+    }
+  },
+  "job_id": "da969e44-7659-4c1a-8041-a5dc9e624ee0",
+  "source": "terminal-bench/terminal-bench-2-1",
+  "status": "completed",
+  "job_name": "tb21-grok-4.5-cursor-cli__scrubbed__da969e44-7659-4c1a-8041-a5dc9e624ee0",
+  "verifier": {
+    "started_at": "2026-07-09T01:27:08.511982+00:00",
+    "finished_at": "2026-07-09T01:27:16.026527+00:00"
+  },
+  "owner_org": {
+    "id": "f0f5bb75-e1cb-45f0-858f-9b1153d67c12",
+    "kind": "team",
+    "name": "terminal-bench",
+    "display_name": "Terminal-Bench"
+  },
+  "task_name": "terminal-bench/build-cython-ext",
+  "task_path": null,
+  "agent_info": {
+    "name": "cursor-cli",
+    "version": "2026.07.08-0c04a8a",
+    "model_info": {
+      "name": "grok-4.5",
+      "provider": "cursor"
+    }
+  },
+  "can_delete": false,
+  "created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "started_at": "2026-07-09T01:23:28.206687+00:00",
+  "trial_name": "build-cython-ext__74c04d82",
+  "agent_setup": {
+    "started_at": "2026-07-09T01:23:29.802061+00:00",
+    "finished_at": "2026-07-09T01:23:42.604296+00:00"
+  },
+  "can_operate": false,
+  "finished_at": "2026-07-09T01:27:16.785289+00:00",
+  "archive_path": "trials/006febba-970b-4dca-b74b-d06ec15423f0/trial.tar.gz",
+  "can_transfer": false,
+  "can_view_job": true,
+  "hosted_error": null,
+  "hosted_phase": null,
+  "step_results": null,
+  "exception_info": null,
+  "job_created_by": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+  "job_visibility": "public",
+  "access_relation": null,
+  "agent_execution": {
+    "started_at": "2026-07-09T01:23:42.604423+00:00",
+    "finished_at": "2026-07-09T01:27:05.619924+00:00"
+  },
+  "created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  },
+  "trajectory_path": "trials/006febba-970b-4dca-b74b-d06ec15423f0/trajectory.json",
+  "verifier_result": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "can_manage_access": false,
+  "environment_setup": {
+    "started_at": "2026-07-09T01:23:28.240217+00:00",
+    "finished_at": "2026-07-09T01:23:29.801996+00:00"
+  },
+  "hosted_error_code": null,
+  "job_created_by_user": {
+    "id": "03b84a0d-131c-44b0-99e8-e5b8510cb5f3",
+    "username": "kobe0938",
+    "avatar_url": "https://avatars.githubusercontent.com/u/77318639?v=4",
+    "display_name": "Kobe Chen",
+    "github_username": "kobe0938"
+  }
+}

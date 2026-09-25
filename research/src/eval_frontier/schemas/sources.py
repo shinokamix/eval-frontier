@@ -18,6 +18,7 @@ class SourceArtifact(BaseModel):
     path: str = Field(min_length=1)
     role: Literal["license", "methodology", "provenance", "results", "summary"]
     url: HttpUrl
+    capture_command: list[str] | None = Field(default=None, alias="captureCommand")
     range_start: int | None = Field(default=None, alias="rangeStart", ge=0)
     range_end: int | None = Field(default=None, alias="rangeEnd", ge=0)
 
