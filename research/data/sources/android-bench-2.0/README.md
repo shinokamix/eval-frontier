@@ -1,32 +1,37 @@
-# Android Bench 2.0 source notes
+# Android Bench 2.0
 
-This source reads the [official Android Bench leaderboard](https://developer.android.com/bench)
-and the [2.0 methodology](https://developer.android.com/bench/methodology/2).
-The 2.0 table reports aggregate results for 30 long-horizon tasks. It lists
-pass rate, a reported confidence interval, completion rate, mean latency for
-a full benchmark run, and mean cost for a full run. The adapter extracts the
-four measurements and the pass-rate interval for each model and agent pair.
-Latency is converted from hours to seconds. The table rounds displayed values
-to one decimal place, so the evidence rows retain that precision.
-Pass rate uses the shared `trial_success_rate_pct` metric. Completion is a
-mean percentage, while latency and cost cover a full 30-task benchmark run;
-those three use generic IDs with their distinct statistics and denominators.
+The [official leaderboard](https://developer.android.com/bench) publishes
+11 configurations for 30 long-horizon tasks. The snapshot contains the whole
+HTML page because the site did not honor byte ranges. The adapter reads the
+2.0 leaderboard and its model cards, excluding the 1.0 section.
 
-The publisher presents these results in the leaderboard HTML, with no separate
-2.0 results download. The site did not honor HTTP byte-range requests, so the
-snapshot contains the complete page. The adapter reads only the first results
-table, which is identified by its 30-task description. The same page also
-contains Android Bench 1.0 results; the adapter ignores those. The manifest
-records the capture time and SHA-256 hash, and `pins.json` fixes the revision.
-Each evidence locator is the line where a 2.0 leaderboard row begins.
+Published aggregates retain pass rate and its interval, completion rate, mean
+latency, and mean cost per full 30-task run. Latency is converted to seconds.
+The adapter also extracts 330 task pass rates, each with `sample_size=5` and
+a task identifier taken from the published task title. It does not invent
+individual trial identities. `row:N` identifies the HTML row's starting line.
 
-The site has a [general content license](https://developer.android.com/license),
-but it does not identify whether the leaderboard results fall under its
-documentation or other-content category. The source metadata records the
-results license and redistribution terms as `not stated`.
+## Analysis readiness
 
-The methodology says pass rate counts runs with a perfect score and completion
-rate measures partial task completion. The published table reports aggregate
-values, not individual runs. No task-level evidence or inferred sample size is
-added here. The methodology also cautions that latency includes network time
-and that lower costs can reflect runs that stopped early.
+Checked snapshot [8959c641e118](raw/8959c641e1189fdc633f0d98b3ddff2b87cf649125d35bcfe531dc0fb8234ab9/manifest.json).
+Reproduce counts and configuration lists with
+[the source audit notebook](../../../analysis/notebooks/source_audit.py).
+
+Quality is usable as task-level counts. Each configuration has 30 tasks and
+150 attempts. All task counts reproduce the displayed aggregate pass rate
+within its rounding precision. Use task rows or configuration aggregates,
+not both as independent observations. Completion rate is partial credit and
+is not the binary success outcome.
+
+Cost is descriptive only. Its denominator is a full benchmark run, while the
+cards provide no individual costs or cost spread. Confirm coverage and the
+meaning of the full-run mean before converting to a per-attempt cost. The
+[methodology](https://developer.android.com/bench/methodology/2) cautions that
+low costs can reflect early termination and latency includes network time.
+
+Effort is unknown. The one matching system tuple with SWE-Marathon has null
+effort on both sides, so it does not establish a cross-study link. Obtain
+settings and trial costs before including this source in the common cost graph.
+
+The site does not identify which category of its general content license covers
+these results. Results license and redistribution terms remain unstated.

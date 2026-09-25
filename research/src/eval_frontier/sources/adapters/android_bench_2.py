@@ -84,6 +84,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "benchmark_version": "2.0",
                 "aggregate": True,
                 "condition": "long-horizon-30-task-run",
+                "sample_sizes": {"pass_rate_pct": 150},
                 "interval_lowers": {"pass_rate_pct": lower},
                 "interval_uppers": {"pass_rate_pct": upper},
                 "metrics": {
@@ -94,4 +95,46 @@ def extract(content: str) -> list[dict[str, Any]]:
                 },
             }
         )
+        dialog = re.search(r'data-modal-dialog-id="([^"]+)"', row_html)
+        if dialog is None:
+            raise ValueError(f"Missing Android model card: {model}")
+        card_start = content.index(f' id="{dialog[1]}"')
+        table_start = content.index('<table class="android-bench-llm-modal-table">', card_start)
+        table_end = content.index("</table>", table_start)
+        task_matches = list(
+            re.finditer(
+                r'<tr class="android-bench-llm-modal-table-row"[^>]*>(.*?)</tr>',
+                content[table_start:table_end],
+                re.DOTALL,
+            )
+        )
+        task_names = set()
+        passed_total = 0
+        for task_match in task_matches:
+            task_cells = CELL.findall(task_match[1])
+            task = _text(task_cells[0])
+            counts = re.fullmatch(r"(\d+)/(\d+)", _text(task_cells[3]))
+            if counts is None or int(counts[2]) != 5 or not 0 <= int(counts[1]) <= 5:
+                raise ValueError(f"Invalid Android task counts: {model}/{task}")
+            if task in task_names:
+                raise ValueError(f"Duplicate Android task: {model}/{task}")
+            task_names.add(task)
+            passes = int(counts[1])
+            passed_total += passes
+            rows.append(
+                {
+                    "_source_line": content.count("\n", 0, table_start + task_match.start()) + 1,
+                    "model": model,
+                    "harness": agent,
+                    "benchmark": "android-bench",
+                    "benchmark_version": "2.0",
+                    "aggregate": True,
+                    "task_id": task,
+                    "condition": "task-five-runs",
+                    "sample_sizes": {"pass_rate_pct": 5},
+                    "metrics": {"pass_rate_pct": 100 * passes / 5},
+                }
+            )
+        if len(task_names) != 30 or abs(100 * passed_total / 150 - pass_rate) > 0.051:
+            raise ValueError(f"Android task counts disagree with leaderboard: {model}")
     return rows
