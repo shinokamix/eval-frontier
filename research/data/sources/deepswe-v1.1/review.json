@@ -3,15 +3,16 @@
   "sourceId": "deepswe-v1.1",
   "snapshotId": "d7a3b8003e4e7e4d0ced630910ea4c2bc7050d2c1f82a712327ac884669b7319",
   "reviewedOn": "2026-09-26",
+  "unscoredAttempts": "exclude",
   "quality": {
     "status": "usable",
     "metricId": "solved",
     "level": "trial",
-    "unscoredAttempts": "count_as_failure",
     "notes": [
-      "All configurations reproduce the published scored counts, passes, and task counts.",
-      "The publisher excludes provider, verifier, and network errors from its score; attempted-task analysis counts them as failures.",
-      "Agent timeouts and context-window failures already count as scored failures.",
+      "All configurations reproduce the published scored counts, passes, and task counts; with unscored attempts excluded, trial pass rates equal the published pass@1.",
+      "Every unscored attempt is a provider, routing, verifier, network, rate-limit, or unclassified error, and none passed. They are not the system's attempts, so the primary analysis excludes them; counting them as failures is a sensitivity analysis.",
+      "Agent timeouts and context-window failures remain scored attempts.",
+      "Use trial observations or their aggregates, not both as independent data.",
       "Pass@4 is a separate outcome."
     ]
   },
@@ -21,9 +22,11 @@
     "level": "trial",
     "basis": "token prices listed for the five GPT-6 Astra effort settings, without a separate compute fee; other configurations state no basis",
     "basisConfirmed": false,
-    "admission": ["complete_coverage"],
+    "admission": [
+      "complete_coverage"
+    ],
     "notes": [
-      "Published cost means cover scored attempts with a known cost, not all attempts.",
+      "Published cost means cover scored attempts with a known cost; for configurations with complete coverage of scored attempts they equal the trial means.",
       "Missing costs fall on both excluded and scored attempts."
     ]
   },

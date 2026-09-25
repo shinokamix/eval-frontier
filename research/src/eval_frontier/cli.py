@@ -54,7 +54,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command == "extract":
         print(f"Extracted {len(extract(data_dir, args.source_id))} rows from {args.source_id}.")
     elif args.command == "build":
-        print(f"Wrote {build(data_dir, output)}")
+        path, unreviewed = build(data_dir, output)
+        print(f"Wrote {path}")
+        if unreviewed:
+            print(f"Needs review for the pinned snapshot: {', '.join(unreviewed)}")
     return 0
 
 

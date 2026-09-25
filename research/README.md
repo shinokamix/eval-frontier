@@ -77,7 +77,8 @@ The Pydantic models live in `src/eval_frontier/schemas/`. Source archive code
 lives in `src/eval_frontier/sources/`, adapters live in
 `src/eval_frontier/sources/adapters/`, and checks of trial details against
 published aggregates live in `src/eval_frontier/sources/reconcile.py`.
-`src/eval_frontier/sources/review.py` loads each source's `review.json` and
-checks it against the catalogs and pins.
+`src/eval_frontier/sources/review.py` loads each source's `review.json`,
+checks it against the catalogs, and, during `build`, checks every review made
+for the pinned snapshot against the evidence.
 Canonicalization, table checks, and Parquet writing live in
 `src/eval_frontier/evidence/`.

@@ -15,8 +15,8 @@ def _():
 
     from eval_frontier.catalog import HARNESSES, METRICS, MODELS
     from eval_frontier.schemas import EvidenceRow
-    from eval_frontier.sources.reconcile import harbor_rows
-    from eval_frontier.sources.review import load_reviews, stale_reviews
+    from eval_frontier.sources.reconcile import harbor_rows, trial_totals
+    from eval_frontier.sources.review import current_reviews
 
     return (
         EvidenceRow,
@@ -25,12 +25,12 @@ def _():
         MODELS,
         alt,
         asdict,
+        current_reviews,
         harbor_rows,
-        load_reviews,
         mo,
         np,
         pd,
-        stale_reviews,
+        trial_totals,
     )
 
 
@@ -67,7 +67,7 @@ def _(mo, np, pd):
         "# Source audit\n\n"
         "Exploratory analysis of `evidence.parquet` and checks against the pinned "
         "snapshots. `moon run research:notebook` rebuilds the table first. Source "
-        "READMEs hold the decisions and artifact links; "
+        "READMEs describe each capture; "
         "[SOURCE-PIPELINE.md](../../../docs/SOURCE-PIPELINE.md) describes the audit "
         "and [METHODOLOGY.md](../../../docs/METHODOLOGY.md) the outcomes that "
         "readiness refers to.\n\n"
@@ -77,23 +77,29 @@ def _(mo, np, pd):
         "and `config` otherwise. `campaign_id` separates runs of the same system "
         "within a source, such as a leaderboard row or a task subset.\n\n"
         "Each source's `review.json` records the reviewed decisions this notebook "
-        "applies: which representation of each outcome to use, the admission rules "
-        "for cost, and exclusions."
+        "applies: which representation of each outcome to use, how unscored "
+        "attempts count, the admission rules for cost, and exclusions."
     )
     return CONFIG, data_dir, evidence, rows
 
 
 @app.cell
-def _(data_dir, load_reviews, mo, stale_reviews):
-    reviews = load_reviews(data_dir)
-    stale = stale_reviews(data_dir, reviews)
+def _(current_reviews, data_dir, mo, rows):
+    reviews, unreviewed = current_reviews(data_dir)
+
+    # Rows that enter the analysis: reviewed sources only, without the
+    # unscored attempts a review excludes from both outcomes.
+    exclude_unscored = rows.source_id.map(
+        lambda s: s in reviews and reviews[s].unscored_attempts == "exclude"
+    )
+    analysed = rows[rows.source_id.isin(reviews) & ~(exclude_unscored & rows.scored.eq(False))]
     mo.md(
-        f"**Stale reviews:** {', '.join(stale)} were made for another snapshot. "
-        "Review these sources again before using their decisions."
-        if stale
+        f"**Needs review:** {', '.join(unreviewed)} have no review for the pinned "
+        "snapshot and are left out from section 5 onwards where decisions apply."
+        if unreviewed
         else ""
     )
-    return (reviews,)
+    return analysed, reviews
 
 
 @app.cell
@@ -377,10 +383,10 @@ def _(mo, tb):
 
 
 @app.cell
-def _(CONFIG, rows):
-    def trial_table(source_id):
+def _(CONFIG, analysed, data_dir, rows, trial_totals):
+    def trial_table(frame, source_id):
         """One row per trial: outcome, publisher status, and cost when known."""
-        source = rows[(rows.source_id == source_id) & (rows.level == "trial")]
+        source = frame[(frame.source_id == source_id) & (frame.level == "trial")]
         solved = source[source.metric_id == "solved"].set_index("trial_id")
         cost = source[source.metric_id == "cost_usd"].set_index("trial_id").value
         return solved[[*CONFIG, "outcome_status", "scored"]].assign(solved=solved.value, cost=cost)
@@ -393,10 +399,23 @@ def _(CONFIG, rows):
         )
         return table.assign(complete_cost=table.known_costs == table.attempts)
 
-    deepswe_trials = trial_table("deepswe-v1.1")
-    swe_trials = trial_table("swe-marathon-v1.1")
-    deepswe = cost_coverage(deepswe_trials)
-    swe = cost_coverage(swe_trials)
+    # The evidence must hold every captured trial, counted directly in the
+    # snapshot without the adapters.
+    for source_id in ("deepswe-v1.1", "swe-marathon-v1.1"):
+        raw = trial_totals(data_dir, source_id)
+        table = trial_table(rows, source_id)
+        assert (len(table), table.cost.count(), table.scored.eq(False).sum()) == (
+            raw.trials,
+            raw.known_costs,
+            raw.unscored,
+        ), source_id
+
+    # All trials show where costs are missing; coverage counts only the
+    # attempts that enter the analysis under each review.
+    deepswe_trials = trial_table(rows, "deepswe-v1.1")
+    swe_trials = trial_table(rows, "swe-marathon-v1.1")
+    deepswe = cost_coverage(trial_table(analysed, "deepswe-v1.1"))
+    swe = cost_coverage(trial_table(analysed, "swe-marathon-v1.1"))
     return deepswe, deepswe_trials, swe, swe_trials
 
 
@@ -410,7 +429,8 @@ def _(deepswe, deepswe_trials, mo):
                 "The adapter already reconciles scored counts, passes, and cost and "
                 "duration means with the leaderboard. "
                 f"{len(deepswe)} configurations, {len(deepswe_trials):,} trials. "
-                f"Complete cost: {deepswe.complete_cost.sum()}. "
+                "The review excludes unscored attempts from both outcomes. "
+                f"Complete cost over scored attempts: {deepswe.complete_cost.sum()}. "
                 f"Missing costs: {deepswe_missing.scored.eq(False).sum()} on excluded "
                 f"attempts, {deepswe_missing.scored.eq(True).sum()} on scored attempts. "
                 "Configurations with missing costs:"
@@ -590,7 +610,7 @@ def _(mo):
 
 
 @app.cell
-def _(CONFIG, METRICS, mo, pd, reviews, rows, tb):
+def _(CONFIG, METRICS, analysed, mo, pd, reviews, tb):
     choices = pd.DataFrame(
         {
             "source_id": source_id,
@@ -605,13 +625,9 @@ def _(CONFIG, METRICS, mo, pd, reviews, rows, tb):
 
     def chosen(outcome):
         pick = choices[(choices.outcome == outcome) & choices.metric_id.notna()]
-        return rows.merge(pick[["source_id", "metric_id", "level"]])
+        return analysed.merge(pick[["source_id", "metric_id", "level"]])
 
     quality_rows = chosen("quality")
-    quality_rows = quality_rows[
-        quality_rows.scored.ne(False)
-        | quality_rows.source_id.map(lambda s: reviews[s].quality.unscored_attempts != "exclude")
-    ]
     percent = quality_rows.metric_id.map(lambda m: METRICS[m].unit == "percent")
     quality = (
         quality_rows.value.where(~percent, quality_rows.value / 100)
@@ -621,7 +637,7 @@ def _(CONFIG, METRICS, mo, pd, reviews, rows, tb):
     )
     cost = chosen("cost").groupby(CONFIG, dropna=False).value.mean().rename("cost")
     trials = (
-        rows[rows.level == "trial"]
+        analysed[analysed.level == "trial"]
         .groupby(CONFIG, dropna=False)
         .agg(
             attempts=("trial_id", "nunique"),
@@ -706,7 +722,11 @@ def _(alt, config_summary, mo):
         alt.Chart(plotted)
         .mark_point(stroke="white", strokeWidth=1)
         .encode(
-            x=alt.X("cost:Q", scale=alt.Scale(type="log"), title="Mean cost per attempt, USD"),
+            x=alt.X(
+                "cost:Q",
+                scale=alt.Scale(type="log"),
+                title="Mean reported cost, USD (source denominator)",
+            ),
             y=alt.Y("quality:Q", scale=alt.Scale(domain=[0, 1]), title="Pass rate"),
             color=alt.Color("cost_status:N", scale=status_colors, title="Cost"),
             tooltip=[

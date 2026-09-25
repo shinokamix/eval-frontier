@@ -4,11 +4,12 @@
   "snapshotId": "aae91b21135f4416d8229edd5c53666973c459c179ac35e24bfd958c805a4526",
   "reviewedOn": "2026-09-26",
   "quality": {
-    "status": "usable_subset",
+    "status": "usable",
     "metricId": "trial_success_rate_pct",
     "level": "config",
     "notes": [
       "Published accuracy with its standard error; errors and reward-hack disqualifications count as failures.",
+      "Opus 4.7 max (row fdb8393b) publishes accuracy over 447 attempts but associates 445 trials. The published accuracy fits 447 (308 successes), so quality uses it; cost admission rejects the row's trial details.",
       "Raw trial rewards are not substituted for disqualification-adjusted accuracy.",
       "Pass@2 through pass@5 are separate task-level outcomes."
     ]
@@ -18,7 +19,11 @@
     "metricId": "cost_usd",
     "level": "trial",
     "basisConfirmed": false,
-    "admission": ["complete_coverage", "matching_total", "no_retries"],
+    "admission": [
+      "complete_coverage",
+      "matching_total",
+      "no_retries"
+    ],
     "notes": [
       "Keep trial costs and their published total out of the same likelihood.",
       "Tokens and duration do not substitute for USD cost."
@@ -32,13 +37,6 @@
       "The earlier Fable 5 submission PR used different trial IDs from its leaderboard rows."
     ]
   },
-  "exclusions": [
-    {
-      "outcome": "quality",
-      "campaignId": "fdb8393b-5b29-4645-b784-84f52cf31722",
-      "reason": "The row reports 447 attempts but associates 445 trials."
-    }
-  ],
   "nextActions": [
     "Explain the five rows whose trial costs do not add up to the published total.",
     "Explain the 447-versus-445 attempt count of Opus 4.7 max.",

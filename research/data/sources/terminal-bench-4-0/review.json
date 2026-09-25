@@ -9,6 +9,7 @@
     "level": "config",
     "notes": [
       "Published accuracy with its 95% interval; published successes reproduce accuracy.",
+      "Seven rows have trials with retries, and public rows show only scored attempt 1. Whether an infrastructure retry replaced a failed attempt in the published successes is unknown; check this before using attempted-task outcomes.",
       "Pass@k is a separate outcome; task pairing needs a separate review of trial rewards."
     ]
   },
@@ -17,7 +18,11 @@
     "metricId": "cost_usd",
     "level": "trial",
     "basisConfirmed": false,
-    "admission": ["complete_coverage", "matching_total", "no_retries"],
+    "admission": [
+      "complete_coverage",
+      "matching_total",
+      "no_retries"
+    ],
     "notes": [
       "Keep trial costs and their published total out of the same likelihood.",
       "Public rows show only scored attempt 1 for trials with retries; whether denominators and costs include retries is unknown.",
@@ -33,7 +38,7 @@
   },
   "nextActions": [
     "Explain the two rows whose trial costs do not add up to the published total.",
-    "Establish whether published successes and costs include retried attempts.",
+    "Establish whether published successes and costs include retried attempts: the captured job-trial files hold 39 unscored retry records, 10 with costs, that no leaderboard row lists.",
     "Confirm which USD charges the reported costs cover."
   ]
 }

@@ -7,14 +7,15 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from .evidence import Level
 from .sources import SNAPSHOT_ID_PATTERN, SOURCE_ID_PATTERN
 
 # usable: every configuration can inform the outcome.
-# usable_subset: configurations that pass the admission rules can.
+# usable_subset: only configurations that pass the admission rules (cost) and
+#   are not excluded can inform the outcome.
 # descriptive: values can be shown but cannot enter the primary analysis.
-# insufficient: the source cannot inform the outcome.
+# insufficient: the source has no value that represents the outcome.
 Readiness = Literal["usable", "usable_subset", "descriptive", "insufficient"]
-Level = Literal["trial", "task", "config"]
 
 # complete_coverage: every attempt of the configuration has a known cost.
 # matching_total: trials add up to the published attempt count and total cost.
@@ -38,17 +39,9 @@ class OutcomeReview(_Review):
     def validate_representation(self) -> OutcomeReview:
         if (self.metric_id is None) != (self.level is None):
             raise ValueError("Outcome metric and level go together")
-        if self.status in ("usable", "usable_subset") and self.metric_id is None:
-            raise ValueError("A usable outcome needs a metric and level")
+        if (self.status == "insufficient") != (self.metric_id is None):
+            raise ValueError("Only an insufficient outcome lacks a metric and level")
         return self
-
-
-class QualityReview(OutcomeReview):
-    # How attempts the publisher left out of its score enter an attempted-task
-    # outcome. Null when the source has no such attempts or does not say.
-    unscored_attempts: Literal["count_as_failure", "exclude"] | None = Field(
-        default=None, alias="unscoredAttempts"
-    )
 
 
 class CostReview(OutcomeReview):
@@ -58,9 +51,11 @@ class CostReview(OutcomeReview):
     admission: list[CostRule] = Field(default_factory=list)
 
     @model_validator(mode="after")
-    def validate_admission(self) -> CostReview:
+    def validate_cost(self) -> CostReview:
         if (self.status == "usable_subset") != bool(self.admission):
-            raise ValueError("Only a usable subset names admission rules")
+            raise ValueError("Only a usable cost subset names admission rules")
+        if self.basis_confirmed and self.basis is None:
+            raise ValueError("A confirmed cost basis must be stated")
         return self
 
 
@@ -74,7 +69,11 @@ class CampaignReview(_Review):
 
 
 class Exclusion(_Review):
-    """Evidence kept out of an outcome by a reviewed decision."""
+    """Evidence kept out of an outcome by a reviewed decision.
+
+    Omitted fields match any value, so an exclusion cannot single out a
+    system whose effort is unknown.
+    """
 
     outcome: Literal["quality", "cost"]
     campaign_id: str | None = Field(default=None, alias="campaignId")
@@ -97,8 +96,21 @@ class SourceReview(_Review):
     source_id: str = Field(alias="sourceId", pattern=SOURCE_ID_PATTERN)
     snapshot_id: str = Field(alias="snapshotId", pattern=SNAPSHOT_ID_PATTERN)
     reviewed_on: datetime.date = Field(alias="reviewedOn")
-    quality: QualityReview
+    # How attempts the publisher leaves out of its score (`scored=false`)
+    # enter both outcomes, so quality and cost use the same attempts. Null
+    # when the source marks no such attempts.
+    unscored_attempts: Literal["count_as_failure", "exclude"] | None = Field(
+        default=None, alias="unscoredAttempts"
+    )
+    quality: OutcomeReview
     cost: CostReview
     campaigns: CampaignReview
     exclusions: list[Exclusion] = Field(default_factory=list)
     next_actions: list[str] = Field(default_factory=list, alias="nextActions")
+
+    @model_validator(mode="after")
+    def validate_subsets(self) -> SourceReview:
+        excludes_quality = any(e.outcome == "quality" for e in self.exclusions)
+        if (self.quality.status == "usable_subset") != excludes_quality:
+            raise ValueError("A usable quality subset is defined by its exclusions")
+        return self

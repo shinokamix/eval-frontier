@@ -57,7 +57,12 @@ After changing snapshots, mappings, or extraction, run from the repository root:
 moon run research:build
 ```
 
-This writes the canonical and per-source Parquet tables.
+This writes the canonical and per-source Parquet tables. It then checks every
+`review.json` made for the pinned snapshot against the new evidence and stops
+when a review names a metric the source lacks at that level, decides on
+unscored attempts the source does not mark, or excludes evidence that does not
+exist. It lists pinned sources that have no review for their snapshot yet; the
+notebook leaves them out wherever decisions apply.
 
 ## Audit the existing data
 
@@ -91,17 +96,23 @@ or analysis judgements: counts come from the notebook, and judgements go in
 `review.json`, which the analysis reads. `SourceReview` in
 `research/src/eval_frontier/schemas/review.py` defines the file:
 
-- **`snapshotId`.** The pinned snapshot the review covers. The notebook flags a
-  review whose snapshot differs from the pin.
+- **`snapshotId`.** The pinned snapshot the review covers. A review for any
+  other snapshot is not applied until the source is reviewed again.
+- **`unscoredAttempts`.** Whether attempts the publisher leaves out of its
+  score count as failures or are excluded. The choice applies to both
+  outcomes, so quality and cost use the same attempts. Exclude only attempts
+  that are not the system's own, such as infrastructure errors, and name the
+  other choice as a sensitivity analysis.
 - **`quality` and `cost`.** A status for each outcome, evaluated separately
   against the methodology: `usable`, `usable_subset`, `descriptive`, or
-  `insufficient`. Name the one metric and level that represent the outcome;
-  aggregate and trial representations of the same runs never enter the same
-  likelihood. For quality, state how unscored attempts count. For cost, state
-  the publisher's accounting basis, whether it is confirmed, and for a usable
-  subset the admission rules a configuration must pass: `complete_coverage`,
-  `matching_total`, or `no_retries`. A matching total does not prove complete
-  coverage.
+  `insufficient`. Name the one metric and level that represent the outcome,
+  including a descriptive one; only `insufficient` has none. Aggregate and
+  trial representations of the same runs never enter the same likelihood. For
+  cost, state the publisher's accounting basis, whether it is confirmed, and
+  for a usable subset the admission rules a configuration must pass:
+  `complete_coverage`, `matching_total`, or `no_retries`. A matching total
+  does not prove complete coverage. A usable quality subset is defined by its
+  quality exclusions.
 - **`campaigns`.** What one `campaign_id` means and whether campaigns overlap
   with each other or with other captured sources. Matching IDs are candidate
   links, not evidence of independence.

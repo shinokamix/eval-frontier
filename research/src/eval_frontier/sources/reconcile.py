@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from ..schemas.sources import SourcePins
 from .archive import read_json
@@ -52,14 +53,58 @@ class HarborRow:
         return self.trials_with_retries == 0 and self.unscored == 0
 
 
-def harbor_rows(data_dir: Path, source_id: str) -> list[HarborRow]:
-    """Reconcile every leaderboard row of a pinned Terminal-Bench snapshot."""
+@dataclass(frozen=True)
+class TrialTotals:
+    """Counts over every trial a trial-level source captured."""
+
+    trials: int
+    known_costs: int
+    unscored: int
+
+
+def _pinned(data_dir: Path, source_id: str) -> tuple[Path, Any]:
+    """The pinned snapshot directory and its parsed results artifact."""
     pins = SourcePins.model_validate(read_json(data_dir / "canonical" / "pins.json")).sources
     root = data_dir / "sources" / source_id / "raw" / pins[source_id]
     manifest = read_json(root / "manifest.json")
     results = next(a["path"] for a in manifest["artifacts"] if a["role"] == "results")
+    return root, read_json(root / results)
+
+
+def trial_totals(data_dir: Path, source_id: str) -> TrialTotals:
+    """Count trials, known costs, and unscored trials directly in the snapshot.
+
+    The audit compares these with the evidence table, independently of the
+    adapters that produced it.
+    """
+    root, results = _pinned(data_dir, source_id)
+    if source_id == "deepswe-v1.1":
+        trials = read_json(root / "artifacts" / "trials.json")["rows"]
+        return TrialTotals(
+            trials=len(trials),
+            known_costs=sum(t["cost_usd"] is not None for t in trials),
+            unscored=sum(not t["included_in_score"] for t in trials),
+        )
+    if source_id == "swe-marathon-v1.1":
+        trials = [
+            trial
+            for task in results.values()
+            for config in task["configs"]
+            for trial in config["trials"]
+        ]
+        return TrialTotals(
+            trials=len(trials),
+            known_costs=sum(t["costUsd"] is not None for t in trials),
+            unscored=0,
+        )
+    raise ValueError(f"No trial totals for {source_id}")
+
+
+def harbor_rows(data_dir: Path, source_id: str) -> list[HarborRow]:
+    """Reconcile every leaderboard row of a pinned Terminal-Bench snapshot."""
+    root, results = _pinned(data_dir, source_id)
     rows = []
-    for row in read_json(root / results)["rows"]:
+    for row in results["rows"]:
         trials = [trial for _, _, trial in harbor_trials(root, row)]
         costs = [t["cost_usd"] for t in trials if t["cost_usd"] is not None]
         rows.append(

@@ -7,13 +7,17 @@ from pathlib import Path
 from ..schemas.sources import SourceCrosswalk, SourcePins
 from ..sources.archive import read_json, source
 from ..sources.extract import extract
+from ..sources.review import check_reviews
 from .canonicalize import canonicalize_source
 from .checks import check_table
 from .parquet import write
 
 
-def build(data_dir: Path, output: Path) -> Path:
-    """Build per-source normalized tables and one combined evidence table."""
+def build(data_dir: Path, output: Path) -> tuple[Path, list[str]]:
+    """Build per-source normalized tables and one combined evidence table.
+
+    Returns the output path and the pinned sources that still need a review.
+    """
     pins = SourcePins.model_validate(read_json(data_dir / "canonical" / "pins.json")).sources
     all_rows = []
 
@@ -36,6 +40,7 @@ def build(data_dir: Path, output: Path) -> Path:
         all_rows.extend(source_rows)
 
     check_table(data_dir, pins, all_rows)
+    unreviewed = check_reviews(data_dir, all_rows)
     all_rows.sort(
         key=lambda row: (
             row.source_id,
@@ -46,4 +51,4 @@ def build(data_dir: Path, output: Path) -> Path:
         )
     )
     write(output, all_rows)
-    return output
+    return output, unreviewed

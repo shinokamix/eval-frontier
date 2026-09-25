@@ -6,6 +6,10 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat
 
+# The most detailed identifier a row carries: a trial, a task aggregate, or a
+# configuration aggregate.
+Level = Literal["trial", "task", "config"]
+
 
 class EvidenceRow(BaseModel):
     """One canonical measurement from a source experiment."""
@@ -45,3 +49,9 @@ class EvidenceRow(BaseModel):
     agent_version: str | None = None
     timed_out: bool | None = None
     failure_type: str | None = None
+
+    @property
+    def level(self) -> Level:
+        if self.trial_id is not None:
+            return "trial"
+        return "task" if self.task_id is not None else "config"

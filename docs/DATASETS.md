@@ -133,7 +133,9 @@ These fields support aggregate publications and execution failures without
 forcing task-level sources to invent values. `outcome_status` keeps the
 publisher's trial status, which is not always task success. `scored` is false
 for an attempt the publisher excludes from its score. `attempt_count` is the
-number of attempts inside one trial, so a value above one marks retries.
+number of attempts the source reports for a trial, such as Terminal-Bench
+`n_attempts`; a value above one marks retries. A source may also publish each
+retried attempt as a separate, unscored trial record.
 `agent_version` is the harness version the source reports for the trial.
 
 ## Canonical catalogs
