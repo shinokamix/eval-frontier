@@ -62,7 +62,8 @@ This writes the canonical and per-source Parquet tables. It then checks every
 evidence. It stops when a review names a quality metric that is not task
 success or a cost metric that is not USD, names a metric the source lacks at
 that level, decides on unscored attempts the source does not mark or leaves
-undecided ones it does, or excludes evidence that does not exist. It lists pinned sources that have no review for their snapshot yet; the
+undecided ones it does, names an admission rule the audit cannot evaluate for
+the source, or excludes evidence that does not exist. It lists pinned sources that have no review for their snapshot yet; the
 notebook leaves them out wherever decisions apply.
 
 ## Audit the existing data
@@ -110,16 +111,25 @@ analysis judgements; those go in `review.json`, which the analysis reads. `Sourc
   `insufficient`. Name the one metric and level that represent the outcome,
   including a descriptive one; only `insufficient` has none. Aggregate and
   trial representations of the same runs never enter the same likelihood. For
-  cost, state the publisher's accounting basis, whether it is confirmed, and
-  for a usable subset the admission rules a configuration must pass:
-  `complete_coverage`, `matching_total`, or `no_retries`. A matching total
-  does not prove complete coverage.
-- **`campaigns`.** What one `campaign_id` means and whether campaigns overlap
-  with each other or with other captured sources. Matching IDs are candidate
-  links, not evidence of independence.
-- **`exclusions`.** Campaigns or systems kept out of an outcome whose status is
-  `usable_subset`, each with its reason. A usable quality subset needs at
-  least one. Omitted fields match any value.
+  cost, state the publisher's accounting basis and whether it is confirmed.
+  For a usable subset of either outcome, name the admission rules a
+  configuration must pass:
+  `complete_coverage`, `matching_total`, `no_retries`, or
+  `equal_task_weights`. A matching total does not prove complete coverage.
+  Only Terminal-Bench reconciliation evaluates the last three, and
+  `complete_coverage` needs a trial-level representation. Quality may use
+  `no_retries` and `equal_task_weights`: unresolved retries
+  keep an outcome out of the primary analysis, and a published rate or mean
+  represents equal task weights only when the attempt count splits evenly
+  over the tasks. A usable subset needs admission rules, exclusions, or both.
+- **`campaigns`.** What one `run_id` means (`run`), whether the source forms
+  one campaign or one per `run_id` value such as a task subset (`grouping`),
+  the task set and scoring and execution protocol a campaign shares
+  (`protocol`), and whether campaigns overlap with each other or with other
+  captured sources. A leaderboard row alone is not a campaign. Matching IDs
+  are candidate links, not evidence of independence.
+- **`exclusions`.** Runs or systems kept out of an outcome whose status is
+  `usable_subset`, each with its reason. Omitted fields match any value.
 - **`nextActions`.** The remaining checks or missing information. Separate
   captured evidence from an online lead that has not been captured.
 

@@ -11,8 +11,8 @@ from .evidence import Level
 from .sources import SNAPSHOT_ID_PATTERN, SOURCE_ID_PATTERN
 
 # usable: every configuration can inform the outcome.
-# usable_subset: only configurations that are not excluded, and for cost pass
-#   the admission rules, can inform the outcome.
+# usable_subset: only configurations that pass the admission rules and are not
+#   excluded can inform the outcome.
 # descriptive: values can be shown but cannot enter the primary analysis.
 # insufficient: the source has no value that represents the outcome.
 Readiness = Literal["usable", "usable_subset", "descriptive", "insufficient"]
@@ -20,7 +20,12 @@ Readiness = Literal["usable", "usable_subset", "descriptive", "insufficient"]
 # complete_coverage: every attempt of the configuration has a known cost.
 # matching_total: trials add up to the published attempt count and total cost.
 # no_retries: no trial has extra attempts and every trial is scored.
-CostRule = Literal["complete_coverage", "matching_total", "no_retries"]
+# equal_task_weights: the published attempt count splits evenly over the
+#   configuration's tasks, so a published rate or mean weights tasks equally.
+Admission = Literal["complete_coverage", "matching_total", "no_retries", "equal_task_weights"]
+
+# Rules about cost records that do not apply to quality.
+COST_ONLY_ADMISSION = frozenset({"complete_coverage", "matching_total"})
 
 
 class _Review(BaseModel):
@@ -33,6 +38,7 @@ class OutcomeReview(_Review):
     status: Readiness
     metric_id: str | None = Field(default=None, alias="metricId")
     level: Level | None = None
+    admission: list[Admission] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
@@ -41,6 +47,8 @@ class OutcomeReview(_Review):
             raise ValueError("Outcome metric and level go together")
         if (self.status == "insufficient") != (self.metric_id is None):
             raise ValueError("Only an insufficient outcome lacks a metric and level")
+        if self.admission and self.status != "usable_subset":
+            raise ValueError("Only a usable subset names admission rules")
         return self
 
 
@@ -48,20 +56,28 @@ class CostReview(OutcomeReview):
     # What the publisher says the USD figure covers; null when it does not say.
     basis: str | None = Field(default=None, min_length=1)
     basis_confirmed: bool = Field(alias="basisConfirmed")
-    admission: list[CostRule] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_cost(self) -> CostReview:
-        if (self.status == "usable_subset") != bool(self.admission):
-            raise ValueError("Only a usable cost subset names admission rules")
         if self.basis_confirmed and self.basis is None:
             raise ValueError("A confirmed cost basis must be stated")
         return self
 
 
 class CampaignReview(_Review):
-    # What one `campaign_id` value means in this source.
-    unit: str = Field(min_length=1)
+    """How the source's runs form evaluation campaigns.
+
+    A campaign groups runs of several systems on one task set under a common
+    scoring and execution protocol. A run alone is not a campaign.
+    """
+
+    # What one `run_id` value means in this source.
+    run: str = Field(min_length=1)
+    # One campaign for the whole source, or one per `run_id` value that
+    # several systems share, such as a task subset.
+    grouping: Literal["source", "run_id"]
+    # The task set, scoring, and execution protocol a campaign shares.
+    protocol: str = Field(min_length=1)
     # Whether campaigns share tasks or runs with each other or with other
     # captured sources: none, shared, or not yet checked.
     overlap: Literal["none", "shared", "unresolved"]
@@ -76,7 +92,7 @@ class Exclusion(_Review):
     """
 
     outcome: Literal["quality", "cost"]
-    campaign_id: str | None = Field(default=None, alias="campaignId")
+    run_id: str | None = Field(default=None, alias="runId")
     model_id: str | None = Field(default=None, alias="modelId")
     harness_id: str | None = Field(default=None, alias="harnessId")
     effort: str | None = None
@@ -84,8 +100,8 @@ class Exclusion(_Review):
 
     @model_validator(mode="after")
     def validate_target(self) -> Exclusion:
-        if self.campaign_id is None and self.model_id is None:
-            raise ValueError("An exclusion names a campaign or a system")
+        if self.run_id is None and self.model_id is None:
+            raise ValueError("An exclusion names a run or a system")
         return self
 
 
@@ -114,8 +130,8 @@ class SourceReview(_Review):
             excluded = any(e.outcome == name for e in self.exclusions)
             if excluded and outcome.status != "usable_subset":
                 raise ValueError(f"Only a usable {name} subset has exclusions")
-        if self.quality.status == "usable_subset" and not any(
-            e.outcome == "quality" for e in self.exclusions
-        ):
-            raise ValueError("A usable quality subset is defined by its exclusions")
+            if outcome.status == "usable_subset" and not (excluded or outcome.admission):
+                raise ValueError(f"A usable {name} subset needs admission rules or exclusions")
+        if COST_ONLY_ADMISSION & set(self.quality.admission):
+            raise ValueError("Quality admission cannot use cost rules")
         return self

@@ -31,7 +31,7 @@ class EvidenceRow(BaseModel):
     model_id: str
     harness_id: str
     effort: str | None = None
-    campaign_id: str | None = None
+    run_id: str | None = None
 
     metric_id: str
     value: FiniteFloat

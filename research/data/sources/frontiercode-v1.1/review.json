@@ -24,7 +24,9 @@
     ]
   },
   "campaigns": {
-    "unit": "task subset: Main (100 tasks) or Extended (150 tasks)",
+    "run": "task subset of a system: `main` or `extended`",
+    "grouping": "run_id",
+    "protocol": "Main (100 tasks) or Extended (150 tasks), each with its own scoring of five runs",
     "overlap": "unresolved",
     "notes": [
       "Whether Main and Extended share tasks or runs is unresolved.",

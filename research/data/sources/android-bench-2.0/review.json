@@ -25,7 +25,9 @@
     ]
   },
   "campaigns": {
-    "unit": "one run per system",
+    "run": "one run per system",
+    "grouping": "source",
+    "protocol": "30 Android tasks, five runs each, scored by the publisher's harness",
     "overlap": "unresolved",
     "notes": [
       "Effort is unknown for every configuration, so no system can link this source to another."

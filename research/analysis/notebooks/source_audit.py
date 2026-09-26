@@ -15,11 +15,12 @@ def _():
 
     from eval_frontier.catalog import HARNESSES, METRICS, MODELS
     from eval_frontier.schemas import EvidenceRow
-    from eval_frontier.sources.reconcile import harbor_rows, trial_totals
+    from eval_frontier.sources.reconcile import HARBOR_SOURCES, harbor_rows, trial_totals
     from eval_frontier.sources.review import current_reviews
 
     return (
         EvidenceRow,
+        HARBOR_SOURCES,
         HARNESSES,
         METRICS,
         MODELS,
@@ -61,7 +62,7 @@ def _(mo, np, pd):
             [evidence.trial_id.notna(), evidence.task_id.notna()], ["trial", "task"], "config"
         )
     )
-    CONFIG = ["source_id", "model_id", "harness_id", "effort", "campaign_id"]
+    CONFIG = ["source_id", "model_id", "harness_id", "effort", "run_id"]
 
     mo.md(
         "# Source audit\n\n"
@@ -72,13 +73,15 @@ def _(mo, np, pd):
         "and [METHODOLOGY.md](../../../docs/METHODOLOGY.md) the outcomes that "
         "readiness refers to.\n\n"
         "Terms used below: a **system** is `(model, harness, effort)`; a "
-        "**configuration** is a system within one source and campaign. `level` is "
-        "`trial` when a row has a `trial_id`, `task` when it has only a `task_id`, "
-        "and `config` otherwise. `campaign_id` separates runs of the same system "
-        "within a source, such as a leaderboard row or a task subset.\n\n"
+        "**configuration** is one run of a system, identified within its source by "
+        "`run_id`, such as a leaderboard row or a task subset. A **campaign** "
+        "groups the runs of several systems on one task set under a common "
+        "scoring and execution protocol; each review states how its runs form "
+        "campaigns. `level` is `trial` when a row has a `trial_id`, `task` when it "
+        "has only a `task_id`, and `config` otherwise.\n\n"
         "Each source's `review.json` records the reviewed decisions this notebook "
         "applies: which representation of each outcome to use, how unscored "
-        "attempts count, the admission rules for cost, and exclusions."
+        "attempts count, the admission rules for each outcome, and exclusions."
     )
     return CONFIG, data_dir, evidence, rows
 
@@ -202,7 +205,7 @@ def _(EvidenceRow, SEQUENTIAL, alt, evidence, mo):
 def _(mo, rows):
     usual_effort = ["none", "low", "medium", "high", "xhigh", "max"]
     effort_configs = (
-        rows.drop_duplicates(["source_id", "model_id", "harness_id", "effort", "campaign_id"])
+        rows.drop_duplicates(["source_id", "model_id", "harness_id", "effort", "run_id"])
         .assign(effort=rows.effort.fillna("unknown"))
         .groupby(["source_id", "effort"])
         .size()
@@ -246,18 +249,48 @@ def _(mo, rows):
             .rename("rows")
             .reset_index(),
             mo.md(
-                "Source-native campaigns and outcome statuses. A campaign is a "
-                "leaderboard row in Terminal-Bench and a task subset in FrontierCode. "
-                "Other sources publish one run per system. `outcome_status` is the "
-                "publisher's trial status, which is not always task success:"
+                "Source-native runs and outcome statuses. A run is a leaderboard row "
+                "in Terminal-Bench and a task subset in FrontierCode. Other sources "
+                "publish one run per system. `outcome_status` is the publisher's "
+                "trial status, which is not always task success:"
             ),
             rows.groupby(["source_id", "level"])
             .agg(
-                campaigns=("campaign_id", "nunique"),
+                runs=("run_id", "nunique"),
                 statuses=("outcome_status", lambda x: sorted(x.dropna().unique())),
                 unscored=("scored", lambda x: x.eq(False).sum()),
             )
             .reset_index(),
+        ]
+    )
+    return
+
+
+@app.cell
+def _(mo, pd, reviews, rows):
+    def campaign_count(source_id, review):
+        if review.campaigns.grouping == "source":
+            return 1
+        return rows[rows.source_id == source_id].run_id.nunique()
+
+    mo.vstack(
+        [
+            mo.md(
+                "### Campaigns\n\n"
+                "How each review groups runs into campaigns. The primary summary "
+                "weights each distinct campaign equally, so these boundaries are "
+                "fixed before any fit:"
+            ),
+            pd.DataFrame(
+                {
+                    "source_id": source_id,
+                    "grouping": review.campaigns.grouping,
+                    "campaigns": campaign_count(source_id, review),
+                    "protocol": review.campaigns.protocol,
+                    "overlap": review.campaigns.overlap,
+                }
+                for source_id, review in reviews.items()
+            ).set_index("source_id"),
         ]
     )
     return
@@ -338,20 +371,29 @@ def _(mo):
     ### Terminal-Bench
 
     One row per leaderboard row. A total matches when the sum of known trial
-    costs is within $0.0051 of the published total.
+    costs is within $0.0051 of the published total. A published rate or mean
+    weights tasks equally only when the published attempt count splits evenly
+    over every task of the source.
     """)
     return
 
 
 @app.cell
-def _(asdict, data_dir, harbor_rows, pd):
-    FLAGS = ["complete_cost", "count_matches", "cost_matches", "reconciled", "no_retries"]
+def _(HARBOR_SOURCES, asdict, data_dir, harbor_rows, pd):
+    FLAGS = [
+        "complete_cost",
+        "count_matches",
+        "cost_matches",
+        "reconciled",
+        "no_retries",
+        "equal_task_weights",
+    ]
     tb = {
         s: pd.DataFrame(
             {**asdict(r), **{flag: getattr(r, flag) for flag in FLAGS}}
             for r in harbor_rows(data_dir, s)
         )
-        for s in ("terminal-bench-2.1", "terminal-bench-4-0")
+        for s in sorted(HARBOR_SOURCES)
     }
     return (tb,)
 
@@ -366,11 +408,14 @@ def _(mo, tb):
             f"Totals match: {table.cost_matches.sum()}. "
             f"Complete and reconciled: {table.reconciled.sum()}, "
             f"of which without retries or unscored trials: "
-            f"{(table.reconciled & table.no_retries).sum()}. Rows needing review:"
+            f"{(table.reconciled & table.no_retries).sum()}. "
+            f"Attempts split evenly over every task: {table.equal_task_weights.sum()}. "
+            "Rows needing review:"
         )
 
     def needs_review(table):
-        return table[~(table.reconciled & table.no_retries)].drop(columns="trial_ids")
+        passed = table.reconciled & table.no_retries & table.equal_task_weights
+        return table[~passed].drop(columns="trial_ids")
 
     mo.vstack(
         [
@@ -600,13 +645,15 @@ def _(mo):
 
     One point per configuration, one panel per source: tasks, cost accounting,
     and denominators differ between sources. Each source's review names one
-    quality and one cost representation, listed below. This is a description,
-    not the target graph.
+    quality and one cost representation, listed below. Values average tasks
+    first, then weight each task equally, as the methodology's outcomes do.
+    This is a description, not the model estimates or the Pareto frontier.
 
-    Cost status applies the review: `admitted` when the configuration passes
-    every admission rule of a usable subset, `not admitted` when it fails one,
-    `unverified` when the review keeps cost descriptive, `excluded` by a
-    reviewed exclusion, and `no cost` when the source reports none.
+    Each outcome's status applies the review: `admitted` when the configuration
+    passes every admission rule of a usable subset, `not admitted` when it
+    fails one, `unverified` when the review keeps the outcome descriptive,
+    `excluded` by a reviewed exclusion, and `missing` when the source reports
+    no value.
     """)
     return
 
@@ -629,15 +676,17 @@ def _(CONFIG, METRICS, analysed, mo, pd, reviews, tb):
         pick = choices[(choices.outcome == outcome) & choices.metric_id.notna()]
         return analysed.merge(pick[["source_id", "metric_id", "level"]])
 
+    def task_weighted(frame):
+        """Mean over each configuration's tasks; aggregates are one group."""
+        by_task = frame.groupby([*CONFIG, "task_id"], dropna=False).value.mean()
+        return by_task.groupby(level=CONFIG, dropna=False).mean()
+
     quality_rows = chosen("quality")
     percent = quality_rows.metric_id.map(lambda m: METRICS[m].unit == "percent")
-    quality = (
-        quality_rows.value.where(~percent, quality_rows.value / 100)
-        .groupby([quality_rows[c] for c in CONFIG], dropna=False)
-        .mean()
-        .rename("quality")
-    )
-    cost = chosen("cost").groupby(CONFIG, dropna=False).value.mean().rename("cost")
+    quality = task_weighted(
+        quality_rows.assign(value=quality_rows.value.where(~percent, quality_rows.value / 100))
+    ).rename("quality")
+    cost = task_weighted(chosen("cost")).rename("cost")
     trials = (
         analysed[analysed.level == "trial"]
         .groupby(CONFIG, dropna=False)
@@ -654,16 +703,17 @@ def _(CONFIG, METRICS, analysed, mo, pd, reviews, tb):
         pd.DataFrame(
             {
                 "source_id": source_id,
-                "campaign_id": t.campaign_id,
+                "run_id": t.run_id,
                 "complete_coverage": t.complete_cost,
                 "matching_total": t.count_matches & t.cost_matches,
                 "no_retries": t.no_retries,
+                "equal_task_weights": t.equal_task_weights,
             }
         )
         for source_id, t in tb.items()
     )
     RULES = list(harbor.columns[2:])
-    configs = configs.merge(harbor, on=["source_id", "campaign_id"], how="left")
+    configs = configs.merge(harbor, on=["source_id", "run_id"], how="left")
     rules = (
         configs[RULES]
         .assign(
@@ -679,16 +729,16 @@ def _(CONFIG, METRICS, analysed, mo, pd, reviews, tb):
             e.outcome == outcome
             and all(
                 getattr(e, field) in (None, getattr(row, field))
-                for field in ("campaign_id", "model_id", "harness_id", "effort")
+                for field in ("run_id", "model_id", "harness_id", "effort")
             )
             for e in reviews[row.source_id].exclusions
         )
 
-    def cost_status(row):
-        review = reviews[row.source_id].cost
-        if pd.isna(row.cost):
-            return "no cost"
-        if excluded(row, "cost"):
+    def status(row, outcome):
+        review = getattr(reviews[row.source_id], outcome)
+        if pd.isna(getattr(row, outcome)):
+            return "missing"
+        if excluded(row, outcome):
             return "excluded"
         if review.status == "usable":
             return "admitted"
@@ -697,18 +747,30 @@ def _(CONFIG, METRICS, analysed, mo, pd, reviews, tb):
             return "admitted" if passed else "not admitted"
         return "unverified"
 
-    configs["cost_status"] = [cost_status(r) for r in configs.itertuples()]
-    configs["quality_excluded"] = [excluded(r, "quality") for r in configs.itertuples()]
+    for _outcome in ("quality", "cost"):
+        configs[f"{_outcome}_status"] = [status(r, _outcome) for r in configs.itertuples()]
     config_summary = configs.drop(columns=RULES)
+
+    def status_counts(outcome):
+        return (
+            config_summary.groupby("source_id")[f"{outcome}_status"]
+            .value_counts()
+            .unstack(fill_value=0)
+        )
 
     mo.vstack(
         [
             choices.pivot(
                 index="source_id", columns="outcome", values=["status", "metric_id", "level"]
             ),
-            config_summary.groupby("source_id").cost_status.value_counts().unstack(fill_value=0),
-            mo.md("Configurations excluded from quality by review:"),
-            config_summary[config_summary.quality_excluded][[*CONFIG, "quality"]],
+            mo.md("Quality status by source:"),
+            status_counts("quality"),
+            mo.md("Cost status by source:"),
+            status_counts("cost"),
+            mo.md("Configurations kept out of quality by review:"),
+            config_summary[config_summary.quality_status.isin(["excluded", "not admitted"])][
+                [*CONFIG, "quality", "quality_status"]
+            ],
         ]
     )
     return (config_summary,)
@@ -719,7 +781,9 @@ def _(alt, config_summary, mo):
     status_colors = alt.Scale(
         domain=["admitted", "not admitted", "unverified"], range=["#2a78d6", "#eb6834", "#1baf7a"]
     )
-    plotted = config_summary[~config_summary.quality_excluded].dropna(subset=["cost", "quality"])
+    plotted = config_summary[config_summary.quality_status.isin(["admitted", "unverified"])].dropna(
+        subset=["cost", "quality"]
+    )
     scatter = (
         alt.Chart(plotted)
         .mark_point(stroke="white", strokeWidth=1)
@@ -729,13 +793,13 @@ def _(alt, config_summary, mo):
                 scale=alt.Scale(type="log"),
                 title="Mean reported cost, USD (source denominator)",
             ),
-            y=alt.Y("quality:Q", scale=alt.Scale(domain=[0, 1]), title="Pass rate"),
+            y=alt.Y("quality:Q", scale=alt.Scale(domain=[0, 1]), title="Task-weighted pass rate"),
             color=alt.Color("cost_status:N", scale=status_colors, title="Cost"),
             tooltip=[
                 "model_id",
                 "harness_id",
                 "effort",
-                "campaign_id",
+                "run_id",
                 alt.Tooltip("cost:Q", format="$.2f"),
                 alt.Tooltip("quality:Q", format=".1%"),
                 "cost_status",
@@ -789,8 +853,13 @@ def _(mo):
     mo.md(r"""
     ## 8. Candidate links between sources
 
-    Shared systems between each pair of sources. Cost links count systems
-    with known effort and `admitted` cost status on both sides.
+    Shared systems between each pair of sources. A link for an outcome needs
+    a system with known effort that both reviews admit for that outcome;
+    unknown effort does not establish a shared system. Every plotted system
+    must reach the reference through usable evidence for each outcome, so a
+    candidate comparison group is a set of sources that quality links connect
+    and cost links connect, possibly through sources that inform only one
+    outcome. Disconnected groups get separate graphs.
     """)
     return
 
@@ -802,11 +871,14 @@ def _(config_summary, pd):
         effort = frame.effort.astype(object).where(frame.effort.notna(), None)
         return set(zip(frame.model_id, frame.harness_id, effort, strict=True))
 
+    def admitted_systems(outcome):
+        ready = config_summary[
+            (config_summary[f"{outcome}_status"] == "admitted") & config_summary.effort.notna()
+        ]
+        return {s: system_set(g) for s, g in ready.groupby("source_id")}
+
     systems = {s: system_set(g) for s, g in config_summary.groupby("source_id")}
-    cost_ready = config_summary[
-        (config_summary.cost_status == "admitted") & config_summary.effort.notna()
-    ]
-    cost_systems = {s: system_set(g) for s, g in cost_ready.groupby("source_id")}
+    ready_systems = {outcome: admitted_systems(outcome) for outcome in ("quality", "cost")}
     sources = sorted(systems)
     links = pd.DataFrame(
         {
@@ -814,27 +886,42 @@ def _(config_summary, pd):
             "second": second,
             "shared": len(shared := systems[first] & systems[second]),
             "known_effort": sum(e is not None for *_, e in shared),
-            "cost_links": sorted(cost_systems.get(first, set()) & cost_systems.get(second, set())),
+            **{
+                f"{outcome}_links": sorted(ready.get(first, set()) & ready.get(second, set()))
+                for outcome, ready in ready_systems.items()
+            },
         }
         for i, first in enumerate(sources)
         for second in sources[i + 1 :]
         if systems[first] & systems[second]
     )
-    links.insert(4, "cost_link_count", links.cost_links.map(len))
+    for _outcome in ("quality", "cost"):
+        links[f"{_outcome}_link_count"] = links[f"{_outcome}_links"].map(len)
     links
-    return (links,)
+    return links, ready_systems
 
 
 @app.cell
-def _(evidence, links, mo, pd, tb):
-    # Sources connected through cost links, found by merging linked groups.
-    groups = []
-    for first, second in links[links.cost_link_count > 0][["first", "second"]].itertuples(
-        index=False
-    ):
-        joined = {first, second}.union(*(g for g in groups if g & {first, second}))
-        groups = [g for g in groups if not g & joined] + [joined]
-    connected = sorted(max(groups, key=len)) if groups else []
+def _(evidence, links, mo, pd, ready_systems, tb):
+    def components(outcome):
+        """Each source's group of sources connected by links for the outcome."""
+        group = {s: {s} for s in ready_systems[outcome]}
+        linked = links[links[f"{outcome}_link_count"] > 0]
+        for first, second in linked[["first", "second"]].itertuples(index=False):
+            joined = group[first] | group[second]
+            for source in joined:
+                group[source] = joined
+        return group
+
+    quality_groups, cost_groups = components("quality"), components("cost")
+    comparison_groups = sorted(
+        {
+            frozenset(quality_groups[s] & cost_groups[s])
+            for s in quality_groups.keys() & cost_groups.keys()
+        },
+        key=lambda g: (-len(g), sorted(g)),
+    )
+    connected = sorted(comparison_groups[0]) if comparison_groups else []
 
     trial_ids = pd.concat(
         [
@@ -847,9 +934,10 @@ def _(evidence, links, mo, pd, tb):
     ).drop_duplicates()
     shared_trials = trial_ids.groupby("trial_id").source_id.nunique().gt(1).sum()
     mo.md(
-        f"Connected by cost links: {', '.join(connected)}. "
-        f"Trial IDs shared across sources: {shared_trials}; that does not prove "
-        "independent campaigns or disjoint tasks."
+        "Candidate comparison groups: "
+        + "; ".join(", ".join(sorted(g)) for g in comparison_groups)
+        + f". Trial IDs shared across sources: {shared_trials}; that does not "
+        "prove independent campaigns or disjoint tasks."
     )
     return (connected,)
 
@@ -861,8 +949,8 @@ def _(mo):
 
     Decisions come from each source's `review.json`; counts come from the
     sections above. Update the review when a source or its snapshot changes.
-    Admitted costs still need a confirmed accounting basis before primary
-    cross-study synthesis.
+    Admitted costs still need a confirmed accounting basis before the primary
+    cost analysis.
     """)
     return
 
@@ -875,21 +963,25 @@ def _(config_summary, mo, reviews):
     def readiness(source_id, review):
         configs = config_summary[config_summary.source_id == source_id]
         quality, cost = review.quality, review.cost
+        admitted = {
+            outcome: f"{(configs[f'{outcome}_status'] == 'admitted').sum()} of {len(configs)} admitted"
+            for outcome in ("quality", "cost")
+        }
         return (
             f"[{source_id}](../../data/sources/{source_id}/review.json)",
-            f"{quality.status} · `{quality.metric_id}` ({quality.level})"
+            f"{quality.status} · `{quality.metric_id}` ({quality.level}); {admitted['quality']}"
             if quality.metric_id
             else quality.status,
             (
-                f"{cost.status}; {(configs.cost_status == 'admitted').sum()} of {len(configs)} "
-                f"admitted; basis {'confirmed' if cost.basis_confirmed else 'unconfirmed'}"
+                f"{cost.status}; {admitted['cost']}; "
+                f"basis {'confirmed' if cost.basis_confirmed else 'unconfirmed'}"
             ),
-            review.campaigns.overlap,
+            f"{review.campaigns.grouping}; overlap {review.campaigns.overlap}",
             str(len(review.exclusions)),
             "<br>".join(cell(action) for action in review.next_actions),
         )
 
-    header = ("Source", "Quality", "Cost", "Overlap", "Exclusions", "Next actions")
+    header = ("Source", "Quality", "Cost", "Campaigns", "Exclusions", "Next actions")
     mo.md(
         "\n".join(
             "| " + " | ".join(cells) + " |"
@@ -911,18 +1003,19 @@ def _(connected, links, mo):
     mo.md(f"""
     ### Start analysis
 
-    {", ".join(connected)} remain connected by candidate shared systems after
-    restricting costs to configurations with known effort that each source's
-    review admits. FrontierCode is not needed to connect this
+    {", ".join(connected)} form the largest candidate comparison group:
+    shared systems with known effort connect them for quality and for cost
+    under each source's review. FrontierCode is not needed to connect this
     group. Android Bench shares {android.shared.sum()} system(s), none with
     known effort, and cannot establish a link. These are data-supported
     candidates, not approved modeling assumptions.
 
     Review the surviving systems' settings, cost accounting, and campaign
-    overlap. Then choose a reference and target campaigns and calculate
-    within-study comparisons. Section 8 lists the exact systems on each
-    candidate cost link. Keep sources with missing information available for
-    descriptive analysis while resolving their limits.
+    overlap. Then fix the group's target campaigns, equal campaign weights,
+    and reference system, and record the model equations and priors before
+    fitting. Section 8 lists the exact systems on each candidate link. Keep
+    sources with missing information available for descriptive analysis while
+    resolving their limits.
     """)
     return
 

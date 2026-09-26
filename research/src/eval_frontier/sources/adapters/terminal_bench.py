@@ -61,7 +61,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "benchmark_version": "2.1",
                 "aggregate": True,
                 "effort": metadata["reasoning_effort"],
-                "campaign": row_id,
+                "run": row_id,
                 "sample_sizes": sample_sizes,
                 "standard_errors": {"accuracy": metrics["accuracy_stderr"]},
                 "metrics": {metric: metrics[metric] for metric in METRICS},

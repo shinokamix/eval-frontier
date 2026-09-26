@@ -24,7 +24,7 @@ EVIDENCE_SCHEMA = pa.schema(
         pa.field("model_id", pa.string(), nullable=False),
         pa.field("harness_id", pa.string(), nullable=False),
         pa.field("effort", pa.string()),
-        pa.field("campaign_id", pa.string()),
+        pa.field("run_id", pa.string()),
         pa.field("metric_id", pa.string(), nullable=False),
         pa.field("value", pa.float64(), nullable=False),
         pa.field("unit", pa.string(), nullable=False),

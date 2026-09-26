@@ -7,7 +7,7 @@ across 40 model labels.
 
 ## Extraction
 
-`row:N` locates the subset object in the captured JSON, and `campaign_id`
+`row:N` locates the subset object in the captured JSON, and `run_id`
 names the subset: `main` (100 tasks) or `extended` (150 tasks). The adapter
 keeps binary correctness separate from weighted rubric score. It converts
 correctness to percent and duration to seconds. Cost remains USD per rollout;

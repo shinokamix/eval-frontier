@@ -4,12 +4,16 @@
   "snapshotId": "52d54cbec728d566ca1eceabb6e585dd1b69f4a0f124c3626e19f1d7c3680fde",
   "reviewedOn": "2026-09-26",
   "quality": {
-    "status": "usable",
+    "status": "usable_subset",
     "metricId": "trial_success_rate_pct",
     "level": "config",
+    "admission": [
+      "no_retries",
+      "equal_task_weights"
+    ],
     "notes": [
       "Published accuracy with its 95% interval; published successes reproduce accuracy.",
-      "Seven rows have trials with retries, and public rows show only scored attempt 1. Whether an infrastructure retry replaced a failed attempt in the published successes is unknown; check this before using attempted-task outcomes.",
+      "Some rows have trials with retries, and public rows show only scored attempt 1. Whether an infrastructure retry replaced a failed attempt in the published successes is unresolved, so those rows stay out of quality.",
       "Pass@k is a separate outcome; task pairing needs a separate review of trial rewards."
     ]
   },
@@ -30,7 +34,9 @@
     ]
   },
   "campaigns": {
-    "unit": "leaderboard row, one submission of a system",
+    "run": "leaderboard row, one submission of a system",
+    "grouping": "source",
+    "protocol": "66 tasks scored by Harbor; submissions' execution settings are not yet compared",
     "overlap": "unresolved",
     "notes": [
       "Terminal-Bench 2.1 uses a different task set; run identities across the two versions are unchecked."
@@ -39,6 +45,7 @@
   "nextActions": [
     "Explain the two rows whose trial costs do not add up to the published total.",
     "Establish whether published successes and costs include retried attempts: the captured job-trial files hold 39 unscored retry records, 10 with costs, that no leaderboard row lists.",
+    "Compare the submissions' timeouts and execution settings before treating all rows as one campaign.",
     "Confirm which USD charges the reported costs cover."
   ]
 }

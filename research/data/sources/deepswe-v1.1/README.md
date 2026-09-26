@@ -12,7 +12,7 @@ The adapter retains published aggregates and all 31,617 trials. Aggregate
 member of `trials.json.rows`. Trial rows contain task, trial, outcome, error
 category, and known cost. Aggregate pass@1 retains its published interval.
 
-`campaign_id` keeps the publisher's configuration name, and `outcome_status`
+`run_id` keeps the publisher's configuration name, and `outcome_status`
 its outcome. `scored=false` marks routing, provider, verifier, rate-limit, and
 unclassified errors the publisher excludes from its score. Published
 cost and duration means cover scored attempts with a known value; the adapter

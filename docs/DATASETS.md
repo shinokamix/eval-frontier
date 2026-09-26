@@ -3,7 +3,7 @@
 This pipeline stage converts heterogeneous source artifacts into one validated
 evidence table. The target graph of relative task success against relative
 reported USD cost uses later analysis outputs. Statistical synthesis, posterior
-draws, and the graph do not belong in this table.
+draws, the graph, and its Pareto frontier do not belong in this table.
 
 ## Pipeline
 
@@ -35,7 +35,7 @@ only for source manifests, immutable snapshot metadata, and source crosswalks.
 One row represents one measurement for one task or aggregate result:
 
 ```text
-study × benchmark × task × trial × attempt × model × harness × effort × campaign × metric
+study × benchmark × task × trial × attempt × model × harness × effort × run × metric
 ```
 
 The build rejects two rows with the same grain.
@@ -71,13 +71,16 @@ benchmark_version
 task_id
 trial_id
 attempt_id
-campaign_id
+run_id
 ```
 
-`campaign_id` is the publisher's identifier for a run of a system within one
+`run_id` is the publisher's identifier for a run of a system within one
 source: a Terminal-Bench leaderboard row, a FrontierCode task subset, or a
 DeepSWE configuration name. It separates runs when a source has several per
-system and is null when the source gives no run identifier.
+system and is null when the source gives no run identifier. A run is not an
+evaluation campaign: the source's `review.json` states how its runs form
+campaigns, as the [methodology](METHODOLOGY.md#data-and-comparability)
+defines them.
 
 Trial-level sources fill in task and trial identifiers. Task-level aggregates
 retain `task_id` and their sample size, with no invented trial identifiers.
@@ -160,8 +163,7 @@ This stage does not build:
 - covariance matrices;
 - Bayesian model runs;
 - posterior draws or estimates;
-- decision scores;
-- Pareto results.
+- Pareto frontiers.
 
 Those are later transformations over `evidence.parquet`. They must not be
 stored in the canonical evidence table.

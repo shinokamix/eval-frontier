@@ -5,10 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from ..catalog import HARNESSES, METRICS, MODELS
-from ..schemas.evidence import EvidenceRow
-from ..schemas.review import SourceReview
+from ..schemas.evidence import EvidenceRow, Level
+from ..schemas.review import Admission, SourceReview
 from ..schemas.sources import SourcePins
 from .archive import read_json
+from .reconcile import HARBOR_SOURCES
 
 # Metrics that measure whether attempted tasks were solved. Pass@k, partial
 # credit, and rubric scores are separate outcomes and cannot represent quality.
@@ -46,6 +47,24 @@ def _check_catalogs(review: SourceReview) -> None:
             raise ValueError(f"Unknown harness in {source_id} review: {exclusion.harness_id}")
 
 
+def _check_admission(
+    source_id: str, outcome: str, admission: list[Admission], level: Level | None
+) -> None:
+    """Stop when the audit cannot evaluate an admission rule for this source.
+
+    Only the Terminal-Bench reconciliation checks published totals, retries,
+    and task weights. Coverage needs a trial-level representation.
+    """
+    reconciled = set(admission) - {"complete_coverage"}
+    if reconciled and source_id not in HARBOR_SOURCES:
+        raise ValueError(
+            f"{source_id} {outcome} admission names rules only Terminal-Bench "
+            f"reconciliation evaluates: {', '.join(sorted(reconciled))}"
+        )
+    if "complete_coverage" in admission and level != "trial":
+        raise ValueError(f"{source_id} {outcome} coverage needs a trial-level representation")
+
+
 def current_reviews(data_dir: Path) -> tuple[dict[str, SourceReview], list[str]]:
     """Reviews made for the pinned snapshots, and pinned sources that lack one.
 
@@ -61,6 +80,8 @@ def current_reviews(data_dir: Path) -> tuple[dict[str, SourceReview], list[str]]
             unreviewed.append(source_id)
         else:
             _check_catalogs(review)
+            for name, outcome in (("quality", review.quality), ("cost", review.cost)):
+                _check_admission(source_id, name, outcome.admission, outcome.level)
             reviews[source_id] = review
     return reviews, unreviewed
 
@@ -92,7 +113,7 @@ def check_reviews(data_dir: Path, rows: list[EvidenceRow]) -> list[str]:
             )
         for exclusion in review.exclusions:
             metric_id = outcomes[exclusion.outcome].metric_id
-            fields = ("campaign_id", "model_id", "harness_id", "effort")
+            fields = ("run_id", "model_id", "harness_id", "effort")
             if not any(
                 row.metric_id == metric_id
                 and all(getattr(exclusion, f) in (None, getattr(row, f)) for f in fields)

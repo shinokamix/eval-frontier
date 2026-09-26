@@ -8,8 +8,8 @@ configuration review must establish which runs are comparable.
 The target research result is a graph of relative task success against relative
 reported USD cost per attempted task, with Bayesian uncertainty intervals and
 a Pareto frontier to guide which systems to investigate for development. The
-planned analysis uses within-study differences and accounts for variation
-between studies. See the
+planned analysis compares systems within evaluation campaigns and accounts for
+variation between campaigns. See the
 [`methodology`](docs/METHODOLOGY.md) for the graph's definitions and limits.
 
 ## Current scope
@@ -20,9 +20,9 @@ source artifacts -> source extractors -> validated evidence.parquet
 
 The analysis is not implemented. The current pipeline captures immutable
 source artifacts, maps source labels to canonical IDs, validates rows with
-Pydantic, and writes one Parquet table for later analysis. The web app currently
-receives an empty `studies` list because the research build does not produce its
-expected JSON input yet.
+Pydantic, and writes one Parquet table for later analysis. The web app draws
+the coordinates in `research.json`; until the analysis publishes them, the
+list is empty and so is the graph.
 
 The research pipeline writes `research/data/canonical/evidence.parquet`. See
 the [documentation index](docs/README.md) for the pipeline guide, data contract,

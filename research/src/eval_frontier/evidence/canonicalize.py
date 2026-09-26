@@ -52,7 +52,7 @@ def canonicalize_source(
                     model_id=model_id,
                     harness_id=harness_id,
                     effort=native.get("effort"),
-                    campaign_id=native.get("campaign"),
+                    run_id=native.get("run"),
                     outcome_status=native.get("outcome_status"),
                     scored=native.get("scored"),
                     attempt_count=native.get("attempt_count"),

@@ -12,6 +12,7 @@
       "All configurations reproduce the published scored counts, passes, and task counts. The published pass@1 leaves out unscored attempts, so attempted-task pass rates are lower where a configuration has them.",
       "The publisher leaves out routing, provider-timeout, verifier-timeout, upstream-provider, rate-limit, and unclassified errors. Routing failures end before the agent acts, but provider timeouts run far longer than scored attempts and verifier timeouts carry patches, so they are the system's attempts. The primary analysis counts all of them as failures, as the methodology requires without a supported conversion; excluding them is a sensitivity analysis.",
       "Agent timeouts and context-window failures remain scored attempts; a few agent timeouts passed.",
+      "A few configurations have unequal attempts per task; the task-level model keeps equal task weights, and tasks without attempts are missing results, not failures.",
       "Use trial observations or their aggregates, not both as independent data.",
       "Pass@4 is a separate outcome."
     ]
@@ -32,7 +33,9 @@
     ]
   },
   "campaigns": {
-    "unit": "publisher configuration name, one run per system",
+    "run": "publisher configuration name, one run per system",
+    "grouping": "source",
+    "protocol": "113 tasks under mini-swe-agent with one scoring rule",
     "overlap": "unresolved",
     "notes": [
       "Every configuration uses mini-swe-agent, so this source says nothing about harness differences.",

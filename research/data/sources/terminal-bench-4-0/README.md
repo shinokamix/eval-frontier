@@ -14,7 +14,7 @@ their leaderboard and all 8,910 associated trial IDs and used values.
 The adapter retains leaderboard aggregates and known trial costs. For the
 leaderboard, `row:N` means the Nth member of `rows`. For a job trial page, it
 means the Nth member of `items`. The captured row association lists establish
-which job trials belong to each leaderboard row, and `campaign_id` holds the
+which job trials belong to each leaderboard row, and `run_id` holds the
 row ID. Trial rows keep `scored`, `attempt_count`, and `agent_version`; a
 trial with `attempt_count` above one had retries. Missing costs remain absent.
 `sources/reconcile.py` compares every row's trials with its published count

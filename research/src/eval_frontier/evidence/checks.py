@@ -17,7 +17,7 @@ GRAIN = (
     "model_id",
     "harness_id",
     "effort",
-    "campaign_id",
+    "run_id",
     "metric_id",
 )
 

@@ -9,7 +9,7 @@
     "level": "trial",
     "notes": [
       "Execution status `success` does not mean the task was solved; use the binary reward.",
-      "Preserve task clusters when comparing systems and check the attempted task mix."
+      "Preserve task clusters when comparing systems. Configurations that miss a task have a missing result for it, not a failure."
     ]
   },
   "cost": {
@@ -26,7 +26,9 @@
     ]
   },
   "campaigns": {
-    "unit": "one run per system",
+    "run": "one run per system",
+    "grouping": "source",
+    "protocol": "20 long-horizon tasks scored by binary reward",
     "overlap": "unresolved",
     "notes": [
       "Shared system IDs connect this source to both Terminal-Bench versions."

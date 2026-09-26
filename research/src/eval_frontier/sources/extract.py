@@ -86,7 +86,7 @@ def extract(data_dir: Path, source_id: str, snapshot_id: str | None = None) -> l
                             "benchmark": trial["task_name"],
                             "benchmark_version": aggregate["benchmark_version"],
                             "trial": trial["id"],
-                            "campaign": aggregate["campaign"],
+                            "run": aggregate["run"],
                             "scored": trial["is_scored"],
                             "attempt_count": trial["n_attempts"],
                             "agent_version": trial["agent_version"],

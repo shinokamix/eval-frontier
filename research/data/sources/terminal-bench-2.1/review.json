@@ -4,12 +4,15 @@
   "snapshotId": "aae91b21135f4416d8229edd5c53666973c459c179ac35e24bfd958c805a4526",
   "reviewedOn": "2026-09-26",
   "quality": {
-    "status": "usable",
+    "status": "usable_subset",
     "metricId": "trial_success_rate_pct",
     "level": "config",
+    "admission": [
+      "equal_task_weights"
+    ],
     "notes": [
       "Published accuracy with its standard error; errors and reward-hack disqualifications count as failures.",
-      "Opus 4.7 max (row fdb8393b) publishes accuracy over 447 attempts but associates 445 trials. The published accuracy fits 447 (308 successes), so quality uses it; cost admission rejects the row's trial details.",
+      "Opus 4.7 max (row fdb8393b) publishes accuracy over 447 attempts but associates 445 trials, five per task. The published accuracy cannot weight tasks equally, so the row stays out of quality until task-level outcomes reconcile it; cost admission also rejects it.",
       "Raw trial rewards are not substituted for disqualification-adjusted accuracy.",
       "Pass@2 through pass@5 are separate task-level outcomes."
     ]
@@ -30,7 +33,9 @@
     ]
   },
   "campaigns": {
-    "unit": "leaderboard row, one submission of a system",
+    "run": "leaderboard row, one submission of a system",
+    "grouping": "source",
+    "protocol": "89 tasks scored by Harbor; submissions' execution settings are not yet compared",
     "overlap": "unresolved",
     "notes": [
       "Terminal-Bench 4.0 uses a different task set; run identities across the two versions are unchecked.",
@@ -41,6 +46,7 @@
     "Explain the five rows whose trial costs do not add up to the published total.",
     "Explain the 447-versus-445 attempt count of Opus 4.7 max.",
     "Explain the scored job trials captured with the leaderboard that no row lists (1,038, most with costs) before treating row associations as complete.",
+    "Compare the submissions' timeouts and execution settings before treating all rows as one campaign.",
     "Confirm which USD charges the reported costs cover."
   ]
 }
