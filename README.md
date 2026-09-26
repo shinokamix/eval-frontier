@@ -32,27 +32,22 @@ source instructions, and planned analysis.
 Install Moon and Node.js with Corepack. Vite+ is a project dependency, so it
 does not need a separate global installation.
 
-Install the web dependencies if needed:
+Install the web dependencies once:
 
 ```bash
 moon run web:install
 ```
 
-Moon owns project orchestration. Start the app with:
+Run these from the repository root:
 
-```bash
-moon run web:dev
-```
+| Command | What it does |
+| --- | --- |
+| `moon run dev` | Starts the web app |
+| `moon run nb` | Opens the research notebooks |
+| `moon run check` | Runs every check |
+| `moon run fix` | Fixes formatting and lint errors in place |
+| `moon run build` | Builds the web app |
 
-Check a web change with:
-
-```bash
-moon run web:check
-moon run web:knip
-moon run web:build
-moon run research:check
-```
-
-`research:check` runs Python bytecode compilation. Run `moon run research:lint`,
-`moon run research:format`, and `moon run research:types` for the other configured
-research checks.
+`dev`, `nb`, and `build` rebuild the evidence table first. These short names
+are defined in the root [`moon.yml`](moon.yml). To run one project task, use
+its full name, such as `moon run research:build`.

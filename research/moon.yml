@@ -9,7 +9,7 @@ tasks:
       - 'data/canonical/evidence.parquet'
       - 'data/sources/*/extracted/*/normalized.parquet'
   notebook:
-    command: 'uv run --group analysis marimo edit analysis/notebooks'
+    command: 'uv run --group analysis marimo edit --watch analysis/notebooks'
     deps:
       - build
     preset: 'server'
@@ -19,7 +19,16 @@ tasks:
     command: 'uv run ruff check .'
   format:
     command: 'uv run ruff format --check .'
+  notebooks:
+    command: 'uv run --group analysis marimo check --strict analysis/notebooks'
   types:
-    command: 'uv run basedpyright'
+    command: 'uv run --group analysis basedpyright'
+  fix:
+    # --exit-zero lets the formatters run even when lint errors need a manual fix;
+    # `moon run check` still reports them.
+    script: 'uv run ruff check --fix --exit-zero . && uv run ruff format . && uv run --group analysis marimo check --fix analysis/notebooks'
+    options:
+      cache: false
+      runInCI: false
   deps:
     command: 'uv run deptry .'

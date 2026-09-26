@@ -66,7 +66,7 @@ def _(mo, np, pd):
     mo.md(
         "# Source audit\n\n"
         "Exploratory analysis of `evidence.parquet` and checks against the pinned "
-        "snapshots. `moon run research:notebook` rebuilds the table first. Source "
+        "snapshots. `moon run nb` rebuilds the table first. Source "
         "READMEs describe each capture; "
         "[SOURCE-PIPELINE.md](../../../docs/SOURCE-PIPELINE.md) describes the audit "
         "and [METHODOLOGY.md](../../../docs/METHODOLOGY.md) the outcomes that "

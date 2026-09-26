@@ -29,5 +29,11 @@ tasks:
   check:
     command: corepack pnpm exec vp check
 
+  fix:
+    command: corepack pnpm exec vp check --fix
+    options:
+      cache: false
+      runInCI: false
+
   knip:
     command: corepack pnpm exec knip --no-progress

@@ -17,6 +17,7 @@ analysis = [
     "altair>=6.3.0",
     "marimo>=0.25.0",
     "pandas>=3.0.6",
+    "watchdog>=6.0.0",
 ]
 dev = [
     "basedpyright>=1.31.0",
@@ -65,8 +66,16 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.basedpyright]
-include = ["src"]
+include = ["src", "analysis/notebooks"]
 typeCheckingMode = "standard"
+
+[[tool.basedpyright.executionEnvironments]]
+root = "analysis/notebooks"
+# marimo displays a cell's last expression.
+reportUnusedExpression = false
+
+[[tool.basedpyright.executionEnvironments]]
+root = "src"
 
 [tool.deptry]
 extend_exclude = ["data", "analysis"]
@@ -79,3 +88,8 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+# `marimo edit --watch` reloads notebooks saved in another editor; autorun
+# re-executes the changed cells instead of only marking them stale.
+[tool.marimo.runtime]
+watcher_on_save = "autorun"

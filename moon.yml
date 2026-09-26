@@ -1,0 +1,36 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+id: 'root'
+
+# Short aliases for the project tasks, run from the repository root:
+# `moon run dev`, `moon run nb`, `moon run check`, `moon run fix`, `moon run build`.
+tasks:
+  dev:
+    deps:
+      - web:dev
+    options:
+      persistent: true
+  nb:
+    deps:
+      - research:notebook
+    options:
+      persistent: true
+  build:
+    deps:
+      - web:build
+  check:
+    deps:
+      - web:check
+      - web:knip
+      - research:check
+      - research:lint
+      - research:format
+      - research:notebooks
+      - research:types
+      - research:deps
+  fix:
+    deps:
+      - web:fix
+      - research:fix
+    options:
+      runInCI: false

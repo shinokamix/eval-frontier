@@ -70,10 +70,11 @@ notebook leaves them out wherever decisions apply.
 Open the [source audit notebook](../research/analysis/notebooks/source_audit.py):
 
 ```bash
-moon run research:notebook
+moon run nb
 ```
 
-The task rebuilds the evidence tables first and opens marimo for `research/analysis/notebooks/`.
+The task rebuilds the evidence tables first. To edit the notebook in a code
+editor, see the [research README](../research/README.md).
 
 It reads the pinned snapshots and `evidence.parquet`, reconciles available trial
 details with published aggregates, and shows cost coverage and candidate system

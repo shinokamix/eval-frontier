@@ -22,8 +22,9 @@ Read `DESIGN.md` when changing layout or typography. Use `Text` from
 
 ## Verification
 
-Run the relevant Moon tasks defined in `apps/web/moon.yml` or
-`research/moon.yml`. After a research data build, compare row counts before
+Run `moon run check` from the repository root, or the relevant tasks in
+`apps/web/moon.yml` or `research/moon.yml`. `moon run fix` applies formatter
+and lint fixes. After a research data build, compare row counts before
 and after for each affected source. Check its `source_id` and `snapshot_id`
 against the pinned snapshot, and its `source_path` and `source_locator`
 against the captured artifact. Explain changes to rows from other sources.

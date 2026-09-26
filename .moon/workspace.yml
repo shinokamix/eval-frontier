@@ -3,6 +3,10 @@ $schema: 'https://moonrepo.dev/schemas/workspace.json'
 projects:
   - 'apps/*'
   - 'research'
+  - '.'
+
+# Unscoped targets such as `moon run dev` resolve to the root aliases in moon.yml.
+defaultProject: 'root'
 
 vcs:
   client: git
@@ -10,4 +14,4 @@ vcs:
   sync: true
   hooks:
     pre-commit:
-      - 'moon run web:check web:knip research:lint research:format research:types research:deps --affected --status=staged'
+      - 'moon run web:check web:knip research:lint research:format research:notebooks research:types research:deps --affected --status=staged'
