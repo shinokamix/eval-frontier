@@ -47,8 +47,8 @@ The build output is:
 research/data/canonical/evidence.parquet
 ```
 
-The research code does not fit a model or produce the target graph. See the
-[`methodology`](../docs/METHODOLOGY.md) for the planned analysis.
+The research code does not fit a model or produce the graph and Pareto frontier.
+See the [`methodology`](../docs/METHODOLOGY.md) for the planned analysis.
 
 ## Data layout
 

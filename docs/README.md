@@ -1,8 +1,8 @@
 # Documentation
 
-- [`METHODOLOGY.md`](METHODOLOGY.md) describes the planned graph of relative
-  task success against relative reported USD cost, Bayesian analysis, and
-  publication checks.
+- [`METHODOLOGY.md`](METHODOLOGY.md) describes the planned comparison of systems
+  by task success and reported USD cost, Bayesian estimates, and a Pareto
+  frontier with uncertainty and sensitivity checks.
 - [`DATASETS.md`](DATASETS.md) describes the canonical evidence table and its
   current validation rules.
 - [`../research/README.md`](../research/README.md) describes the working Python
