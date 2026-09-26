@@ -41,7 +41,7 @@ study × benchmark × task × trial × attempt × model × harness × effort × 
 The build rejects two rows with the same grain.
 
 The table is in long format. A single experiment therefore produces several
-rows, one for each reported metric such as `solved`, `quality`, `duration_s`,
+rows, one for each reported metric such as `solved`, `cost_usd`, `duration_s`,
 or `total_tokens`.
 
 ## Evidence row
@@ -74,9 +74,10 @@ attempt_id
 campaign_id
 ```
 
-`campaign_id` separates runs of the same system within one source: a
-Terminal-Bench leaderboard row or a FrontierCode task subset. It is null when
-the source publishes one run per system.
+`campaign_id` is the publisher's identifier for a run of a system within one
+source: a Terminal-Bench leaderboard row, a FrontierCode task subset, or a
+DeepSWE configuration name. It separates runs when a source has several per
+system and is null when the source gives no run identifier.
 
 Trial-level sources fill in task and trial identifiers. Task-level aggregates
 retain `task_id` and their sample size, with no invented trial identifiers.
@@ -176,6 +177,10 @@ source path and locator. The Parquet schema and row order are deterministic.
 pinned snapshot, no two rows share the grain, and every `source_path` exists
 in the pinned snapshot.
 
+The build also checks each source's `review.json` made for the pinned
+snapshot against the new rows; see
+[`SOURCE-PIPELINE.md`](SOURCE-PIPELINE.md#build-the-evidence).
+
 An unknown canonical ID, malformed number, missing required identity field,
-missing source provenance, or a failed table check stops the build. Statistical checks for derived
+missing source provenance, or a failed table or review check stops the build. Statistical checks for derived
 results are planned in [`METHODOLOGY.md`](METHODOLOGY.md).

@@ -51,6 +51,7 @@ def extract(content: str) -> list[dict[str, Any]]:
                 "aggregate": True,
                 "effort": row.get("reasoning_effort"),
                 "config": config,
+                "campaign": config,
                 "sample_sizes": {
                     "pass_at_1": attempts,
                     "pass_at_4": tasks,
@@ -99,6 +100,7 @@ def extract_trials(content: str, summary: str) -> list[dict[str, Any]]:
                 "benchmark_version": "v1.1",
                 "trial": name,
                 "effort": trial.get("reasoning_effort"),
+                "campaign": trial["config"],
                 "outcome_status": trial["outcome"],
                 "scored": trial["included_in_score"],
                 "failure_type": trial["error_category"],

@@ -420,7 +420,7 @@ def _(CONFIG, analysed, data_dir, rows, trial_totals):
 
 
 @app.cell
-def _(deepswe, deepswe_trials, mo):
+def _(deepswe, deepswe_trials, mo, reviews):
     deepswe_missing = deepswe_trials[deepswe_trials.cost.isna()]
     mo.vstack(
         [
@@ -429,8 +429,10 @@ def _(deepswe, deepswe_trials, mo):
                 "The adapter already reconciles scored counts, passes, and cost and "
                 "duration means with the leaderboard. "
                 f"{len(deepswe)} configurations, {len(deepswe_trials):,} trials. "
-                "The review excludes unscored attempts from both outcomes. "
-                f"Complete cost over scored attempts: {deepswe.complete_cost.sum()}. "
+                "Unscored attempts, per the review: "
+                f"`{getattr(reviews.get('deepswe-v1.1'), 'unscored_attempts', 'not reviewed')}`. "
+                f"Complete cost over the attempts that enter the analysis: "
+                f"{deepswe.complete_cost.sum()}. "
                 f"Missing costs: {deepswe_missing.scored.eq(False).sum()} on excluded "
                 f"attempts, {deepswe_missing.scored.eq(True).sum()} on scored attempts. "
                 "Configurations with missing costs:"
@@ -547,9 +549,8 @@ def _(CONFIG, mo, rows):
 
 
 @app.cell
-def _(ACCENT, alt, mo, rows):
-    # Excluded DeepSWE attempts are not part of the published score.
-    scored = rows[(rows.metric_id == "solved") & rows.scored.ne(False)]
+def _(ACCENT, alt, analysed, mo, rows):
+    scored = analysed[analysed.metric_id == "solved"]
     task_pass = scored.groupby(["source_id", "task_id"]).value.mean().rename("pass_rate")
     difficulty = (
         alt.Chart(task_pass.reset_index())
@@ -565,7 +566,8 @@ def _(ACCENT, alt, mo, rows):
         [
             mo.md(
                 "### Outcomes\n\n"
-                "Pass rate over scored trials and task difficulty. Tasks that every "
+                "Pass rate over the trials that enter the analysis under each review, "
+                "and task difficulty. Tasks that every "
                 "system passes or fails carry no information about differences between "
                 "systems."
             ),

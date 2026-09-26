@@ -11,8 +11,8 @@ from .evidence import Level
 from .sources import SNAPSHOT_ID_PATTERN, SOURCE_ID_PATTERN
 
 # usable: every configuration can inform the outcome.
-# usable_subset: only configurations that pass the admission rules (cost) and
-#   are not excluded can inform the outcome.
+# usable_subset: only configurations that are not excluded, and for cost pass
+#   the admission rules, can inform the outcome.
 # descriptive: values can be shown but cannot enter the primary analysis.
 # insufficient: the source has no value that represents the outcome.
 Readiness = Literal["usable", "usable_subset", "descriptive", "insufficient"]
@@ -46,7 +46,7 @@ class OutcomeReview(_Review):
 
 class CostReview(OutcomeReview):
     # What the publisher says the USD figure covers; null when it does not say.
-    basis: str | None = None
+    basis: str | None = Field(default=None, min_length=1)
     basis_confirmed: bool = Field(alias="basisConfirmed")
     admission: list[CostRule] = Field(default_factory=list)
 
@@ -110,7 +110,12 @@ class SourceReview(_Review):
 
     @model_validator(mode="after")
     def validate_subsets(self) -> SourceReview:
-        excludes_quality = any(e.outcome == "quality" for e in self.exclusions)
-        if (self.quality.status == "usable_subset") != excludes_quality:
+        for name, outcome in (("quality", self.quality), ("cost", self.cost)):
+            excluded = any(e.outcome == name for e in self.exclusions)
+            if excluded and outcome.status != "usable_subset":
+                raise ValueError(f"Only a usable {name} subset has exclusions")
+        if self.quality.status == "usable_subset" and not any(
+            e.outcome == "quality" for e in self.exclusions
+        ):
             raise ValueError("A usable quality subset is defined by its exclusions")
         return self

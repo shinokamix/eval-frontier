@@ -58,10 +58,11 @@ moon run research:build
 ```
 
 This writes the canonical and per-source Parquet tables. It then checks every
-`review.json` made for the pinned snapshot against the new evidence and stops
-when a review names a metric the source lacks at that level, decides on
-unscored attempts the source does not mark, or excludes evidence that does not
-exist. It lists pinned sources that have no review for their snapshot yet; the
+`review.json` made for the pinned snapshot against the catalogs and the new
+evidence. It stops when a review names a quality metric that is not task
+success or a cost metric that is not USD, names a metric the source lacks at
+that level, decides on unscored attempts the source does not mark or leaves
+undecided ones it does, or excludes evidence that does not exist. It lists pinned sources that have no review for their snapshot yet; the
 notebook leaves them out wherever decisions apply.
 
 ## Audit the existing data
@@ -91,18 +92,18 @@ changes, run `research:check`, `research:lint`, `research:format`,
 ## Record the decision
 
 The source README describes how the snapshot was captured, what the adapter
-extracts, what each locator means, and the results terms. It holds no counts
-or analysis judgements: counts come from the notebook, and judgements go in
-`review.json`, which the analysis reads. `SourceReview` in
+extracts, what each locator means, and the results terms. It holds no
+analysis judgements; those go in `review.json`, which the analysis reads. `SourceReview` in
 `research/src/eval_frontier/schemas/review.py` defines the file:
 
 - **`snapshotId`.** The pinned snapshot the review covers. A review for any
   other snapshot is not applied until the source is reviewed again.
-- **`unscoredAttempts`.** Whether attempts the publisher leaves out of its
-  score count as failures or are excluded. The choice applies to both
-  outcomes, so quality and cost use the same attempts. Exclude only attempts
-  that are not the system's own, such as infrastructure errors, and name the
-  other choice as a sensitivity analysis.
+- **`unscoredAttempts`.** Required when the source marks attempts it leaves
+  out of its score: they count as failures or are excluded. The choice applies
+  to both outcomes, so quality and cost use the same attempts. Exclude them
+  only when every such attempt is shown not to be the system's own, for
+  example because it failed before the agent acted; otherwise count them as
+  failures. Name the other choice as a sensitivity analysis.
 - **`quality` and `cost`.** A status for each outcome, evaluated separately
   against the methodology: `usable`, `usable_subset`, `descriptive`, or
   `insufficient`. Name the one metric and level that represent the outcome,
@@ -111,18 +112,18 @@ or analysis judgements: counts come from the notebook, and judgements go in
   cost, state the publisher's accounting basis, whether it is confirmed, and
   for a usable subset the admission rules a configuration must pass:
   `complete_coverage`, `matching_total`, or `no_retries`. A matching total
-  does not prove complete coverage. A usable quality subset is defined by its
-  quality exclusions.
+  does not prove complete coverage.
 - **`campaigns`.** What one `campaign_id` means and whether campaigns overlap
   with each other or with other captured sources. Matching IDs are candidate
   links, not evidence of independence.
-- **`exclusions`.** Campaigns or systems kept out of an outcome, each with its
-  reason. Omitted fields match any value.
+- **`exclusions`.** Campaigns or systems kept out of an outcome whose status is
+  `usable_subset`, each with its reason. A usable quality subset needs at
+  least one. Omitted fields match any value.
 - **`nextActions`.** The remaining checks or missing information. Separate
   captured evidence from an online lead that has not been captured.
 
-Put short reasons in `notes`. Link numerical claims to the notebook or a
-captured artifact rather than copying counts. Check the result in the
+Put short reasons in `notes`. Do not copy counts the notebook reproduces; cite
+a number only when it is the reason for a decision. Check the result in the
 readiness section of
 [`source_audit.py`](../research/analysis/notebooks/source_audit.py).
 

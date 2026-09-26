@@ -3,15 +3,15 @@
   "sourceId": "deepswe-v1.1",
   "snapshotId": "d7a3b8003e4e7e4d0ced630910ea4c2bc7050d2c1f82a712327ac884669b7319",
   "reviewedOn": "2026-09-26",
-  "unscoredAttempts": "exclude",
+  "unscoredAttempts": "count_as_failure",
   "quality": {
     "status": "usable",
     "metricId": "solved",
     "level": "trial",
     "notes": [
-      "All configurations reproduce the published scored counts, passes, and task counts; with unscored attempts excluded, trial pass rates equal the published pass@1.",
-      "Every unscored attempt is a provider, routing, verifier, network, rate-limit, or unclassified error, and none passed. They are not the system's attempts, so the primary analysis excludes them; counting them as failures is a sensitivity analysis.",
-      "Agent timeouts and context-window failures remain scored attempts.",
+      "All configurations reproduce the published scored counts, passes, and task counts. The published pass@1 leaves out unscored attempts, so attempted-task pass rates are lower where a configuration has them.",
+      "The publisher leaves out routing, provider-timeout, verifier-timeout, upstream-provider, rate-limit, and unclassified errors. Routing failures end before the agent acts, but provider timeouts run far longer than scored attempts and verifier timeouts carry patches, so they are the system's attempts. The primary analysis counts all of them as failures, as the methodology requires without a supported conversion; excluding them is a sensitivity analysis.",
+      "Agent timeouts and context-window failures remain scored attempts; a few agent timeouts passed.",
       "Use trial observations or their aggregates, not both as independent data.",
       "Pass@4 is a separate outcome."
     ]
@@ -26,12 +26,13 @@
       "complete_coverage"
     ],
     "notes": [
-      "Published cost means cover scored attempts with a known cost; for configurations with complete coverage of scored attempts they equal the trial means.",
-      "Missing costs fall on both excluded and scored attempts."
+      "Cost covers all attempts, including unscored ones, so a configuration is complete only when every attempt has a known cost.",
+      "Published cost means cover scored attempts with a known cost and differ from all-attempt means.",
+      "Missing costs fall on both unscored and scored attempts."
     ]
   },
   "campaigns": {
-    "unit": "one run per system",
+    "unit": "publisher configuration name, one run per system",
     "overlap": "unresolved",
     "notes": [
       "Every configuration uses mini-swe-agent, so this source says nothing about harness differences.",

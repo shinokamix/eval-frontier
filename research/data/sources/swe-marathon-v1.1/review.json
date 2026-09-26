@@ -17,7 +17,9 @@
     "metricId": "cost_usd",
     "level": "trial",
     "basisConfirmed": false,
-    "admission": ["complete_coverage"],
+    "admission": [
+      "complete_coverage"
+    ],
     "notes": [
       "Missing costs include solved trials, so known-cost means do not estimate all-attempt means without an assumption.",
       "Sampled trajectories expose no structured costs; restricted S3 logs are an unverified recovery option."
