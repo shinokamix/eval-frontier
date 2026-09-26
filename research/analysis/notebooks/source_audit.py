@@ -147,12 +147,12 @@ def _(mo):
 
 @app.cell
 def _(HARNESSES, METRICS, MODELS, evidence, mo):
-    mo.md(
-        f"{len(evidence):,} rows from {evidence.source_path.nunique()} source paths. "
-        f"The table uses {evidence.model_id.nunique()} of {len(MODELS)} catalog models, "
-        f"{evidence.harness_id.nunique()} of {len(HARNESSES)} harnesses and "
-        f"{evidence.metric_id.nunique()} of {len(METRICS)} metrics."
-    )
+    mo.md(f"""
+    {len(evidence):,} rows from {evidence.source_path.nunique()} source paths.
+    The table uses {evidence.model_id.nunique()} of {len(MODELS)} catalog models,
+    {evidence.harness_id.nunique()} of {len(HARNESSES)} harnesses and
+    {evidence.metric_id.nunique()} of {len(METRICS)} metrics.
+    """)
     return
 
 
