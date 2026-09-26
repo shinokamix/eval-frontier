@@ -1,5 +1,4 @@
 import { researchDataSchema } from '../schema/research';
-import { normalizeResearchData } from '../utils/normalize-research-data';
 
 async function loadResearchData() {
   const response = await fetch('/data/research.json');
@@ -14,7 +13,7 @@ async function loadResearchData() {
     throw new Error('Research data is invalid');
   }
 
-  return normalizeResearchData(parsed.data);
+  return parsed.data;
 }
 
 export { loadResearchData };

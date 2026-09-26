@@ -10,7 +10,6 @@ fs.mkdirSync(path.dirname(target), { recursive: true });
 if (fs.existsSync(source)) {
   fs.copyFileSync(source, target);
 } else {
-  // The research build currently publishes evidence.parquet only. Keep the
-  // web data contract empty until a later analysis stage returns.
-  fs.writeFileSync(target, JSON.stringify({ studies: [] }, null, 2) + '\n');
+  // The analysis does not publish coordinates yet, so the graph stays empty.
+  fs.writeFileSync(target, JSON.stringify({ points: [] }, null, 2) + '\n');
 }

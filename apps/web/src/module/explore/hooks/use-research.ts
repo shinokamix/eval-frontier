@@ -1,36 +1,32 @@
 import { useEffect, useState } from 'react';
 
 import { loadResearchData } from '../api/load-research';
-import { type ScatterPoint } from '../types/scatter-point';
+import { type ResearchData } from '../schema/research';
 
+// The research data, or undefined until it loads. A failed load leaves the
+// graph empty and logs the error.
 function useResearch() {
-  const [data, setData] = useState<readonly ScatterPoint[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [data, setData] = useState<ResearchData>();
 
   useEffect(() => {
     let isCurrent = true;
 
     async function load() {
-      try {
-        const points = await loadResearchData();
+      const research = await loadResearchData();
 
-        if (isCurrent) setData(points);
-      } catch {
-        if (isCurrent) setIsError(true);
-      } finally {
-        if (isCurrent) setIsLoading(false);
-      }
+      if (isCurrent) setData(research);
     }
 
-    void load();
+    load().catch((error: unknown) => {
+      console.error(error);
+    });
 
     return () => {
       isCurrent = false;
     };
   }, []);
 
-  return { data, isLoading, isError };
+  return data;
 }
 
 export { useResearch };

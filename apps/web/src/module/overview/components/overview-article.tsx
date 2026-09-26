@@ -29,12 +29,19 @@ function OverviewArticle() {
       <ArticleSection>
         <Text variant="heading">What this project studies</Text>
         <Text variant="body">
-          This project studies how the choice of coding-agent harness changes
-          the performance of an AI model.
+          This project compares coding-agent systems on public benchmarks. A
+          system is a model, a harness, and an effort setting, evaluated as a
+          whole.
         </Text>
         <Text variant="body">
           It collects published benchmark results with their task outcomes,
           costs, runtime, and token use when the source reports them.
+        </Text>
+        <Text variant="body">
+          The planned result is a graph of tasks solved against reported cost,
+          relative to a reference system, with uncertainty intervals and a
+          Pareto frontier. The frontier points to systems worth trying on your
+          own tasks. It is not a universal ranking.
         </Text>
         <Text variant="body">
           The current dataset keeps each measurement linked to the source that
@@ -69,6 +76,8 @@ function OverviewArticle() {
         <Text variant="body">
           Model, harness, and effort identify the setup recorded in the dataset.
           Published run settings remain available in the captured source files.
+          The comparison treats each combination as a whole and does not
+          separate the harness's contribution from the model's.
         </Text>
         <Text variant="body">
           Harnesses represented in the dataset include{' '}

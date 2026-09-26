@@ -14,6 +14,7 @@ research/.venv/
 apps/web/dist/
 apps/web/node_modules/
 apps/web/public/data/research.json
+research/build/
 __pycache__/
 *.py[cod]
 __marimo__/

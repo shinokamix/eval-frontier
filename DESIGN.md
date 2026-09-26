@@ -8,7 +8,6 @@ instead of the hex value.
 | `background` | `bg-background`   | `#090909` | Page background and panels sitting on it     |
 | `foreground` | `text-foreground` | `#f4f4f4` | Default text and diagram strokes             |
 | `surface`    | `bg-surface`      | `#151515` | A raised fill inside a diagram               |
-| `overlay`    | `bg-overlay`      | `#111111` | Floating panels, such as the scatter tooltip |
 | `muted`      | `text-muted`      | `#8d8a82` | Secondary labels                             |
 
 `white` and `black`, including opacity, are for hairline borders, chart grid

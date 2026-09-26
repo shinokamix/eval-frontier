@@ -1,30 +1,19 @@
 import { z } from 'zod';
 
-const researchResultSchema = z.object({
-  id: z.string(),
-  effort: z.string().nullable(),
-  harness: z.object({ id: z.string(), name: z.string().optional() }),
-  metrics: z.record(z.string(), z.number().finite()).optional(),
+// Coordinates computed by the research pipeline, relative to a reference
+// system: cost as a ratio, quality in percentage points.
+const researchDataSchema = z.object({
+  points: z.array(
+    z.object({
+      id: z.string(),
+      label: z.string(),
+      relativeCost: z.number().positive(),
+      qualityDifference: z.number(),
+    }),
+  ),
 });
-
-const researchComparisonSchema = z.object({
-  status: z.enum(['insufficient_data', 'primary', 'sensitivity']),
-  xMetric: z.string(),
-  yMetric: z.string(),
-  eligibleResults: z.array(z.string()),
-});
-
-const researchStudySchema = z.object({
-  id: z.string(),
-  model: z.object({ id: z.string(), label: z.string().optional() }),
-  results: z.array(researchResultSchema),
-  comparisons: z.array(researchComparisonSchema).optional(),
-});
-
-const researchDataSchema = z.object({ studies: z.array(researchStudySchema) });
 
 type ResearchData = z.infer<typeof researchDataSchema>;
-type ResearchResult = z.infer<typeof researchResultSchema>;
 
 export { researchDataSchema };
-export type { ResearchData, ResearchResult };
+export type { ResearchData };

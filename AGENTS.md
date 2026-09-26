@@ -29,7 +29,9 @@ and after for each affected source. Check its `source_id` and `snapshot_id`
 against the pinned snapshot, and its `source_path` and `source_locator`
 against the captured artifact. Explain changes to rows from other sources.
 
-When changing how research data reaches the web app, read
+The research analysis will write the graph's coordinates to
+`research/build/research.json`; nothing produces it yet. The web app only
+draws them. When changing how research data reaches the web app, read
 `apps/web/scripts/sync-research.mjs` and check the generated
 `apps/web/public/data/research.json` against
 `apps/web/src/module/explore/schema/research.ts`. Report which checks ran
